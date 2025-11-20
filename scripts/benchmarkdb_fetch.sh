@@ -1,0 +1,2 @@
+#automate the process of extracting the IDs of a dataset into uniprot IDs, cleaning it into unique list of uniprot_id, fetching its fasta sequences, then making a final df containing original dataset with fasta sequence and uniprot id if available. 
+#After that i want to continue with the core function of merging all DFs, creating a merged fasta file of all dataframes, then running cdhit at 100 sim, then parsing the clusters into the final merged_dataframe 
