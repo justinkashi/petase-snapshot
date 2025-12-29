@@ -1,5 +1,7 @@
 # **dec 29** 
-- 
+- It's now 6pm; need to finish, of masterdb, (1) structures (2) CDS (3) (4) interpro/uniprot (5) blast tournamentdb to masterdb (6) annotate tournamentdb  
+
+- Finished the docking protocol by aggregating the methods from papers/PETASE folder 
 
 - note on activity and finding enzyme families (hydrolase vs lipase vs ): TPA yield measures full PET mineralization, so success depends as much on MHET/BHET hydrolysis as on PET surface depolymerization. Because PETase --> BHET + MET while MHETase/esterase/BTA-hydrolase-like --> TPA + EG 
 In other words try to:
@@ -52,6 +54,7 @@ pdb_fromcif | pdb_selchain -A | pdb_tofasta:
 - wrote add_mut.sh rm_subseq.sh mut_check.sh scripts for easy handling 
 
 # **nov 24**  
+
 * **Obtain structures of benchmark_db**
 * **Obtain esm2/esm3 embeddings of benchmarkdb (precomputed or we run esm3)**
 
