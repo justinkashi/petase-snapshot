@@ -1,0 +1,152 @@
+### run_vina_one.sh
+#Purpose: dock one PET ligand into one PETase structure in a catalytically constrained box. What it does step by step:
+	•	Takes one receptor (receptor.pdbqt) = one prepared PETase structure
+	•	Takes one ligand (ligand.pdbqt) = PET-like ligand (BHET / PET dimer / PET trimer)
+	•	Takes box center coordinates (center_x/y/z). these must correspond to the catalytic Ser Oγ region
+	•	Writes a temporary AutoDock Vina config file
+	•	Runs vina
+	•	Produces:
+	•	OUT.pdbqt → docked poses (up to 20)
+	•	OUT.log → docking scores (affinities)
+
+# usage: ./run_vina_one.sh receptor.pdbqt ligand.pdbqt center_x center_y center_z out_prefix
+set -euo pipefail
+
+REC="$1"
+LIG="$2"
+CX="$3"
+CY="$4"
+CZ="$5"
+OUT="$6"
+
+CONF="$(mktemp)"
+cat > "$CONF" <<EOF
+receptor = $REC
+ligand   = $LIG
+
+center_x = $CX
+center_y = $CY
+center_z = $CZ
+
+size_x   = 24
+size_y   = 24
+size_z   = 24
+
+exhaustiveness = 20
+num_modes = 20
+energy_range = 4
+EOF
+
+vina --config "$CONF" --out "${OUT}.pdbqt" --log "${OUT}.log"
+rm -f "$CONF"
+
+
+
+
+
+### build_bhet_rdkit.py
+#Purpose: programmatically build and optimize a PET-related ligand.What it does:
+	•	Uses RDKit
+	•	Creates BHET from a SMILES string
+	•	Adds hydrogens
+	•	Generates a 3D conformation
+	•	Geometry-optimizes it with MMFF
+	•	Writes the ligand to out.sdf
+# usage: python build_bhet_rdkit.py out.sdf
+# NOTE: this generates BHET (bis(2-hydroxyethyl) terephthalate) from a standard SMILES and optimizes geometry.
+
+from rdkit import Chem
+from rdkit.Chem import AllChem
+
+# BHET SMILES (one common, neutral form)
+SMILES = "OCCOC(=O)c1ccc(cc1)C(=O)OCCO"
+
+out_sdf = __import__("sys").argv[1]
+
+mol = Chem.MolFromSmiles(SMILES)
+mol = Chem.AddHs(mol)
+AllChem.EmbedMolecule(mol, AllChem.ETKDGv3())
+AllChem.MMFFOptimizeMolecule(mol, maxIters=2000)
+
+w = Chem.SDWriter(out_sdf)
+w.write(mol)
+w.close()
+print(f"Wrote {out_sdf}")
+
+
+
+
+
+
+### run_vina_batch.sh
+#Purpose: dock thousands of PETases automatically. What it does:
+	•	Loops over many receptors in a directory
+	•	Reads a TSV file containing active-site coordinates per protein
+	•	Calls run_vina_one.sh for each PETase
+	•	Saves results into an output directory
+# usage: ./run_vina_batch.sh receptors_dir ligand.pdbqt centers.tsv out_dir
+# centers.tsv format (tab-separated): protein_id<TAB>center_x<TAB>center_y<TAB>center_z
+set -euo pipefail
+
+RECDIR="$1"
+LIG="$2"
+CENTERS="$3"
+OUTDIR="$4"
+
+mkdir -p "$OUTDIR"
+
+while IFS=$'\t' read -r pid cx cy cz; do
+  rec="${RECDIR}/${pid}.pdbqt"
+  out="${OUTDIR}/${pid}"
+  [[ -f "$rec" ]] || { echo "Missing receptor: $rec" >&2; continue; }
+  ./run_vina_one.sh "$rec" "$LIG" "$cx" "$cy" "$cz" "$out"
+done < "$CENTERS"
+
+
+
+
+
+
+
+### parse_vina_logs_to_csv.py
+#What it does:
+	•	Reads all .log files produced by Vina
+	•	Extracts the best (lowest-energy) docking score
+	•	Writes a CSV
+# usage: python parse_vina_logs_to_csv.py vina_out_dir out.csv
+import os, re, sys, csv
+
+vina_dir = sys.argv[1]
+out_csv  = sys.argv[2]
+
+# Vina log has a table like:
+# mode | affinity | dist from best mode
+#    1      -7.5      0.000
+pat = re.compile(r"^\s*(\d+)\s+(-?\d+\.\d+)\s+")
+
+rows = []
+for fn in os.listdir(vina_dir):
+    if not fn.endswith(".log"):
+        continue
+    pid = fn[:-4]
+    path = os.path.join(vina_dir, fn)
+    best = None
+    with open(path, "r", encoding="utf-8", errors="ignore") as f:
+        for line in f:
+            m = pat.match(line)
+            if m:
+                mode = int(m.group(1))
+                aff  = float(m.group(2))
+                if mode == 1:
+                    best = aff
+                    break
+    if best is not None:
+        rows.append((pid, best))
+
+rows.sort(key=lambda x: x[1])  # more negative = better
+with open(out_csv, "w", newline="", encoding="utf-8") as f:
+    w = csv.writer(f)
+    w.writerow(["protein_id", "vina_best_affinity_kcal_mol"])
+    w.writerows(rows)
+
+print(f"Wrote {out_csv} ({len(rows)} proteins)")
