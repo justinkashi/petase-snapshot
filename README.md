@@ -1,4 +1,6 @@
 # **dec 30** 
+- To do Tournament Dataset Analysis, it's important to have (1) PETase biophysical property document with interpro/uniprot/pdb annotations explained 
+-  Would the best method to start from analyzing/understanding the tournament dataset ranking it with all possible methods and then packaging that into a ML/AI model? Instead of starting from my curated database of public PETase Decided to shift/reset to (1) Tournament Dataset Analysis, understanding it, then this will guide the zero-shot phase. The end-goal here is simply to rank the tournament dataset based on 3 conditions no matter how. 
 - Will need to shift focus to tournament database statistics soon 
 - Can expand the database to include more studies for LCC variants, and more activity studies. 
 - Can experiment different pdb templates for the P181A of IsPETase and others that have PDBs available for the mutant  
@@ -74,5 +76,131 @@ pdb_fromcif | pdb_selchain -A | pdb_tofasta:
 * **fill activity ph labels** 
 * **Finish the mutation table for each batch of petase** 
 * **Check in on docking**
+
+# **nov 13**  
+Welcome Sanju ! :) 
+Going through the google drive, tournament rules
+Priorities for December 
+Finish small MLP head for 3 properties on 
+Finish docking all PET-PETase mutants, with ideally an automation step for when we receive the tournament dataset (which we will have to dock) 
+Finalize the plan on the esm credits, finding precomputed embeddings and making a model on the big 150k proteins dataset 
+NOTE: every Tm/activity/expression measurement is done at a specific pH ! 
+We forgot to talk about fine-tuning ! 
+Model learns the pH calibration curve according to the type of PETase (thermo/dura/etc.) liek in supp. fig 2 https://drive.google.com/file/d/1RkxzZKTijDyOmi3EHKebG7h3YG1Clnp_/view 
+(Script) Mutation checker position 
+(Csv) fi
+(Csv) Mutation table integration 
+(Csv) Column for aligned to tournament (diamond)
+(Csv) Typically signal peptide where ? 
+(Csv) AA sequence without peptide 
+(Csv) AA sequence with with peptide 
+(Csv) PDB of the tournament 
+Feature engineering/enrichment (1) data imputation (2) normalization (3) PCA and t-SNE, feature selection/impact score 
+Tool library that helps turn bi databases into modular elements for machine learning and visualization of stats 
+Build tool library to quickly visualize protein structures 
+(1) Integrating/aligning our master database embeddings and features into Align’s dataset 
+PDB, length, signal peptides (eg. trace back the wt seqs to pdb using BLAST wtv) [JUSTIN] + I need to fill in the pH and activity + encode the vector plasmid map for expression features 
+Verify or compare features from literature to predictive tools (e.g. Expasy, Justin’s folder of chemical tools) 
+Feature normalization/Polish the masterdb so its ML-ready 
+Min-max scaling 
+Z score normalization 
+Ensure consistent dtypes 
+Log scaling 
+Batch effects and reducing technical noise to max the biological signal 
+Feature enrichment:
+Master database labels (activity, stab, express) + PDB embeddings 
+Expression: plasmid vector features (.gb), promoter sequences/SD, codon optimizations, protein solubility (global @ pH 5.5 and 9, etc…)
+Activity 
+Supervised phase labels @ pH 5.5 and 9
+PETase-specific mutation table, substitution matrix (suppinfo) 
+Docking Score affinity between PET and PETase 
+51 features classical properties 
+Amino acid properties wrt point mutation changes on features we care about = functional activity and stability of expression
+Future model architectures/idaes:
+Finetuning ESM3 for PETases
+Check Justin’s ESM finetuning tutorial
+Training benchmark (entire protein families) for expression in E. coli pre-specializing on PETases
+Explore alternate embeddings (T5)
+	•		•	Learn difference between alphafold/foldx/etc. And crystal structure to correct for batch effects in case 
+
+Motivation, hypothesis 
+Each graph global aspect is the enzyme. 
+The GAN network part is to organize the graph of our dataset to organize it in a  graph, followed by RL 
+
+
+# **nov 5** 
+
+Charlie updates 
+SQL database
+Docking scores PET-PETase 
+Aaisha updates on CNN/GNN
+Reinforcing the model with graph and convolutional features (likely in the simulation features?) 
+Justin
+Talk about the remaining features we did not talk about (activity, mutation table, biophysical attributes) 
+Still need to do: get function track labels for the PETase dataset 
+
+Moving forward: 
+Justin + Charlie: (1) wrap up docking scores and function labels, (2) work on initial MLP-head and fine-tuning 
+Aaisha: Find graph features 
+(To do) Embedding benchmark dataset, finding precomputed embeddings 
+(To do) Embed our dataset with different PLMs (T5, BERT) 
+(To do) Here we need to focus on activity not function pred, so look for mutant-activity datasets (like the kaggle tournament one) 
+(To do) Write the readme github
+
+# **OCT 27** 
+
+Charlie: making SQL database of the “MASTER_DB” 150 PETase 
+Foldx structure embeddings 
+What part should be test set vs validation set vs training set 
+
+
+What features to predict: 
+Standardizing the database 
+Function track: 
+PETase specific function feature (docking)?
+Objectives
+(1) Linear regression + (2) Xgboost / bagging boosting 
+(3) MLP/NN
+(4) Fine-tuning 
+
+
+Benchmark model vs PETase model --> P( | ) 
+
+# **oct 20** 
+
+Unifying the benchmark solubility and stability datasets 
+Unifying it is basically done
+Now for embedding them, we have 150k sequences/struct, too long, I asked ESM about our research for more credits
+look for pretrained embeddings;  Need to look for embeddings from their training data they might have it for majority of our proteins 
+Building the model
+We can start with this until we hear back from ESM; start with 150 PETase dataset to predict 2 labels (solubility, stability)  --> read the 4-5 papers on ML for PETase 
+Function track: 
+Function key words (interpro, blast) of PETase db 
+Docking/MD of 150 PET-PETase and embedding 
+Presentation slides, lit review of manuscript 
+
+
+Charlie embedding numpy files easier to train vs pickle 
+Double check numpy vs pickle embeddings vs per residue vs per sequence vs mean embedding vs all mebeddinbg, Esm-3-open vs esmc-6b 
+Make a standardized database with dataset description 
+
+Important reminder that we need to include the pH in the labeled dataset because the same enzyme has different Tm under different pH (https://www.kaggle.com/competitions/novozymes-enzyme-stability-prediction/discussion/355209) 
+Do t-SNE on current embeddings as result + simple data analysis of proteins  
+Need help with building github later on 
+Build model with 150 PETases 
+Go through novozymes code
+Go through esm-1v code 
+Fine-tuning: go through nvidia, aws, and the petase.ipynb code
+Embed novozyme dataset 
+May need to embed locally if cant find precomputed embeddings / if API fetching esm2 embedding doesnt work 
+
+
+Tasks 
+Find public esm3 sequence and structure embeddings of proteins from our benchmark datasets (Aaisha) 
+Finish function track annotations (interpro and blast)  (Justin) 
+Work on docking of PET-PETase for function track (Zach?)
+Build lightweight model with 150 PETase training data (Charlie)
+
+
 
 
