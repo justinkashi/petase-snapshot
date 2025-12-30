@@ -1,6 +1,14 @@
 # **dec 30** 
-- To do Tournament Dataset Analysis, it's important to have (1) PETase biophysical property document with interpro/uniprot/pdb annotations explained 
--  Would the best method to start from analyzing/understanding the tournament dataset ranking it with all possible methods and then packaging that into a ML/AI model? Instead of starting from my curated database of public PETase Decided to shift/reset to (1) Tournament Dataset Analysis, understanding it, then this will guide the zero-shot phase. The end-goal here is simply to rank the tournament dataset based on 3 conditions no matter how. 
+- Looking at taxanomy distribution of IsPETase it is restricted heavily in bacteria --> hypothesis, evolution was rapid and adaptable in prokaryotes indeed but there is large potential for evolution in plants and marine bacteria --> can we simulate a richer evolutionary trajectory inspiring from plant evolution (eg. CYP450 or specialized metbaolism type of evolution) to generate a strong novel PETase ?? 
+- Gathering the interpro pdb uniprot etc. annotations and sequence_db to blast against the tournamentdb (exhaustive search)
+- **TOURNAMENTDB**: (1) Run analysis/statistics/annotation 
+- **MASTERDB** : (1) find remaining signal peptides (2) remove/add signal peptide to foldx structures 
+- To do Tournament Dataset Analysis, it's important to have (1) PETase biophysical property document with interpro/uniprot/pdb annotations explained
+- Overinvesting in: 
+	The MASTERDB expansion (more LCC variants, more studies, more historical data) is now diminishing returns for zero-shot. Keep it frozen as a reference, not an active axis of work.
+	Deep docking/MD/QM/MM thinking is correct scientifically, but too slow and too fragile as a primary ranking engine for a 1-month hackathon unless it’s heavily down-scoped.
+	Trying to reconcile exact activity numbers across papers (TPA vs BHET vs MHET vs conditions) will not pay off for zero-shot ranking. Relative ordering matters more. 
+-  Q: Would the best method to start from analyzing/understanding the tournament dataset ranking it with all possible methods and then packaging that into a ML/AI model? Instead of starting from my curated database of public PETase Decided to shift/reset to (1) Tournament Dataset Analysis, understanding it, then this will guide the zero-shot phase. The end-goal here is simply to rank the tournament dataset based on 3 conditions no matter how. 
 - Will need to shift focus to tournament database statistics soon 
 - Can expand the database to include more studies for LCC variants, and more activity studies. 
 - Can experiment different pdb templates for the P181A of IsPETase and others that have PDBs available for the mutant  
