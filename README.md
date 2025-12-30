@@ -1,3 +1,15 @@
+# **dec 30** 
+- Will need to shift focus to tournament database statistics soon 
+- Can expand the database to include more studies for LCC variants, and more activity studies. 
+- Can experiment different pdb templates for the P181A of IsPETase and others that have PDBs available for the mutant  
+- Note: FoldX is not a structure prediction engine. It is a local side-chain + energy perturbation tool. For FASTPETase, TS_PETase, TM3, D1 which are multimutations --> pdb do not exist for them --> check alphafold structures --> 
+
+- fetching pdb one-liner: 
+
+for id in 6ILW 7OSB 6IJ6 6KY5 7SH6 7QVH 7YM9 5LUK 4EB0 6IJ5 7EOA; do
+  curl -L -o ${id}.cif https://files.rcsb.org/download/${id}.cif
+done
+- around 4am now and I need to continue from where we left off on the masterdb 
 # **dec 29** 
 - It's now 6pm; need to finish, of masterdb, (1) structures (2) CDS (3) (4) interpro/uniprot (5) blast tournamentdb to masterdb (6) annotate tournamentdb  
 
