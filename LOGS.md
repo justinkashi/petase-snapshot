@@ -1,4 +1,6 @@
 # **dec 31** 
+- Need to at least build a library or a tool as a result of this project --> how to use a prior dataset (fragmented features, imbalance, batch effects, homologs, ancestral, etc.) to supplement a model to fine tune it to one enzyme family  
+- Need to focus on snakemake/nextflow pipelines to prove scalability, but on what code/task --> customer-need, ML training, protein structure visualization, 
 - Need to add a general intro to the current research and applications of AI 
 - Need to add an interpretability section to the project 
 - Industries: (1) medicine (2) energy/sustainability (3) new technology 
