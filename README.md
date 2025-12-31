@@ -1,4 +1,25 @@
 # **dec 30** 
+- Notes to keep in mind about 2. PETase-specific motifs: 
+	IsPETase/Ca/Bhr (reference PETase)
+		•	Catalytic triad intact at ref S160–D206–H237
+		•	Trp185 present and flexible (aromatic gate for PET π–π stacking)
+		•	Extended β8–α6 loop (~238–260) shaping an open cleft
+		•	Two disulfides present (near-active-site and distal; PETase-characteristic)
+		•	Moderate thermostability; high activity at mild temperatures
+
+	LCC
+		•	Closed or semi-closed cleft (shorter / absent β8–α6 loop)
+		•	Often lacks PETase-specific disulfide architecture
+		•	Catalytic triad present but PET binding geometry differs
+		•	High thermostability, requires PET near Tg for high activity
+
+	Ancestral PETase / cutinase-like hydrolases
+		•	Catalytic triad present
+		•	Lack extended β8–α6 loop
+		•	Often lack PETase-specific disulfide
+		•	Cleft more closed; poorer PET specificity
+		•	Lower or substrate-ambiguous PET activity
+
 - Now working on main.ipynb for tournament db statistics, i want: 
 	1. Statistics (len distribution, no unique, no clusters 100-90, % with len 280-320, presence of noncanonical/ambiguous/artifacts aa) 
 	2. PETase-specific motifs 
