@@ -1,4 +1,31 @@
 # **dec 30** 
+- Now working on main.ipynb for tournament db statistics, i want: 
+	1. Statistics (len distribution, no unique, no clusters 100-90, % with len 280-320, presence of noncanonical/ambiguous/artifacts aa) 
+	2. PETase-specific motifs 
+		* Catalytic Triad (~S160–H237–D206)
+		* Trp185 cleft gate: position and flexibility class W/F/Y (enable pi-pi stacking with PET's phenyl rings)
+		* Cleft extended b8-a6 loop (238-260)  the opposing cleft gate around 245-255 --> shapes the cleft (of PETase, absent or small in cutinase)
+			* open cleft = fewer bulky aromatics blocking entrance wh
+		* Disulfides DS1 (unique to PETase) C233-C282 
+		* Disulfides DS2 (ancestral, shared by cutinase)
+		* Local context of key residues ^
+			* Flexibility (Gly/Pro) (like H237 rotamer permissiveness), charge (D/E/K/R), H-bonds capacity (count donors H/K/R/N/Q/S/T acceptors D/E/N/Q penalize bulky hydrophobics), steric bulk 
+		* Score according to PETase mutation table (suppinfo) 
+		* Generate the mutation table for each tournament sequence (suppinfo)
+
+	3. Annotation 
+		* Phylogenetic tree evolutionary annotation  
+		* TM Helix prediction 
+		* Signal Peptide Prediction  
+		* Taxanomy annotation 
+		* BLASTP Annotation 
+			* NCBI, Uniprot, masterdb, IPR041127 
+		* Activity/stability/fitness tools
+		* Mutcompute tool 
+		
+	* Generating Alphafold2 structures, esm2/esm3 embeddings 
+
+	* Mutcompute Annotation 
 - Looking at taxanomy distribution of IsPETase it is restricted heavily in bacteria --> hypothesis, evolution was rapid and adaptable in prokaryotes indeed but there is large potential for evolution in plants and marine bacteria --> can we simulate a richer evolutionary trajectory inspiring from plant evolution (eg. CYP450 or specialized metbaolism type of evolution) to generate a strong novel PETase ?? 
 - Gathering the interpro pdb uniprot etc. annotations and sequence_db to blast against the tournamentdb (exhaustive search)
 - **TOURNAMENTDB**: (1) Run analysis/statistics/annotation 
