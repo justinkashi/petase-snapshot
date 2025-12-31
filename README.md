@@ -7,13 +7,29 @@ Welcome! We’re really happy you’re joining 😊
 
 We’re taking part in the **Align Bio 2025 PETase Tournament**, a challenge where teams are asked to **rank PETase enzyme sequences** based on how well they might perform.
 
-Our job is to:
-- understand a large set of protein sequences
-- extract meaningful biological and structural signals
-- use those signals to **rank the sequences intelligently**
-- explain *why* certain sequences rise to the top
+# 🗓️ Project timeline
 
-This is a **computational biology / ML-adjacent project**. There is no wet lab component.
+**Align tournament phases**
+- **Jan 16, 2025 — Zero-shot phase deadline**  
+  Focus on understanding the tournament dataset, feature engineering, and explainable ranking without training on labeled tournament outcomes.
+- **Mar 9, 2025 — Predictive phase deadline**  
+  Incorporate predictive models and learned signals while maintaining interpretability and robustness.
+- **Jul 20, 2025 — Generate phase (Round 1) deadline**  
+  Propose and rank generated or modified sequences based on insights from earlier phases.
+- **Nov 20, 2026 — Winners announced**  
+  Final results, retrospectives, and broader dissemination.
+
+**Beyond the tournament**
+- **Manuscript preparation**  
+  Formal write-up of the methodology, biological insights, and lessons learned from the tournament phases.
+- **Talks & seminars**  
+  Internal and external presentations (e.g. MILA, ML for Protein Engineering series, Formal Languages & LLM seminar, Valence Labs).
+- **Conferences & workshops**  
+  Potential submissions or presentations (e.g. BioML, ICML workshops, TechBioTransformers, related venues).
+- **Community & outreach**  
+  Sharing progress and insights via LinkedIn posts, Slack channels, and informal write-ups.
+
+Work done early in the tournament directly feeds later phases, publications, and presentations—nothing is wasted.
 
 ---
 
