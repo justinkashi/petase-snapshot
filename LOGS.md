@@ -1,4 +1,5 @@
 # **dec 31** 
+- Need to add a general intro to the current research and applications of AI 
 - Need to add an interpretability section to the project 
 - Industries: (1) medicine (2) energy/sustainability (3) new technology 
 - Now need to watch compbio seminars and operational comps 
