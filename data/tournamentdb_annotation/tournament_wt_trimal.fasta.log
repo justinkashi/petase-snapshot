@@ -1,0 +1,876 @@
+IQ-TREE multicore version 2.3.6 for MacOS ARM 64-bit built Aug  1 2024
+Developed by Bui Quang Minh, Nguyen Lam Tung, Olga Chernomor, Heiko Schmidt,
+Dominik Schrempf, Michael Woodhams, Ly Trong Nhan, Thomas Wong
+
+Host:    Justins-MacBook-Pro.local (SSE4.2, 32 GB RAM)
+Command: ./../../bioapps/iqtree-2.3.6-macOS/bin/iqtree2 -s tournament_wt_trimal.fasta -B 1000
+Seed:    472948 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Wed Dec 31 11:46:07 2025
+Kernel:  SSE2 - 1 threads (10 CPU cores detected)
+
+HINT: Use -nt option to specify number of threads because your CPU has 10 cores!
+HINT: -nt AUTO will automatically determine the best number of threads to use.
+
+Reading alignment file tournament_wt_trimal.fasta ... Fasta format detected
+Reading fasta file: done in 0.00112295 secs using 87.72% CPU
+Alignment most likely contains protein sequences
+Alignment has 313 sequences with 195 columns, 194 distinct patterns
+186 parsimony-informative, 1 singleton sites, 8 constant sites
+                   Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 0.000133991 secs using 90.3% CPU
+   1  tournament_wt_1      5.64%    passed     95.16%
+   2  tournament_wt_2      4.10%    passed     95.60%
+   3  tournament_wt_3      4.62%    passed     72.01%
+   4  tournament_wt_4      4.10%    passed     95.35%
+   5  tournament_wt_5      4.62%    passed     90.57%
+   6  tournament_wt_6      4.62%    passed     41.69%
+   7  tournament_wt_7      4.10%    passed     97.67%
+   8  tournament_wt_8      4.62%    passed     92.84%
+   9  tournament_wt_9      4.62%    passed     94.87%
+  10  tournament_wt_10     4.10%    passed     88.47%
+  11  tournament_wt_11     4.62%    passed     65.27%
+  12  tournament_wt_12     4.62%    passed     99.99%
+  13  tournament_wt_13     4.62%    passed     21.49%
+  14  tournament_wt_14     4.62%    passed     99.55%
+  15  tournament_wt_15     4.62%    passed     99.64%
+  16  tournament_wt_16     5.13%    passed     24.26%
+  17  tournament_wt_17    12.82%    passed     68.57%
+  18  tournament_wt_18     8.72%    failed      0.85%
+  19  tournament_wt_19     4.62%    passed      7.62%
+  20  tournament_wt_20     4.62%    passed     96.76%
+  21  tournament_wt_21     4.62%    passed     98.68%
+  22  tournament_wt_22     6.67%    passed     80.48%
+  23  tournament_wt_23     4.62%    passed     98.98%
+  24  tournament_wt_24     4.62%    passed     98.97%
+  25  tournament_wt_25     3.59%    passed     47.67%
+  26  tournament_wt_26     3.59%    failed      0.08%
+  27  tournament_wt_27     6.15%    passed     26.61%
+  28  tournament_wt_28     5.13%    failed      3.09%
+  29  tournament_wt_29     4.10%    passed     99.75%
+  30  tournament_wt_30     6.67%    passed     97.74%
+  31  tournament_wt_31     4.62%    passed     67.16%
+  32  tournament_wt_32     4.62%    passed     95.07%
+  33  tournament_wt_33     7.18%    passed     85.21%
+  34  tournament_wt_34     6.67%    passed     99.51%
+  35  tournament_wt_35     6.67%    passed     99.93%
+  36  tournament_wt_36     6.67%    passed     98.78%
+  37  tournament_wt_37     5.13%    passed     55.70%
+  38  tournament_wt_38     4.62%    passed     64.70%
+  39  tournament_wt_39     3.08%    failed      0.04%
+  40  tournament_wt_40     5.13%    passed     80.51%
+  41  tournament_wt_41     6.15%    passed     69.98%
+  42  tournament_wt_42     4.62%    failed      3.57%
+  43  tournament_wt_43     4.62%    passed     10.09%
+  44  tournament_wt_44     4.62%    passed     35.16%
+  45  tournament_wt_45     4.62%    passed     96.09%
+  46  tournament_wt_46     5.64%    passed     99.96%
+  47  tournament_wt_47     3.59%    passed     33.57%
+  48  tournament_wt_48     5.13%    passed     11.08%
+  49  tournament_wt_49     5.13%    passed      6.08%
+  50  tournament_wt_50     4.62%    passed     86.80%
+  51  tournament_wt_51     4.62%    passed     99.27%
+  52  tournament_wt_52     5.13%    failed      0.13%
+  53  tournament_wt_53     5.13%    passed     78.23%
+  54  tournament_wt_54     4.10%    passed     99.82%
+  55  tournament_wt_55     4.62%    passed     99.14%
+  56  tournament_wt_56     5.13%    passed     79.01%
+  57  tournament_wt_57     4.62%    passed     99.40%
+  58  tournament_wt_58     3.59%    passed     31.25%
+  59  tournament_wt_59     5.13%    passed     26.20%
+  60  tournament_wt_60     4.10%    passed     62.75%
+  61  tournament_wt_61     4.62%    passed     98.88%
+  62  tournament_wt_62     5.64%    passed     80.35%
+  63  tournament_wt_63     4.62%    passed     97.95%
+  64  tournament_wt_64     4.62%    passed     99.74%
+  65  tournament_wt_65     5.13%    failed      0.00%
+  66  tournament_wt_66     4.62%    passed     49.62%
+  67  tournament_wt_67     5.13%    passed     65.12%
+  68  tournament_wt_68     4.10%    passed      9.21%
+  69  tournament_wt_69     5.13%    passed     71.95%
+  70  tournament_wt_70     8.21%    failed      0.49%
+  71  tournament_wt_71     4.10%    passed     97.64%
+  72  tournament_wt_72     5.13%    passed     93.95%
+  73  tournament_wt_73     3.59%    passed     70.10%
+  74  tournament_wt_74     4.10%    passed     21.56%
+  75  tournament_wt_75     6.67%    passed     81.01%
+  76  tournament_wt_76     4.62%    passed     99.00%
+  77  tournament_wt_77     4.62%    passed     99.05%
+  78  tournament_wt_78     5.64%    passed     96.66%
+  79  tournament_wt_79     3.08%    passed     16.01%
+  80  tournament_wt_80     5.13%    passed      5.71%
+  81  tournament_wt_81     4.10%    passed     92.15%
+  82  tournament_wt_82     3.59%    passed     92.47%
+  83  tournament_wt_83     4.62%    passed     97.78%
+  84  tournament_wt_84     5.13%    passed     38.02%
+  85  tournament_wt_85     4.62%    passed     98.66%
+  86  tournament_wt_86     5.13%    passed     97.69%
+  87  tournament_wt_87     4.62%    passed     98.29%
+  88  tournament_wt_88     4.62%    passed     91.94%
+  89  tournament_wt_89     5.13%    passed     98.87%
+  90  tournament_wt_90     4.10%    failed      4.65%
+  91  tournament_wt_91     4.62%    passed     97.47%
+  92  tournament_wt_92     5.64%    passed     23.74%
+  93  tournament_wt_93     4.62%    passed     99.29%
+  94  tournament_wt_94     4.62%    passed     96.59%
+  95  tournament_wt_95     4.62%    passed     99.73%
+  96  tournament_wt_96     4.62%    passed     99.33%
+  97  tournament_wt_97     4.10%    passed     99.10%
+  98  tournament_wt_98     5.13%    passed      6.97%
+  99  tournament_wt_99     5.13%    failed      4.25%
+ 100  tournament_wt_100    4.10%    passed     36.78%
+ 101  tournament_wt_101    5.64%    passed     92.26%
+ 102  tournament_wt_102   29.23%    passed     35.40%
+ 103  tournament_wt_103    5.13%    failed      1.39%
+ 104  tournament_wt_104    4.10%    failed      1.19%
+ 105  tournament_wt_105    4.10%    passed     99.28%
+ 106  tournament_wt_106    6.67%    passed     59.81%
+ 107  tournament_wt_107    4.62%    passed     97.77%
+ 108  tournament_wt_108    4.62%    passed     99.11%
+ 109  tournament_wt_109    4.10%    passed     12.45%
+ 110  tournament_wt_110    4.62%    passed     97.12%
+ 111  tournament_wt_111    5.64%    passed     77.24%
+ 112  tournament_wt_112    4.62%    passed     79.70%
+ 113  tournament_wt_113    4.10%    passed     93.34%
+ 114  tournament_wt_114    4.62%    passed     88.77%
+ 115  tournament_wt_115    4.10%    passed     98.51%
+ 116  tournament_wt_116    4.62%    passed     98.27%
+ 117  tournament_wt_117    4.62%    passed     99.07%
+ 118  tournament_wt_118    6.67%    passed     23.30%
+ 119  tournament_wt_119    4.62%    passed     99.96%
+ 120  tournament_wt_120    4.62%    passed     99.92%
+ 121  tournament_wt_121    3.59%    passed     83.23%
+ 122  tournament_wt_122    5.64%    passed     78.02%
+ 123  tournament_wt_123    4.62%    passed     97.67%
+ 124  tournament_wt_124    5.13%    failed      0.02%
+ 125  tournament_wt_125    6.67%    passed     80.48%
+ 126  tournament_wt_126    5.13%    passed     79.01%
+ 127  tournament_wt_127    4.10%    passed     90.48%
+ 128  tournament_wt_128    4.62%    passed     99.99%
+ 129  tournament_wt_129    4.62%    passed     99.77%
+ 130  tournament_wt_130    4.62%    passed     98.98%
+ 131  tournament_wt_131    4.62%    passed     96.13%
+ 132  tournament_wt_132    4.62%    passed     81.28%
+ 133  tournament_wt_133    5.13%    passed     28.76%
+ 134  tournament_wt_134    5.13%    failed      2.00%
+ 135  tournament_wt_135    4.62%    passed     93.97%
+ 136  tournament_wt_136    7.18%    passed     99.07%
+ 137  tournament_wt_137    5.13%    passed     58.20%
+ 138  tournament_wt_138    5.13%    failed      3.57%
+ 139  tournament_wt_139    4.62%    passed     96.20%
+ 140  tournament_wt_140    5.64%    passed     91.94%
+ 141  tournament_wt_141    4.10%    passed     92.30%
+ 142  tournament_wt_142    5.64%    passed     90.92%
+ 143  tournament_wt_143    4.62%    passed     87.36%
+ 144  tournament_wt_144    4.10%    passed     93.28%
+ 145  tournament_wt_145    4.62%    passed     98.83%
+ 146  tournament_wt_146    4.62%    passed     97.71%
+ 147  tournament_wt_147    6.67%    passed     50.36%
+ 148  tournament_wt_148    6.15%    passed     89.93%
+ 149  tournament_wt_149    4.62%    passed     99.21%
+ 150  tournament_wt_150    4.62%    passed     99.75%
+ 151  tournament_wt_151    7.18%    passed     85.21%
+ 152  tournament_wt_152    4.62%    passed     95.07%
+ 153  tournament_wt_153    5.64%    passed     90.59%
+ 154  tournament_wt_154    5.13%    passed     96.13%
+ 155  tournament_wt_155    4.10%    passed     92.94%
+ 156  tournament_wt_156    4.62%    passed     96.27%
+ 157  tournament_wt_157    4.62%    passed     98.51%
+ 158  tournament_wt_158    4.62%    passed     21.49%
+ 159  tournament_wt_159    4.62%    passed     99.81%
+ 160  tournament_wt_160    6.67%    passed     48.84%
+ 161  tournament_wt_161    4.62%    passed     95.17%
+ 162  tournament_wt_162    6.67%    passed     39.11%
+ 163  tournament_wt_163    4.10%    passed     96.35%
+ 164  tournament_wt_164    4.62%    passed     99.55%
+ 165  tournament_wt_165    5.13%    passed     84.13%
+ 166  tournament_wt_166    4.62%    passed     96.83%
+ 167  tournament_wt_167    5.64%    failed      1.45%
+ 168  tournament_wt_168    5.64%    passed     16.33%
+ 169  tournament_wt_169    5.64%    passed     95.16%
+ 170  tournament_wt_170    4.62%    passed     99.14%
+ 171  tournament_wt_171    4.62%    passed     94.35%
+ 172  tournament_wt_172    4.62%    passed     34.29%
+ 173  tournament_wt_173    4.62%    passed     98.41%
+ 174  tournament_wt_174    5.13%    failed      3.67%
+ 175  tournament_wt_175    5.13%    passed     15.21%
+ 176  tournament_wt_176    4.10%    passed     99.82%
+ 177  tournament_wt_177    4.10%    passed     85.03%
+ 178  tournament_wt_178    4.10%    passed     97.77%
+ 179  tournament_wt_179    5.13%    passed     60.67%
+ 180  tournament_wt_180    4.10%    passed     99.99%
+ 181  tournament_wt_181    4.62%    passed     80.50%
+ 182  tournament_wt_182    4.62%    passed     98.29%
+ 183  tournament_wt_183    4.10%    passed     99.16%
+ 184  tournament_wt_184    4.62%    passed     79.94%
+ 185  tournament_wt_185    6.15%    passed     29.30%
+ 186  tournament_wt_186    4.10%    passed     99.18%
+ 187  tournament_wt_187    4.10%    passed     99.81%
+ 188  tournament_wt_188    4.62%    passed     94.21%
+ 189  tournament_wt_189    5.13%    passed     64.41%
+ 190  tournament_wt_190    4.62%    passed     91.72%
+ 191  tournament_wt_191    4.62%    passed     98.68%
+ 192  tournament_wt_192    6.15%    failed      3.86%
+ 193  tournament_wt_193    5.13%    passed     71.45%
+ 194  tournament_wt_194    5.13%    passed     78.60%
+ 195  tournament_wt_195    4.62%    passed     92.08%
+ 196  tournament_wt_196    5.13%    passed     73.57%
+ 197  tournament_wt_197    5.13%    passed     75.43%
+ 198  tournament_wt_198    4.62%    passed     85.12%
+ 199  tournament_wt_199    4.62%    passed     99.51%
+ 200  tournament_wt_200    4.62%    passed     78.68%
+ 201  tournament_wt_201    5.13%    passed     16.75%
+ 202  tournament_wt_202    4.10%    passed     91.67%
+ 203  tournament_wt_203    4.10%    passed     97.33%
+ 204  tournament_wt_204    7.18%    passed     83.93%
+ 205  tournament_wt_205    4.62%    passed     76.51%
+ 206  tournament_wt_206    4.10%    passed     91.60%
+ 207  tournament_wt_207    5.64%    passed     99.96%
+ 208  tournament_wt_208    4.10%    passed     99.60%
+ 209  tournament_wt_209    3.59%    passed     92.47%
+ 210  tournament_wt_210    4.10%    passed     99.78%
+ 211  tournament_wt_211    5.13%    passed     69.25%
+ 212  tournament_wt_212    4.62%    passed     60.71%
+ 213  tournament_wt_213    4.62%    passed     93.98%
+ 214  tournament_wt_214    4.62%    passed     97.78%
+ 215  tournament_wt_215    4.62%    passed     84.70%
+ 216  tournament_wt_216    4.62%    passed     98.47%
+ 217  tournament_wt_217    4.62%    passed     98.97%
+ 218  tournament_wt_218    5.13%    passed     68.11%
+ 219  tournament_wt_219    5.13%    passed     13.75%
+ 220  tournament_wt_220    5.13%    passed     42.46%
+ 221  tournament_wt_221    4.10%    passed     99.95%
+ 222  tournament_wt_222    4.10%    passed     62.75%
+ 223  tournament_wt_223    4.10%    passed     40.66%
+ 224  tournament_wt_224    5.13%    passed     61.02%
+ 225  tournament_wt_225    4.10%    passed     93.08%
+ 226  tournament_wt_226    4.10%    passed     99.22%
+ 227  tournament_wt_227    4.62%    passed     99.86%
+ 228  tournament_wt_228    5.13%    passed     99.23%
+ 229  tournament_wt_229    4.62%    passed     99.27%
+ 230  tournament_wt_230    4.62%    passed     98.53%
+ 231  tournament_wt_231    4.62%    passed     13.94%
+ 232  tournament_wt_232    4.10%    failed      0.11%
+ 233  tournament_wt_233    3.59%    failed      0.42%
+ 234  tournament_wt_234    4.62%    passed     99.70%
+ 235  tournament_wt_235    4.62%    passed     94.63%
+ 236  tournament_wt_236    3.59%    passed     83.23%
+ 237  tournament_wt_237    5.13%    passed     65.12%
+ 238  tournament_wt_238    3.59%    passed     95.92%
+ 239  tournament_wt_239    4.62%    passed     97.67%
+ 240  tournament_wt_240    3.59%    passed     94.93%
+ 241  tournament_wt_241    4.10%    passed     99.26%
+ 242  tournament_wt_242    4.62%    passed     96.99%
+ 243  tournament_wt_243    4.10%    passed     99.75%
+ 244  tournament_wt_244    4.10%    passed     99.44%
+ 245  tournament_wt_245    3.59%    passed     99.74%
+ 246  tournament_wt_246    3.59%    passed     86.13%
+ 247  tournament_wt_247    5.13%    passed     10.97%
+ 248  tournament_wt_248    4.10%    passed     92.03%
+ 249  tournament_wt_249    5.64%    passed     64.17%
+ 250  tournament_wt_250    5.13%    failed      0.84%
+ 251  tournament_wt_251    4.10%    passed     21.56%
+ 252  tournament_wt_252    4.62%    passed     95.17%
+ 253  tournament_wt_253    4.62%    passed     99.58%
+ 254  tournament_wt_254    4.10%    passed     99.91%
+ 255  tournament_wt_255    4.10%    passed     99.69%
+ 256  tournament_wt_256    4.62%    passed     98.30%
+ 257  tournament_wt_257    4.62%    passed     61.04%
+ 258  tournament_wt_258    4.62%    passed     99.43%
+ 259  tournament_wt_259    4.10%    passed     32.80%
+ 260  tournament_wt_260    4.62%    passed     96.85%
+ 261  tournament_wt_261    4.62%    passed     99.94%
+ 262  tournament_wt_262    5.64%    passed     80.21%
+ 263  tournament_wt_263    4.10%    passed     99.57%
+ 264  tournament_wt_264    3.59%    passed     98.34%
+ 265  tournament_wt_265    4.62%    passed     58.60%
+ 266  tournament_wt_266    4.62%    passed     80.35%
+ 267  tournament_wt_267    4.10%    passed     99.82%
+ 268  tournament_wt_268    5.64%    passed     23.74%
+ 269  tournament_wt_269    4.62%    passed     95.17%
+ 270  tournament_wt_270    3.59%    passed     94.09%
+ 271  tournament_wt_271    4.10%    passed     93.73%
+ 272  tournament_wt_272    5.13%    failed      1.44%
+ 273  tournament_wt_273    4.62%    passed     85.50%
+ 274  tournament_wt_274    6.67%    passed     48.31%
+ 275  tournament_wt_275    4.62%    passed     97.86%
+ 276  tournament_wt_276    4.62%    passed     95.49%
+ 277  tournament_wt_277    5.13%    failed      3.88%
+ 278  tournament_wt_278    4.10%    passed     99.96%
+ 279  tournament_wt_279    3.59%    passed     98.83%
+ 280  tournament_wt_280    3.08%    passed     97.18%
+ 281  tournament_wt_281    3.59%    passed     92.47%
+ 282  tournament_wt_282    4.62%    passed     96.59%
+ 283  tournament_wt_283    5.64%    passed     66.73%
+ 284  tournament_wt_284    4.62%    passed     97.94%
+ 285  tournament_wt_285    5.13%    passed     98.87%
+ 286  tournament_wt_286    4.62%    passed     71.54%
+ 287  tournament_wt_287    4.62%    passed     96.87%
+ 288  tournament_wt_288    4.62%    passed     99.65%
+ 289  tournament_wt_289    5.13%    passed     78.23%
+ 290  tournament_wt_290    4.10%    passed     99.84%
+ 291  tournament_wt_291    4.62%    passed     99.43%
+ 292  tournament_wt_292    4.10%    passed     15.84%
+ 293  tournament_wt_293    8.21%    failed      0.49%
+ 294  tournament_wt_294    4.62%    passed     75.13%
+ 295  tournament_wt_295    4.62%    passed     99.92%
+ 296  tournament_wt_296    4.62%    passed     96.51%
+ 297  tournament_wt_297    4.62%    passed     94.87%
+ 298  tournament_wt_298    3.08%    passed     97.51%
+ 299  tournament_wt_299    4.62%    passed     30.14%
+ 300  tournament_wt_300    4.62%    passed     95.20%
+ 301  tournament_wt_301    4.62%    passed     85.50%
+ 302  tournament_wt_302    4.62%    passed     99.46%
+ 303  tournament_wt_303    3.59%    passed     93.78%
+ 304  tournament_wt_304    5.64%    passed     99.96%
+ 305  tournament_wt_305    3.08%    passed     73.45%
+ 306  tournament_wt_306    4.62%    passed     96.09%
+ 307  tournament_wt_307    4.62%    passed     99.32%
+ 308  tournament_wt_308   13.33%    passed     99.51%
+ 309  tournament_wt_309    4.10%    passed     24.95%
+ 310  tournament_wt_310    5.13%    passed     56.17%
+ 311  tournament_wt_311   13.33%    passed     62.26%
+ 312  tournament_wt_312    4.10%    passed     12.45%
+ 313  tournament_wt_313    6.15%    passed     31.69%
+****  TOTAL                4.93%  24 sequences failed composition chi2 test (p-value<5%; df=19)
+NOTE: tournament_wt_169 is identical to tournament_wt_1 but kept for subsequent analysis
+NOTE: tournament_wt_297 is identical to tournament_wt_9 but kept for subsequent analysis
+NOTE: tournament_wt_128 is identical to tournament_wt_12 but kept for subsequent analysis
+NOTE: tournament_wt_158 is identical to tournament_wt_13 but kept for subsequent analysis
+NOTE: tournament_wt_164 is identical to tournament_wt_14 but kept for subsequent analysis
+NOTE: tournament_wt_191 is identical to tournament_wt_21 but kept for subsequent analysis
+NOTE: tournament_wt_125 is identical to tournament_wt_22 but kept for subsequent analysis
+NOTE: tournament_wt_130 is identical to tournament_wt_23 but kept for subsequent analysis
+NOTE: tournament_wt_152 is identical to tournament_wt_32 but kept for subsequent analysis
+NOTE: tournament_wt_151 is identical to tournament_wt_33 but kept for subsequent analysis
+NOTE: tournament_wt_306 is identical to tournament_wt_45 but kept for subsequent analysis
+NOTE: tournament_wt_304 is identical to tournament_wt_46 but kept for subsequent analysis
+NOTE: tournament_wt_229 is identical to tournament_wt_51 but kept for subsequent analysis
+NOTE: tournament_wt_289 is identical to tournament_wt_53 but kept for subsequent analysis
+NOTE: tournament_wt_176 is identical to tournament_wt_54 but kept for subsequent analysis
+NOTE: tournament_wt_126 is identical to tournament_wt_56 but kept for subsequent analysis
+NOTE: tournament_wt_222 is identical to tournament_wt_60 but kept for subsequent analysis
+NOTE: tournament_wt_237 is identical to tournament_wt_67 but kept for subsequent analysis
+NOTE: tournament_wt_293 is identical to tournament_wt_70 but kept for subsequent analysis
+NOTE: tournament_wt_251 is identical to tournament_wt_74 but kept for subsequent analysis
+NOTE: tournament_wt_209 is identical to tournament_wt_82 but kept for subsequent analysis
+NOTE: tournament_wt_214 is identical to tournament_wt_83 but kept for subsequent analysis
+NOTE: tournament_wt_182 is identical to tournament_wt_87 but kept for subsequent analysis
+NOTE: tournament_wt_285 is identical to tournament_wt_89 but kept for subsequent analysis
+NOTE: tournament_wt_268 is identical to tournament_wt_92 but kept for subsequent analysis
+NOTE: tournament_wt_282 is identical to tournament_wt_94 but kept for subsequent analysis
+NOTE: tournament_wt_312 is identical to tournament_wt_109 but kept for subsequent analysis
+NOTE: tournament_wt_236 is identical to tournament_wt_121 but kept for subsequent analysis
+NOTE: tournament_wt_239 is identical to tournament_wt_123 but kept for subsequent analysis
+NOTE: tournament_wt_269 is identical to tournament_wt_161 but kept for subsequent analysis
+
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.080 seconds
+Perform fast likelihood tree search using LG+I+G model...
+Estimate model parameters (epsilon = 5.000)
+Perform nearest neighbor interchange...
+Estimate model parameters (epsilon = 1.000)
+1. Initial log-likelihood: -39169.425
+Optimal log-likelihood: -39169.424
+Proportion of invariable sites: 0.026
+Gamma shape alpha: 1.411
+Parameters optimization took 1 rounds (0.421 sec)
+Time for fast ML tree search: 4.498 seconds
+
+NOTE: ModelFinder requires 104 MB RAM!
+ModelFinder will test up to 1232 protein models (sample size: 195 epsilon: 0.100) ...
+ No. Model         -LnL         df  AIC          AICc         BIC
+  1  LG            40701.661    623 82649.323    860153.323   84688.402
+  2  LG+I          40541.484    624 82330.967    862330.967   84373.319
+  3  LG+G4         39195.218    624 79638.436    859638.436   81680.788
+  4  LG+I+G4       39169.425    625 79588.849    862088.849   81634.474
+  5  LG+R2         39649.759    625 80549.518    863049.518   82595.143
+  6  LG+R3         39253.600    627 79761.199    867273.199   81813.370
+  7  LG+R4         39182.152    629 79622.303    872162.303   81681.020
+  8  LG+R5         39160.790    631 79583.580    877167.580   81648.843
+  9  LG+R6         39138.154    633 79542.308    882186.308   81614.116
+ 10  LG+R7         39137.636    635 79545.272    887265.272   81623.627
+ 14  LG+I+R2       39584.464    626 80420.929    865424.929   82469.826
+ 15  LG+I+R3       39225.840    628 79707.680    869731.680   81763.123
+ 16  LG+I+R4       39159.676    630 79579.351    874639.351   81641.341
+ 17  LG+I+R5       39140.347    632 79544.694    879656.694   81613.230
+ 18  LG+I+R6       39139.952    634 79547.903    884727.903   81622.985
+ 31  LG+F+R6       39045.638    652 79395.276    930907.276   81529.272
+ 39  LG+F+I+R5     39052.589    651 79407.178    928311.178   81537.901
+ 40  LG+F+I+R6     39052.380    653 79410.760    933534.760   81548.028
+ 53  WAG+R6        39289.552    633 79845.104    882489.104   81916.912
+ 61  WAG+I+R5      39294.773    632 79853.545    879965.545   81922.081
+ 62  WAG+I+R6      39285.684    634 79839.368    885019.368   81914.450
+ 75  WAG+F+R6      39126.547    652 79557.094    931069.094   81691.089
+ 83  WAG+F+I+R5    39134.100    651 79570.200    928474.200   81700.922
+ 84  WAG+F+I+R6    39124.679    653 79555.358    933679.358   81692.627
+ 97  JTT+R6        39708.636    633 80683.271    883327.271   82755.080
+105  JTT+I+R5      39709.049    632 80682.099    880794.099   82750.634
+106  JTT+I+R6      39700.754    634 80669.508    885849.508   82744.590
+119  JTT+F+R6      39762.075    652 80828.150    932340.150   82962.146
+127  JTT+F+I+R5    39764.807    651 80831.614    929735.614   82962.336
+128  JTT+F+I+R6    39756.724    653 80819.449    934943.449   82956.718
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+141  Q.pfam+R6     39066.935    633 79399.870    882043.870   81471.678
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+149  Q.pfam+I+R5   39068.247    632 79400.495    879512.495   81469.030
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+150  Q.pfam+I+R6   39060.671    634 79389.342    884569.342   81464.424
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+163  Q.pfam+F+R6   39068.823    652 79441.647    930953.647   81575.642
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+171  Q.pfam+F+I+R5 39073.115    651 79448.230    928352.230   81578.953
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+172  Q.pfam+F+I+R6 39062.853    653 79431.706    933555.706   81568.975
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+185  Q.bird+R6     40966.436    633 83198.873    885842.873   85270.682
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+193  Q.bird+I+R5   40963.066    632 83190.133    883302.133   85258.669
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+194  Q.bird+I+R6   40955.877    634 83179.754    888359.754   85254.836
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+207  Q.bird+F+R6   41072.401    652 83448.802    934960.802   85582.797
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+215  Q.bird+F+I+R5 41074.865    651 83451.731    932355.731   85582.454
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+216  Q.bird+F+I+R6 41062.018    653 83430.035    937554.035   85567.304
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+229  Q.mammal+R6   40472.251    633 82210.502    884854.502   84282.311
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+237  Q.mammal+I+R5 40473.500    632 82210.999    882322.999   84279.535
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+238  Q.mammal+I+R6 40465.420    634 82198.841    887378.841   84273.922
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+251  Q.mammal+F+R6 40557.831    652 82419.661    933931.661   84553.657
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+259  Q.mammal+F+I+R5 40558.241    651 82418.483    931322.483   84549.205
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+260  Q.mammal+F+I+R6 40550.842    653 82407.683    936531.683   84544.952
+273  Q.insect+R6   39452.842    633 80171.683    882815.683   82243.492
+281  Q.insect+I+R5 39458.712    632 80181.423    880293.423   82249.959
+282  Q.insect+I+R6 39446.172    634 80160.345    885340.345   82235.426
+295  Q.insect+F+R6 39407.480    652 80118.960    931630.960   82252.956
+303  Q.insect+F+I+R5 39417.496    651 80136.992    929040.992   82267.715
+304  Q.insect+F+I+R6 39401.093    653 80108.186    934232.186   82245.454
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+317  Q.plant+R6    39923.641    633 81113.281    883757.281   83185.090
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+325  Q.plant+I+R5  39924.673    632 81113.346    881225.346   83181.882
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+326  Q.plant+I+R6  39917.600    634 81103.199    886283.199   83178.281
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+339  Q.plant+F+R6  39929.853    652 81163.706    932675.706   83297.702
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+347  Q.plant+F+I+R5 39932.232    651 81166.464    930070.464   83297.187
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+348  Q.plant+F+I+R6 39922.931    653 81151.862    935275.862   83289.131
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+361  Q.yeast+R6    39395.070    633 80056.141    882700.141   82127.950
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+369  Q.yeast+I+R5  39397.618    632 80059.237    880171.237   82127.773
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+370  Q.yeast+I+R6  39388.921    634 80045.843    885225.843   82120.925
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+383  Q.yeast+F+R6  39227.152    652 79758.303    931270.303   81892.299
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+391  Q.yeast+F+I+R5 39233.985    651 79769.971    928673.971   81900.693
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+392  Q.yeast+F+I+R6 39220.250    653 79746.501    933870.501   81883.769
+405  JTTDCMut+R6   39681.328    633 80628.655    883272.655   82700.464
+413  JTTDCMut+I+R5 39684.452    632 80632.905    880744.905   82701.441
+414  JTTDCMut+I+R6 39676.234    634 80620.469    885800.469   82695.551
+427  JTTDCMut+F+R6 39729.327    652 80762.655    932274.655   82896.651
+435  JTTDCMut+F+I+R5 39734.186    651 80770.371    929674.371   82901.094
+436  JTTDCMut+F+I+R6 39724.629    653 80755.258    934879.258   82892.527
+449  DCMut+R6      39725.684    633 80717.369    883361.369   82789.177
+457  DCMut+I+R5    39730.487    632 80724.973    880836.973   82793.509
+458  DCMut+I+R6    39716.453    634 80700.907    885880.907   82775.988
+471  DCMut+F+R6    39549.097    652 80402.193    931914.193   82536.189
+479  DCMut+F+I+R5  39555.537    651 80413.074    929317.074   82543.796
+480  DCMut+F+I+R6  39541.271    653 80388.542    934512.542   82525.810
+493  VT+R6         39470.816    633 80207.632    882851.632   82279.441
+501  VT+I+R5       39479.225    632 80222.450    880334.450   82290.985
+502  VT+I+R6       39466.558    634 80201.116    885381.116   82276.197
+515  VT+F+R6       39371.245    652 80046.489    931558.489   82180.485
+523  VT+F+I+R5     39383.457    651 80068.914    928972.914   82199.637
+524  VT+F+I+R6     39367.129    653 80040.257    934164.257   82177.526
+537  PMB+R6        39666.998    633 80599.996    883243.996   82671.805
+545  PMB+I+R5      39683.795    632 80631.590    880743.590   82700.126
+546  PMB+I+R6      39664.725    634 80597.451    885777.451   82672.532
+559  PMB+F+R6      39481.604    652 80267.208    931779.208   82401.203
+567  PMB+F+I+R5    39504.511    651 80311.022    929215.022   82441.744
+568  PMB+F+I+R6    39479.500    653 80265.000    934389.000   82402.269
+581  Blosum62+R6   39646.122    633 80558.245    883202.245   82630.054
+589  Blosum62+I+R5 39667.993    632 80599.986    880711.986   82668.522
+590  Blosum62+I+R6 39643.637    634 80555.274    885735.274   82630.356
+603  Blosum62+F+R6 39417.202    652 80138.403    931650.403   82272.399
+611  Blosum62+F+I+R5 39425.313    651 80152.627    929056.627   82283.349
+612  Blosum62+F+I+R6 39414.067    653 80134.134    934258.134   82271.403
+625  Dayhoff+R6    39725.440    633 80716.880    883360.880   82788.689
+633  Dayhoff+I+R5  39737.887    632 80739.773    880851.773   82808.309
+634  Dayhoff+I+R6  39716.452    634 80700.903    885880.903   82775.985
+647  Dayhoff+F+R6  39549.292    652 80402.585    931914.585   82536.580
+655  Dayhoff+F+I+R5 39558.389    651 80418.779    929322.779   82549.502
+656  Dayhoff+F+I+R6 39541.582    653 80389.164    934513.164   82526.433
+669  mtREV+R6      41926.307    633 85118.613    887762.613   87190.422
+677  mtREV+I+R5    41941.967    632 85147.935    885259.935   87216.471
+678  mtREV+I+R6    41921.562    634 85111.124    890291.124   87186.206
+691  mtREV+F+R6    40471.954    652 82247.908    933759.908   84381.904
+699  mtREV+F+I+R5  40488.159    651 82278.318    931182.318   84409.041
+700  mtREV+F+I+R6  40465.850    653 82237.700    936361.700   84374.969
+713  mtART+R6      42556.369    633 86378.738    889022.738   88450.547
+721  mtART+I+R5    42573.768    632 86411.537    886523.537   88480.073
+722  mtART+I+R6    42549.626    634 86367.251    891547.251   88442.333
+735  mtART+F+R6    41099.571    652 83503.141    935015.141   85637.137
+743  mtART+F+I+R5  41128.756    651 83559.512    932463.512   85690.235
+744  mtART+F+I+R6  41094.043    653 83494.087    937618.087   85631.355
+757  mtZOA+R6      41154.614    633 83575.229    886219.229   85647.037
+765  mtZOA+I+R5    41176.600    632 83617.200    883729.200   85685.736
+766  mtZOA+I+R6    41149.748    634 83567.496    888747.496   85642.577
+779  mtZOA+F+R6    40218.653    652 81741.306    933253.306   83875.301
+787  mtZOA+F+I+R5  40241.984    651 81785.968    930689.968   83916.691
+788  mtZOA+F+I+R6  40210.570    653 81727.140    935851.140   83864.408
+801  mtMet+R6      41923.526    633 85113.052    887757.052   87184.861
+809  mtMet+I+R5    41922.962    632 85109.924    885221.924   87178.460
+810  mtMet+I+R6    41915.284    634 85098.569    890278.569   87173.650
+823  mtMet+F+R6    40495.531    652 82295.061    933807.061   84429.057
+831  mtMet+F+I+R5  40503.394    651 82308.789    931212.789   84439.511
+832  mtMet+F+I+R6  40486.769    653 82279.539    936403.539   84416.807
+845  mtVer+R6      42244.412    633 85754.825    888398.825   87826.633
+853  mtVer+I+R5    42243.837    632 85751.674    885863.674   87820.210
+854  mtVer+I+R6    42219.189    634 85706.378    890886.378   87781.460
+867  mtVer+F+R6    41025.696    652 83355.391    934867.391   85489.387
+875  mtVer+F+I+R5  41033.520    651 83369.040    932273.040   85499.763
+876  mtVer+F+I+R6  41009.418    653 83324.835    937448.835   85462.104
+889  mtInv+R6      41970.944    633 85207.889    887851.889   87279.697
+897  mtInv+I+R5    41973.863    632 85211.726    885323.726   87280.261
+898  mtInv+I+R6    41960.300    634 85188.600    890368.600   87263.681
+911  mtInv+F+R6    39993.218    652 81290.436    932802.436   83424.432
+919  mtInv+F+I+R5  39992.484    651 81286.968    930190.968   83417.690
+920  mtInv+F+I+R6  39988.348    653 81282.696    935406.696   83419.965
+933  mtMAM+R6      43150.154    633 87566.308    890210.308   89638.117
+941  mtMAM+I+R5    43167.667    632 87599.334    887711.334   89667.870
+942  mtMAM+I+R6    43145.213    634 87558.425    892738.425   89633.507
+955  mtMAM+F+R6    41767.571    652 84839.141    936351.141   86973.137
+963  mtMAM+F+I+R5  41784.982    651 84871.964    933775.964   87002.686
+964  mtMAM+F+I+R6  41756.441    653 84818.882    938942.882   86956.151
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+977  FLAVI+R6      42172.674    633 85611.349    888255.349   87683.157
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+985  FLAVI+I+R5    42165.490    632 85594.979    885706.979   87663.515
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+986  FLAVI+I+R6    42159.154    634 85586.308    890766.308   87661.390
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+999  FLAVI+F+R6    42088.249    652 85480.498    936992.498   87614.494
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+1007  FLAVI+F+I+R5  42076.835    651 85455.670    934359.670   87586.392
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+1008  FLAVI+F+I+R6  42070.597    653 85447.195    939571.195   87584.464
+1021  HIVb+R6       41288.473    633 83842.947    886486.947   85914.755
+1029  HIVb+I+R5     41272.802    632 83809.603    883921.603   85878.139
+1030  HIVb+I+R6     41270.337    634 83808.674    888988.674   85883.756
+1043  HIVb+F+R6     41123.469    652 83550.938    935062.938   85684.934
+1051  HIVb+F+I+R5   41120.586    651 83543.172    932447.172   85673.895
+1052  HIVb+F+I+R6   41112.974    653 83531.947    937655.947   85669.216
+1065  HIVw+R6       43139.037    633 87544.075    890188.075   89615.883
+1073  HIVw+I+R5     43139.236    632 87542.471    887654.471   89611.007
+1074  HIVw+I+R6     43123.627    634 87515.253    892695.253   89590.335
+1087  HIVw+F+R6     42549.557    652 86403.113    937915.113   88537.109
+1095  HIVw+F+I+R5   42552.331    651 86406.662    935310.662   88537.385
+1096  HIVw+F+I+R6   42536.390    653 86378.779    940502.779   88516.048
+1109  FLU+R6        40542.583    633 82351.166    884995.166   84422.974
+1117  FLU+I+R5      40540.808    632 82345.616    882457.616   84414.152
+1118  FLU+I+R6      40530.171    634 82328.341    887508.341   84403.423
+1131  FLU+F+R6      40183.870    652 81671.741    933183.741   83805.736
+1139  FLU+F+I+R5    40186.694    651 81675.389    930579.389   83806.111
+1140  FLU+F+I+R6    40172.128    653 81650.256    935774.256   83787.525
+1153  rtREV+R6      39614.478    633 80494.956    883138.956   82566.765
+1161  rtREV+I+R5    39618.879    632 80501.759    880613.759   82570.294
+1162  rtREV+I+R6    39609.281    634 80486.562    885666.562   82561.644
+1175  rtREV+F+R6    39281.673    652 79867.346    931379.346   82001.341
+1183  rtREV+F+I+R5  39288.374    651 79878.748    928782.748   82009.470
+1184  rtREV+F+I+R6  39277.065    653 79860.130    933984.130   81997.399
+1197  cpREV+R6      39688.848    633 80643.696    883287.696   82715.504
+1205  cpREV+I+R5    39692.284    632 80648.568    880760.568   82717.104
+1206  cpREV+I+R6    39683.032    634 80634.064    885814.064   82709.146
+1219  cpREV+F+R6    39406.636    652 80117.273    931629.273   82251.269
+1227  cpREV+F+I+R5  39410.670    651 80123.340    929027.340   82254.063
+1228  cpREV+F+I+R6  39402.128    653 80110.257    934234.257   82247.526
+Akaike Information Criterion:           Q.pfam+I+R6
+Corrected Akaike Information Criterion: LG+G4
+Bayesian Information Criterion:         Q.pfam+I+R6
+Best-fit model: Q.pfam+I+R6 chosen according to BIC
+
+All model information printed to tournament_wt_trimal.fasta.model.gz
+CPU time for ModelFinder: 2257.454 seconds (0h:37m:37s)
+Wall-clock time for ModelFinder: 2305.248 seconds (0h:38m:25s)
+Generating 1000 samples for ultrafast bootstrap (seed: 472948)...
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+
+NOTE: 62 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.100)
+1. Initial log-likelihood: -39084.318
+2. Current log-likelihood: -39059.783
+3. Current log-likelihood: -39059.373
+Optimal log-likelihood: -39059.287
+Proportion of invariable sites: 0.026
+Site proportion and rates:  (0.064,0.120) (0.125,0.260) (0.184,0.567) (0.329,0.950) (0.135,1.522) (0.137,2.462)
+Parameters optimization took 3 rounds (7.271 sec)
+Wrote distance file to... 
+Computing ML distances based on estimated model parameters...
+Calculating distance matrix: done in 54.4586 secs using 98.51% CPU
+Computing ML distances took 54.458920 sec (of wall-clock time) 53.649402 sec (of CPU time)
+Setting up auxiliary I and S matrices: done in 0.00178409 secs using 167.3% CPU
+Computing RapidNJ tree took 0.008599 sec (of wall-clock time) 0.015910 sec (of CPU time)
+Log-likelihood of RapidNJ tree: -39307.601
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 98 parsimony trees... 7.068 second
+Computing log-likelihood of 98 initial trees ... 20.445 seconds
+Current best score: -39059.287
+
+Do NNI search on 20 best initial trees
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 1: -39058.338
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 2: -39036.347
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 3: -38990.456
+Iteration 10 / LogL: -39052.626 / Time: 0h:40m:42s
+Iteration 20 / LogL: -39094.303 / Time: 0h:41m:21s
+Finish initializing candidate tree set (20)
+Current best tree score: -38990.456 / CPU time: 113.423
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 29: -38988.466
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 30: -38981.655
+Iteration 30 / LogL: -38981.655 / Time: 0h:42m:16s (0h:13m:17s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 38: -38976.966
+Iteration 40 / LogL: -38987.072 / Time: 0h:43m:9s (0h:11m:53s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 42: -38976.192
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 44: -38970.128
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 47: -38969.247
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 48: -38966.608
+Iteration 50 / LogL: -38996.673 / Time: 0h:44m:12s (0h:11m:35s left)
+Log-likelihood cutoff on original alignment: -39125.172
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 57: -38965.323
+Iteration 60 / LogL: -38994.158 / Time: 0h:45m:3s (0h:10m:55s left)
+Iteration 70 / LogL: -38968.426 / Time: 0h:45m:50s (0h:9m:21s left)
+Iteration 80 / LogL: -38966.770 / Time: 0h:46m:40s (0h:8m:3s left)
+Iteration 90 / LogL: -38985.746 / Time: 0h:47m:31s (0h:6m:51s left)
+Iteration 100 / LogL: -38972.437 / Time: 0h:48m:21s (0h:5m:43s left)
+Log-likelihood cutoff on original alignment: -39095.012
+NOTE: Bootstrap correlation coefficient of split occurrence frequencies: 0.992
+Iteration 110 / LogL: -38995.122 / Time: 0h:49m:12s (0h:8m:54s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 119: -38963.676
+Iteration 120 / LogL: -38995.434 / Time: 0h:50m:9s (0h:9m:45s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 124: -38963.317
+Iteration 130 / LogL: -38963.515 / Time: 0h:51m:1s (0h:9m:10s left)
+Iteration 140 / LogL: -38980.126 / Time: 0h:51m:53s (0h:8m:8s left)
+Iteration 150 / LogL: -38992.361 / Time: 0h:52m:39s (0h:7m:4s left)
+Log-likelihood cutoff on original alignment: -39095.012
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 155: -38962.876
+Iteration 160 / LogL: -38987.143 / Time: 0h:53m:33s (0h:9m:2s left)
+Iteration 170 / LogL: -38973.551 / Time: 0h:54m:22s (0h:8m:1s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 177: -38960.215
+Iteration 180 / LogL: -38991.022 / Time: 0h:55m:18s (0h:9m:8s left)
+Iteration 190 / LogL: -38964.006 / Time: 0h:56m:9s (0h:8m:9s left)
+Iteration 200 / LogL: -38968.515 / Time: 0h:56m:58s (0h:7m:10s left)
+Log-likelihood cutoff on original alignment: -39095.012
+NOTE: Bootstrap correlation coefficient of split occurrence frequencies: 0.996
+Iteration 210 / LogL: -38972.686 / Time: 0h:57m:49s (0h:8m:21s left)
+Iteration 220 / LogL: -38964.413 / Time: 0h:58m:39s (0h:7m:23s left)
+Iteration 230 / LogL: -38966.945 / Time: 0h:59m:29s (0h:6m:26s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 240: -38959.815
+Iteration 240 / LogL: -38959.815 / Time: 1h:0m:24s (0h:9m:12s left)
+Iteration 250 / LogL: -39038.628 / Time: 1h:1m:16s (0h:8m:15s left)
+Log-likelihood cutoff on original alignment: -39095.012
+Iteration 260 / LogL: -38967.657 / Time: 1h:2m:6s (0h:7m:18s left)
+Iteration 270 / LogL: -38971.736 / Time: 1h:2m:56s (0h:6m:22s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 278: -38959.381
+Iteration 280 / LogL: -38985.371 / Time: 1h:3m:50s (0h:8m:55s left)
+Iteration 290 / LogL: -39010.113 / Time: 1h:4m:39s (0h:7m:59s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 298: -38959.086
+Iteration 300 / LogL: -38963.155 / Time: 1h:5m:33s (0h:8m:53s left)
+Log-likelihood cutoff on original alignment: -39095.012
+NOTE: Bootstrap correlation coefficient of split occurrence frequencies: 0.996
+Iteration 310 / LogL: -38970.716 / Time: 1h:6m:24s (0h:8m:8s left)
+Iteration 320 / LogL: -38963.186 / Time: 1h:7m:15s (0h:7m:13s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 324: -38958.320
+Iteration 330 / LogL: -38970.892 / Time: 1h:8m:12s (0h:8m:30s left)
+Iteration 340 / LogL: -38977.283 / Time: 1h:9m:4s (0h:7m:35s left)
+Iteration 350 / LogL: -39190.895 / Time: 1h:9m:53s (0h:6m:40s left)
+Log-likelihood cutoff on original alignment: -39095.012
+Iteration 360 / LogL: -38977.882 / Time: 1h:10m:43s (0h:5m:45s left)
+Iteration 370 / LogL: -38971.641 / Time: 1h:11m:33s (0h:4m:51s left)
+Iteration 380 / LogL: -38975.919 / Time: 1h:12m:25s (0h:3m:56s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 389: -38957.851
+Iteration 390 / LogL: -38963.117 / Time: 1h:13m:17s (0h:8m:52s left)
+Iteration 400 / LogL: -38973.915 / Time: 1h:14m:6s (0h:7m:57s left)
+Log-likelihood cutoff on original alignment: -39095.012
+NOTE: Bootstrap correlation coefficient of split occurrence frequencies: 0.997
+Iteration 410 / LogL: -39097.980 / Time: 1h:14m:55s (0h:8m:2s left)
+Iteration 420 / LogL: -38994.322 / Time: 1h:15m:46s (0h:7m:7s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 422: -38956.104
+Iteration 430 / LogL: -38975.267 / Time: 1h:16m:37s (0h:8m:11s left)
+Iteration 440 / LogL: -38969.914 / Time: 1h:17m:26s (0h:7m:17s left)
+Iteration 450 / LogL: -38972.001 / Time: 1h:18m:17s (0h:6m:23s left)
+Log-likelihood cutoff on original alignment: -39095.012
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 460: -38954.012
+Iteration 460 / LogL: -38954.012 / Time: 1h:19m:11s (0h:8m:53s left)
+Iteration 470 / LogL: -38971.240 / Time: 1h:20m:1s (0h:7m:59s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 473: -38950.662
+Iteration 480 / LogL: -38951.141 / Time: 1h:20m:54s (0h:8m:15s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 481: -38950.345
+Iteration 490 / LogL: -38961.613 / Time: 1h:21m:48s (0h:8m:4s left)
+Iteration 500 / LogL: -38986.784 / Time: 1h:22m:40s (0h:7m:11s left)
+Log-likelihood cutoff on original alignment: -39095.012
+NOTE: Bootstrap correlation coefficient of split occurrence frequencies: 0.993
+Iteration 510 / LogL: -38964.062 / Time: 1h:23m:29s (0h:7m:58s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 516: -38949.669
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 520: -38947.949
+Iteration 520 / LogL: -38947.949 / Time: 1h:24m:28s (0h:8m:52s left)
+Iteration 530 / LogL: -39001.551 / Time: 1h:25m:18s (0h:7m:58s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 537: -38946.364
+Iteration 540 / LogL: -39016.828 / Time: 1h:26m:13s (0h:8m:36s left)
+Iteration 550 / LogL: -38955.812 / Time: 1h:27m:6s (0h:7m:42s left)
+Log-likelihood cutoff on original alignment: -39095.012
+Iteration 560 / LogL: -38979.325 / Time: 1h:27m:52s (0h:6m:48s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 570: -38945.816
+Iteration 570 / LogL: -38945.816 / Time: 1h:28m:34s (0h:8m:48s left)
+Iteration 580 / LogL: -38953.413 / Time: 1h:29m:15s (0h:7m:54s left)
+Iteration 590 / LogL: -38956.846 / Time: 1h:29m:56s (0h:6m:59s left)
+Iteration 600 / LogL: -38950.614 / Time: 1h:30m:34s (0h:6m:5s left)
+Log-likelihood cutoff on original alignment: -39095.012
+NOTE: Bootstrap correlation coefficient of split occurrence frequencies: 0.991
+Iteration 610 / LogL: -38960.492 / Time: 1h:31m:13s (0h:7m:48s left)
+Iteration 620 / LogL: -38952.266 / Time: 1h:31m:52s (0h:6m:54s left)
+Iteration 630 / LogL: -38957.760 / Time: 1h:32m:32s (0h:6m:1s left)
+Iteration 640 / LogL: -38951.884 / Time: 1h:33m:12s (0h:5m:8s left)
+Iteration 650 / LogL: -38951.384 / Time: 1h:33m:52s (0h:4m:16s left)
+Log-likelihood cutoff on original alignment: -39068.382
+Iteration 660 / LogL: -38968.062 / Time: 1h:34m:31s (0h:3m:24s left)
+Iteration 670 / LogL: -38957.409 / Time: 1h:35m:11s (0h:2m:32s left)
+TREE SEARCH COMPLETED AFTER 671 ITERATIONS / Time: 1h:35m:15s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+1. Initial log-likelihood: -38945.816
+2. Current log-likelihood: -38945.803
+3. Current log-likelihood: -38945.791
+4. Current log-likelihood: -38945.778
+5. Current log-likelihood: -38945.766
+6. Current log-likelihood: -38945.753
+7. Current log-likelihood: -38945.741
+8. Current log-likelihood: -38945.729
+9. Current log-likelihood: -38945.717
+10. Current log-likelihood: -38945.704
+11. Current log-likelihood: -38945.692
+12. Current log-likelihood: -38945.680
+13. Current log-likelihood: -38945.669
+14. Current log-likelihood: -38945.656
+15. Current log-likelihood: -38945.644
+16. Current log-likelihood: -38945.632
+17. Current log-likelihood: -38945.619
+18. Current log-likelihood: -38945.606
+19. Current log-likelihood: -38945.594
+20. Current log-likelihood: -38945.582
+21. Current log-likelihood: -38945.569
+22. Current log-likelihood: -38945.558
+23. Current log-likelihood: -38945.545
+24. Current log-likelihood: -38945.533
+25. Current log-likelihood: -38945.521
+26. Current log-likelihood: -38945.510
+27. Current log-likelihood: -38945.499
+28. Current log-likelihood: -38945.486
+29. Current log-likelihood: -38945.475
+30. Current log-likelihood: -38945.464
+31. Current log-likelihood: -38945.453
+32. Current log-likelihood: -38945.440
+33. Current log-likelihood: -38945.429
+34. Current log-likelihood: -38945.418
+35. Current log-likelihood: -38945.407
+36. Current log-likelihood: -38945.397
+37. Current log-likelihood: -38945.384
+38. Current log-likelihood: -38945.373
+39. Current log-likelihood: -38945.362
+40. Current log-likelihood: -38945.352
+41. Current log-likelihood: -38945.341
+42. Current log-likelihood: -38945.329
+43. Current log-likelihood: -38945.318
+44. Current log-likelihood: -38945.307
+45. Current log-likelihood: -38945.297
+46. Current log-likelihood: -38945.287
+47. Current log-likelihood: -38945.275
+48. Current log-likelihood: -38945.264
+49. Current log-likelihood: -38945.253
+50. Current log-likelihood: -38945.243
+51. Current log-likelihood: -38945.233
+52. Current log-likelihood: -38945.223
+53. Current log-likelihood: -38945.211
+54. Current log-likelihood: -38945.200
+55. Current log-likelihood: -38945.190
+56. Current log-likelihood: -38945.180
+Optimal log-likelihood: -38945.165
+Proportion of invariable sites: 0.025
+Site proportion and rates:  (0.049,0.097) (0.137,0.240) (0.175,0.550) (0.337,0.939) (0.149,1.556) (0.128,2.482)
+Parameters optimization took 56 rounds (71.296 sec)
+BEST SCORE FOUND : -38945.165
+Creating bootstrap support values...
+Split supports printed to NEXUS file tournament_wt_trimal.fasta.splits.nex
+Total tree length: 57.637
+
+Total number of iterations: 671
+CPU time used for tree search: 3311.281 sec (0h:55m:11s)
+Wall-clock time used for tree search: 3346.599 sec (0h:55m:46s)
+Total CPU time used: 5702.118 sec (1h:35m:2s)
+Total wall-clock time used: 5786.894 sec (1h:36m:26s)
+
+Computing bootstrap consensus tree...
+Reading input file tournament_wt_trimal.fasta.splits.nex...
+313 taxa and 1898 splits.
+Consensus tree written to tournament_wt_trimal.fasta.contree
+Reading input trees file tournament_wt_trimal.fasta.contree
+Log-likelihood of consensus tree: -38946.750
+
+Analysis results written to: 
+  IQ-TREE report:                tournament_wt_trimal.fasta.iqtree
+  Maximum-likelihood tree:       tournament_wt_trimal.fasta.treefile
+  Likelihood distances:          tournament_wt_trimal.fasta.mldist
+
+Ultrafast bootstrap approximation results written to:
+  Split support values:          tournament_wt_trimal.fasta.splits.nex
+  Consensus tree:                tournament_wt_trimal.fasta.contree
+  Screen log file:               tournament_wt_trimal.fasta.log
+
+Date and Time: Wed Dec 31 13:22:35 2025
