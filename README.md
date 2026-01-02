@@ -1,8 +1,9 @@
 # 🧬 Align 2025: Mechanistic PETase Engineering
 
-**Engineering the next generation of plastic-degrading enzymes through evolution-aware and biophysically-grounded Machine Learning.**
+Engineering the next generation of plastic-degrading enzymes through evolution-aware and biophysically-grounded Machine Learning. 
 
 Team: Justin (Bioinformatics), Charlie (MLOps Training), Sanju (Docking/MD Dynamics), Aaisha (MLOps).
+
 ---
 
 ## 🚀 Current Status: The Zero-Shot Sprint
