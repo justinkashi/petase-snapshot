@@ -1,37 +1,23 @@
 # Welcome to the Align 2025 PETase Tournament Project😊
 
-# TASKS BOARD DO AS OF: JAN 1 2026
-- NONCODING
-	* Fetching activity data 
-	* Define pH dependance of PETase 
-	* Define temperature dependance of PETase 
-	* Slides
-	* Write manuscript, make lit review  
-- CODING
-	* Annotation 
-		• Interproscan, MSA graphs, MEME motifs, PET-ase specific regions, 
-		• BLASTP
-		• Phobius
-		• IQTREE
-		• TMHMM
-		• SignalP 
-
-		• mutcompute
-		• thermostability tools 
-		• solubility prediction tools
-		• Expression vector annotation (orf-level, dna-level)
-	
-		• Fetch pdb of tournament_wt + generate AF2 structures if no pdb + map tournament_test mutation codes + generate FoldX structures 
-		
-		• Try FoldX alternatives for tournament_wt/test, master_db
-			•	Rosetta ΔΔG (ddg_monomer / cartesian_ddg) (slower)
-			•	DeepDDG 
-			•	ThermoNet (GNN)  — predict stability changes from structure graphs
-			•	MAESTRO(ML)
-			•	Sequence-based - EVEscape / ESM-Mut / ESM1b/GEMME/EVE PROVEAN / SIFT / PolyPhen
-
-		• Docking, MD 
-
+# TASKS BOARD DO AS OF: JAN 2 2026
+1. Run all bioinformatic tools on wt and test sets 
+	* fetch remaining structures of testset
+	* annotation: phobius, tmhmm 
+	* STABILITY: esm-1v, ddgemb, rosettaddg, deepddg, mutcompute, rnafold,thermoprot, prostab, temstapro (type2) temberture (type2)
+	* SOLUBILITY: procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION 
+	* pH/pka: propka, 
+	* compute mutation score suppinfo 
+	* MDsim, docking biophysical features 
+2. fetch activity/expression/ph/temp studies 
+3. Code the features (transfer annotations)
+4. MLP weights on masterdb 
+OTHER 
+5. Finish dataset statistics and annotation graphs 
+6. ESM-2/3 fine-tuned: 
+	* Trained on benchmark solubility and stability datasets 
+	* Trained on PETase datasets 
+7. Slides, manuscript 
 
 # 🗓️ Project timeline
 
@@ -58,7 +44,7 @@
 
 Work done early in the tournament directly feeds later phases, publications, and presentations—nothing is wasted.
 -- 
-
+# Small summary  
 ## What makes a PETase “special”?
 Not every enzyme that touches PET is the same.
 
@@ -81,14 +67,7 @@ They usually share:
 - Have a catalytic triad
 - Lack PETase-specific loops and disulfides
 - Generally poorer or less specific PET activity
-
-A lot of our work is about **telling these groups apart inside the tournament dataset**.
-
 ---
-
-## What the main notebook actually does
-
-Most work happens in `notebooks/main.ipynb`.
 
 ### 1. Dataset overview
 We start by getting a feel for the data:

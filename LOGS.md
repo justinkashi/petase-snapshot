@@ -11,6 +11,8 @@
 
 - Plan for today: 
 1. run all tools 
+	* fetch remaining structures of testset
+	* annotation: phobius, tmhmm 
 	* STABILITY: esm-1v, ddgemb, rosettaddg, deepddg, mutcompute, rnafold,thermoprot, prostab, temstapro (type2) temberture (type2)
 	* SOLUBILITY: procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION 
 	* pH/pka: propka, 
