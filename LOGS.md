@@ -1,4 +1,5 @@
 # **jan 2**
+- figuring out annoying xcode cant clone github organization's repo unless i fix the permissions.  Organizations themselves do not issue personal access tokens so need to use personal justinkashi one. forget it im not doing it with an org im gonna do a personal repo. 
 - Want to meet with the team to speak about progress, fetching data (pH, temp, activity, expression), finalizing the features 
 - interrupted IQTREE on tournament_test, taking too long (60h) but i got the most recent tree and checkpoint saved, anyway theyre all single point mutations so dont care about the perfect tree 
 # **jan 1** 
@@ -465,4 +466,6 @@ Build lightweight model with 150 PETase training data (Charlie)
 
 
 
-
+**other**
+- looking at xcode can we use AR app, safari extension, sticker pack app or whatever else for something in bioinformatics/innovative ? 
+- pivoting to instrumentation, dignaostics --> models for blood pressure/time-series big data, link meta, can we use visionOS 
