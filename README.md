@@ -2,10 +2,38 @@
 
 Welcome! We’re really happy you’re joining 😊  
 ---
+# TASKS BOARD DO AS OF: JAN 1 2026
+- NONCODING
+	* Fetching activity data 
+	* Define pH dependance of PETase 
+	* Define temperature dependance of PETase 
+	* Slides
+	* Write manuscript, make lit review  
+- CODING
+	* Annotation 
+		• Interproscan, MSA graphs, MEME motifs, PET-ase specific regions, 
+		• BLASTP
+		• Phobius
+		• IQTREE
+		• TMHMM
+		• SignalP 
 
-## What is this project?
+		• mutcompute
+		• thermostability tools 
+		• solubility prediction tools
+		• Expression vector annotation (orf-level, dna-level)
+	
+		• Fetch pdb of tournament_wt + generate AF2 structures if no pdb + map tournament_test mutation codes + generate FoldX structures 
+		
+		• Try FoldX alternatives for tournament_wt/test, master_db
+			•	Rosetta ΔΔG (ddg_monomer / cartesian_ddg) (slower)
+			•	DeepDDG 
+			•	ThermoNet (GNN)  — predict stability changes from structure graphs
+			•	MAESTRO(ML)
+			•	Sequence-based - EVEscape / ESM-Mut / ESM1b/GEMME/EVE PROVEAN / SIFT / PolyPhen
 
-We’re taking part in the **Align Bio 2025 PETase Tournament**, a challenge where teams are asked to **rank PETase enzyme sequences** based on how well they might perform.
+		• Docking, MD 
+
 
 # 🗓️ Project timeline
 
@@ -30,47 +58,9 @@ We’re taking part in the **Align Bio 2025 PETase Tournament**, a challenge whe
   Sharing progress and insights via LinkedIn posts, Slack channels, and informal write-ups.
 
 Work done early in the tournament directly feeds later phases, publications, and presentations—nothing is wasted.
-
----
-
-## What kind of problem is this?
-
-This is best thought of as:
-- a **ranking problem**, not a perfect prediction problem
-- an **understanding-first** problem, not a brute-force modeling problem
-- a place where **clear reasoning beats fancy methods**
-
-We are not trying to predict exact activity numbers.  
-We are trying to decide *which sequences look better than others* and justify that decision.
-
----
-
-## The two datasets you’ll hear about
-
-### TOURNAMENTDB (the main thing we work on)
-- Provided by Align
-- This is **the dataset we analyze, rank, and submit**
-- Everything we do should eventually connect back to this dataset
-
-### MASTERDB (reference only)
-- A curated collection of:
-  - known PETases (IsPETase, CaPETase, BhrPETase)
-  - LCCs and cutinase-like enzymes
-  - mutants, structures, and literature annotations
-- Used to:
-  - understand what “real” PETases look like
-  - define motifs and structural features
-  - sanity-check our annotations
-- This dataset is **frozen** and not the main modeling target
-
-A helpful way to think about it:
-> TournamentDB = what we’re judging  
-> MasterDB = examples and background
-
----
+-- 
 
 ## What makes a PETase “special”?
-
 Not every enzyme that touches PET is the same.
 
 ### True PETases  

@@ -1,0 +1,11 @@
+#APPS
+- MAFFT
+- TrimAl 
+- IQ-TREE
+- cd-hit
+- diamond 
+- weblogo 
+- seqkit
+- jalview 
+
+
