@@ -2,6 +2,7 @@
 
 **Engineering the next generation of plastic-degrading enzymes through evolution-aware and biophysically-grounded Machine Learning.**
 
+**Team:** Justin (Bioinformatics), Charlie (MLOps Training), Sanju (Docking/MD Dynamics), Aaisha (MLOps).
 ---
 
 ## 🚀 Current Status: The Zero-Shot Sprint
@@ -83,6 +84,4 @@ Our model prioritizes three critical structural motifs that distinguish true PET
 2. **The  Loop:** Extended region (~238–260) that shapes the unique "open" cleft architecture.
 3. **The DS1 Disulfide:** A PETase-specific bridge (C233-C282) that provides the structural integrity needed for high-turnover activity.
 
----
-
-**Team:** Justin (Bio-ML Architecture), Charlie (SQL/MLP Training), Sanju (Docking/MD Dynamics), Aaisha (Graph/Sequence Embeddings).
+--- 
