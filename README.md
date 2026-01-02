@@ -2,7 +2,7 @@
 
 **Engineering the next generation of plastic-degrading enzymes through evolution-aware and biophysically-grounded Machine Learning.**
 
-**Team:** Justin (Bioinformatics), Charlie (MLOps Training), Sanju (Docking/MD Dynamics), Aaisha (MLOps).
+**Team:** Justin (Bioinformatics), Charlie (MLOps), Sanju (Docking/MD Dynamics), Aaisha (MLOps).
 
 ---
 
@@ -23,6 +23,9 @@ We are not "blindly" predicting. We are building a **mechanistic scoring engine*
 ---
 
 ## 🛠️ The Feature Engineering Pipeline
+For the expression note that they dont tell us a certain pH, stability and gene expression and gene purification are whats important here.  Whereas for activity, the effect of the point mutation on activity will depend on the PETase mutant's stability, catalytic mechanism (cleft, gate, bridges). 
+We're looking for the mutation's effect on the activity at pH 5.5 and pH 9, effect on the expression. Note that all enzymes were expressed, purified, and assayed on PET the SAME way. So whats important is how the mutation changes key factors in gene expression, purification, and activity. We want to try to find this sort of golden equation that perfectly weights each feature to output activity (μmol [TPA]/min·mg [E]) and expression (mg/mL). The trick here is how do we find the function/weights of each feature to get to that equation? 
+From all the information we have, we can either learn what features and weights to use to learn what best predicts the effect of a PETase's single point mutation. Or we can make a heuristic model. This requires analytical work for each feature and understanding its relationship with activity and expression. 
 
 ### **1. Activity Prediction (Unified Mechanistic Equation)**
 
