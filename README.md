@@ -1,7 +1,5 @@
-# Welcome to the Align 2025 PETase Tournament Project
+# Welcome to the Align 2025 PETase Tournament Project😊
 
-Welcome! We’re really happy you’re joining 😊  
----
 # TASKS BOARD DO AS OF: JAN 1 2026
 - NONCODING
 	* Fetching activity data 
@@ -40,6 +38,7 @@ Welcome! We’re really happy you’re joining 😊
 **Align tournament phases**
 - **Jan 16, 2025 — Zero-shot phase deadline**  
   Focus on understanding the tournament dataset, feature engineering, and explainable ranking without training on labeled tournament outcomes.
+  
 - **Mar 9, 2025 — Predictive phase deadline**  
   Incorporate predictive models and learned signals while maintaining interpretability and robustness.
 - **Jul 20, 2025 — Generate phase (Round 1) deadline**  

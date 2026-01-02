@@ -1,4 +1,31 @@
 # **jan 2**
+- Activity Score = (w1 * ESM-1v_LLR) + (w2 * PETase_Specific_Mutation_Matrix_Score) + (w3 * KL_Divergence_PETase_vs_Cutinase) + (w4 * Docking_Vina_Affinity) + (w5 * MD_RMSF_W185_Gate) - (w6 * Active_Site_pKa_Penalty_at_pH) + (w7 * Cleft_Net_Charge_at_pH) + (w8 * Cleft_Volume_Delta) + (w9 * Global_Consensus_ddG) - (w10 * Coevolutionary_Disruption_Index) - (w11 * Product_Release_H_Bond_Penalty) + (w12 * Binding_Cleft_Hydrophobicity_Shift) + (w13 * Cleft_Aromatic_Anchor_Surface_Area)
+- Expression Score = (wA * mRNA_Folding_DeltaG_5prime) + (wB * Codon_Adaptation_Index_EC) - (wC * Ribosomal_Stall_and_PolyProline_Motifs) + (wD * Global_Consensus_ddG) - (wE * Spatial_Aggregation_Propensity_SAP) + (wF * NetSolP_Consensus_Score) - (wG * Total_SASA_Hydrophobic_Residues) - (wH * Protease_Motif_Count) + (wI * N_Terminal_Charge_Density) + (wJ * Tag_Exposure_IUPred_Score) + (wK * Surface_Accessibility_Near_Tag) - (wL * Metal_Binding_Internal_Patch_Count) - (wM * Cysteine_Count_Mismatch_Penalty) - (wN * Predicted_Metabolic_Burden) + (wP * Dye_Assay_Composition_Bias)
+- Caution and notes on manual equation versus learning the equation: 
+	1. An MLP can  "figure out" the weights, but it needs labels. 
+	Pros: It excels at capturing non-linear relationships.1 For example, it can learn the "Stability-Activity Trade-off" (where activity increases with stability up to a point, then crashes because the enzyme becomes too rigid). A linear equation struggles with this "sweet spot."
+	Cons: It is a "black box." If your MasterDB is biased (e.g., mostly IsPETase data), the MLP might overfit to those specific patterns and fail on the more diverse WP-backbone variants in the tournament set.Requirement: You need at least ~100–500 high-quality labeled points in your MasterDB for a simple MLP to outperform a well-tuned manual equation.
+	2. The "Heuristic" Approach has Total Interpretability to ensure that the "H237 pKa Penalty" is the dominant factor for pH 5.5 without worrying about the model getting distracted by "noise" features, but It assumes the relationship between features is linear and won't easily find the complex cross-talk between, say, "mRNA Stability" and "Metabolic Burden" unless you explicitly code a cross-term.
+
+- Undersatnd the workflow for fast building of bioml tools, need to rapidly summarize aggregate all data and literature to draft an initial task score/equation/algorithm/rule and then rapidly test it with pipelines already made that visualize the progress in ML performance and undersatnding with interp and PCA t-sne and attention maps in structures and sequences alot of this automated (analytics side) for example i was supposed to bring in the most detailed/niche activity and expression algorithms from previous work. 
+
+- Plan for today: 
+1. run all tools 
+	* STABILITY: esm-1v, ddgemb, rosettaddg, deepddg, mutcompute, rnafold,thermoprot, prostab, temstapro (type2) temberture (type2)
+	* SOLUBILITY: procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION 
+	* pH/pka: propka, 
+	* compute mutation score suppinfo 
+	* MDsim, docking biophysical features 
+2. fetch activity/expression/ph/temp studies 
+3. Code the features (transfer annotations)
+4. MLP weights on masterdb 
+OTHER 
+5. Finish dataset statistics and annotation graphs 
+6. ESM-2/3 fine-tuned: 
+	* Trained on benchmark solubility and stability datasets 
+	* Trained on PETase datasets 
+
+
 - figuring out annoying xcode cant clone github organization's repo unless i fix the permissions.  Organizations themselves do not issue personal access tokens so need to use personal justinkashi one. forget it im not doing it with an org im gonna do a personal repo. 
 - Want to meet with the team to speak about progress, fetching data (pH, temp, activity, expression), finalizing the features 
 - interrupted IQTREE on tournament_test, taking too long (60h) but i got the most recent tree and checkpoint saved, anyway theyre all single point mutations so dont care about the perfect tree 
@@ -7,6 +34,9 @@
 - Below is missing: (1) consensus score from stability/solubility prediction tools (2) mutation score suppinfo (3) coevolutionary disruptions (4) MSA and phylogeny feature (5) what kind of docking score exactly do we need (6) all expression features (7) pH dependance features 
 - Tentative final feature list which minimally uses outputs from ML tools:
 * Thermostability & Rigidity Balance
+	* thermoprot/prostab type 1 of tools: These are excellent for rapid screening of single-point mutations. They are typically faster than Rosetta and provide
+	* temstapro / temberture type 2 of tools: specifically designed to predict the Growth Temperature (OGT) or thermal niche of the protein to determine if a variant is "naturally" designed for the pH 9.0/Higher Temp environment. 
+	* METL biophysical type: slower but much better at identifying the Activity-Stability Trade-off because it understands the energetic cost of moving loops.
 	* Core_vs_Loop_Stability: Calculate ddg specifically for residues in the "Second Shell" (e.g., D186) versus the "Catalytic Loops."Logic: High Core Stability + Low Loop Stability = High Activity (The "HotPETase" signature).
 	* W185_Rotamer_Freedom: Measure the distance between residues at 214 and 218. If these are mutated to bulky groups (His/Phe), the gate "locks."Output: A binary "Gate-Locked" penalty (0 or 1).
 	
@@ -14,7 +44,15 @@
 	* Binding_Face_Zeta_Potential: Sum the charges of all surface-exposed residues within 10Å of the cleft at pH 9.0.Output: Net charge (positive values = higher activity at pH 9.0).
 	* Kullback-Leibler (KL) Divergence: Use your IQ-TREE MSA to see if a mutation is "Conserved in PETases" but "Rare in Cutinases."Output: A "PETase-Specialization Score."H237_pKa_Delta: The difference between the WT pKa and Mutant pKa (from PROPKA)
 * Expression-Specific (The "Folding Burden")
-	* Aggrescan3D_Solubility: Unlike a sequence-string search, this uses your AlphaFold structure to find spatial hydrophobic patches.Output: A "Solubility Index" (Higher = better expression)
+	* TYPE 1: 
+	NetSolP trained to predict whether a protein will be in the soluble fraction or inclusion bodies, deep learning on sequence features, it captures the "folding burden" that leads to aggregation.
+	ProtSol specifically targets the E. coli expression system for identifying how surface-exposed hydrophobic residues act as "nucleation seeds" for aggregation.
+	* TYPE 2:
+	Prog-Sol at the "Progressive" or structural side of solubility for understanding if a mutation affects the stability of intermediate folding states.
+
+	GatSol Graph Attention Networks (GAT) with structures for your test set, because it looks at the spatial arrangement of residues rather than just the sequence string to see if a mutation creates a hydrophobic patch on the surface even if the residues are far apart in the sequence.
+
+	* custom Aggrescan3D_Solubility: Unlike a sequence-string search, this uses your AlphaFold structure to find spatial hydrophobic patches.Output: A "Solubility Index" (Higher = better expression)
 	* N-Terminal_Charge_Density: The net charge of the first 15 residues, Highly charged N-termini often improve translocation and prevent early aggregation.
 
 - Evolutionary Potential: A group of variants that share "Frustrated" catalytic loops but "Minimal Frustration" in the core is the "Elite Group"—they are stable enough to express but flexible enough to evolve high activity.
@@ -56,7 +94,6 @@
 		* RNAfold mRNA structure stability 
 		* Total Solvent Accessible Surface Area of hydrophobic residues
 	* Run thermostability tools, use Tm as a feature to help  
-	* pH dependance of PETase classes 
 		* Active Site Net Charge: Calculate the net charge of the catalytic triad + the aromatic gate (W185) + residues within 5Å of the cleft at pH 5.5 vs 9.0 using PROPKA. 
 		* Protonation State of H237: The catalytic Histidine's ability to act as a base is pH-dependent. Use the predicted $pKa$ of H237 as a feature.
 		* Solvation Energy Change: How the solubility of the binding pocket changes at different pH levels.
