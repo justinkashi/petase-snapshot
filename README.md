@@ -45,24 +45,22 @@ Predicting **Soluble Titer (mg/mL)** by modeling the competition between transla
 ---
 
 ## 📋 Task Board (Updated: Jan 2, 2026)
-
-### **1. High-Throughput Inference (Priority: High)**
-
-* [ ] **Backbone Mapping:** Assign all test variants to the 3 WT clusters (CaPETase vs. WP backbones).
-* [ ] **Stability Consensus:** Aggregate `esm-1v`, `deepddg`, `rosettaddg`, and `mutcompute`.
-* [ ] **pH Profiling:** Batch run **PROPKA** for all variants at pH 5.5 and 9.0.
-* [ ] **Genetic Scan:** Run **RNAfold** on vector-insert junctions and screen for Poly-Proline stalls.
-
-### **2. Biophysical Modeling (Priority: Mid)**
-
-* [ ] **Docking:** Extract `Vina_Delta_G` for PET-trimer binding.
-* [ ] **Dynamics:** Extract `W185_RMSF` (Gate Flexibility) from MD trajectories.
-* [ ] **Geometry:** Calculate `Cleft_Volume_Delta` and `Aromatic_Anchor` surface area.
-
-### **3. ML Training (Priority: Mid)**
-
-* [ ] **MasterDB Weight-Finder:** Train a 3-layer MLP on the 150-variant MasterDB to find the optimal  for each feature via SHAP.
-* [ ] **ESM Fine-tuning:** Specialized training on PETase-family MSA for improved zero-shot likelihoods.
+1. run all tools 
+	* fetch remaining structures of testset
+	* annotation: phobius, tmhmm 
+	* STABILITY: esm-1v, ddgemb, rosettaddg, deepddg, mutcompute, rnafold,thermoprot, prostab, temstapro (type2) temberture (type2)
+	* SOLUBILITY: procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION 
+	* pH/pka: propka, 
+	* compute mutation score suppinfo 
+	* MDsim, docking biophysical features 
+2. fetch activity/expression/ph/temp studies 
+3. Code the features (transfer annotations)
+4. MLP weights on masterdb 
+OTHER 
+5. Finish dataset statistics and annotation graphs 
+6. ESM-2/3 fine-tuned: 
+	* Trained on benchmark solubility and stability datasets 
+	* Trained on PETase datasets 
 
 ---
 
