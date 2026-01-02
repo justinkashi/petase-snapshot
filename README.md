@@ -1,119 +1,90 @@
-# Welcome to the Align 2025 PETase Tournament Project😊
+# 🧬 Align 2025: Mechanistic PETase Engineering
 
-# TASKS BOARD DO AS OF: JAN 2 2026
-1. Run all bioinformatic tools on wt and test sets 
-	* fetch remaining structures of testset
-	* annotation: phobius, tmhmm 
-	* STABILITY: esm-1v, ddgemb, rosettaddg, deepddg, mutcompute, rnafold,thermoprot, prostab, temstapro (type2) temberture (type2)
-	* SOLUBILITY: procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION 
-	* pH/pka: propka, 
-	* compute mutation score suppinfo 
-	* MDsim, docking biophysical features 
-2. fetch activity/expression/ph/temp studies 
-3. Code the features (transfer annotations)
-4. MLP weights on masterdb 
-OTHER 
-5. Finish dataset statistics and annotation graphs 
-6. ESM-2/3 fine-tuned: 
-	* Trained on benchmark solubility and stability datasets 
-	* Trained on PETase datasets 
-7. Slides, manuscript 
-
-# 🗓️ Project timeline
-
-**Align tournament phases**
-- **Jan 16, 2025 — Zero-shot phase deadline**  
-  Focus on understanding the tournament dataset, feature engineering, and explainable ranking without training on labeled tournament outcomes.
-  
-- **Mar 9, 2025 — Predictive phase deadline**  
-  Incorporate predictive models and learned signals while maintaining interpretability and robustness.
-- **Jul 20, 2025 — Generate phase (Round 1) deadline**  
-  Propose and rank generated or modified sequences based on insights from earlier phases.
-- **Nov 20, 2026 — Winners announced**  
-  Final results, retrospectives, and broader dissemination.
-
-**Beyond the tournament**
-- **Manuscript preparation**  
-  Formal write-up of the methodology, biological insights, and lessons learned from the tournament phases.
-- **Talks & seminars**  
-  Internal and external presentations (e.g. MILA, ML for Protein Engineering series, Formal Languages & LLM seminar, Valence Labs).
-- **Conferences & workshops**  
-  Potential submissions or presentations (e.g. BioML, ICML workshops, TechBioTransformers, related venues).
-- **Community & outreach**  
-  Sharing progress and insights via LinkedIn posts, Slack channels, and informal write-ups.
-
-Work done early in the tournament directly feeds later phases, publications, and presentations—nothing is wasted.
--- 
-# Small summary  
-## What makes a PETase “special”?
-Not every enzyme that touches PET is the same.
-
-### True PETases  
-(e.g. IsPETase, CaPETase from *Cryptosporangium aurantiacum*, BhrPETase)
-
-They usually share:
-- An intact catalytic triad (IsPETase reference S160–D206–H237)
-- **Trp185**, an aromatic residue that helps bind PET
-- An **extended β8–α6 loop (~238–260)** that keeps the active site open
-- PETase-specific disulfide bonds
-- Activity at relatively mild temperatures
-
-### LCC (leaf-branch compost cutinase)
-- Much more thermostable
-- Active site is more closed
-- Works best near PET’s glass transition temperature
-
-### Ancestral / cutinase-like hydrolases
-- Have a catalytic triad
-- Lack PETase-specific loops and disulfides
-- Generally poorer or less specific PET activity
----
-
-### 1. Dataset overview
-We start by getting a feel for the data:
-- sequence length distributions
-- redundancy and clustering
-- how many sequences fall in a PETase-like length range (~280–320 aa)
-- ambiguous or unusual amino acids
-
-### 2. PETase-specific features
-For each tournament sequence, we annotate things like:
-- catalytic triad integrity
-- Trp185 identity (W / F / Y)
-- presence and length of the β8–α6 loop
-- disulfide architecture
-- local sequence context around important residues:
-  - flexibility (Gly/Pro)
-  - charge
-  - hydrogen-bond potential
-  - steric bulk
-- mutation-effect scores from supplement tables
-
-### 3. Broader annotation
-We also add:
-- phylogenetic context
-- signal peptide and transmembrane helix predictions
-- taxonomy
-- BLAST results (UniProt / InterPro / MasterDB)
-- InterPro / Pfam domains
-- AlphaFold2 structures (for selected sequences)
-- ESM2 / ESM3 embeddings
-- stability and fitness predictions (FoldX, MutCompute, etc.)
+**Engineering the next generation of plastic-degrading enzymes through evolution-aware and biophysically-grounded Machine Learning.**
 
 ---
 
-## How the GitHub repo is organized
+## 🚀 Current Status: The Zero-Shot Sprint
 
-```text
-.
-├── data
-│   ├── master_db        # Curated reference data (frozen)
-│   └── tournament_db    # Align tournament data + outputs
-├── misc
-│   └── suppinfo         # Supplementary tables, mutation scores, notes
-├── notebooks
-│   ├── main.ipynb       # Core analysis, annotation, ranking
-│   └── tutorials        # Fine-tuning & past enzyme tournament examples
-├── scripts
-│   ├── bash             # FASTA handling, clustering, file ops
-│   └── python           # Annotation and automation helpers
+**Deadline:** January 16, 2026
+
+**Objective:** Rank the Align Tournament Dataset (4,988 variants) for **Expression**, **Activity (pH 5.5)**, and **Activity (pH 9.0)** without training on tournament labels.
+
+### Our Strategy: The Hybrid Heuristic-MLP Engine
+
+We are not "blindly" predicting. We are building a **mechanistic scoring engine** that translates biological laws into ranking signals.
+
+1. **Backbone Grouping:** Mapping all 4,988 variants to three core "ancestor" clusters identified in the test set: **CaPETase**, **WP_162908185.1**, and **WP_374935857.1**.
+2. **Feature Enrichment:** Moving beyond simple sequence stats to include hard physics (MD/Docking), local chemistry (pKa/NetQ), and genetic bottlenecks (mRNA/Codon Bias).
+3. **The "Hidden Killer" Audit:** Explicitly penalizing variants based on product inhibition, cysteine mismatches, and purification "ghosts" (IMAC-capture likelihood).
+
+---
+
+## 🛠️ The Feature Engineering Pipeline
+
+### **1. Activity Prediction (Unified Mechanistic Equation)**
+
+Used for both Condition 1 (pH 5.5) and Condition 2 (pH 9.0) by varying the weights () based on the pH-dependent electrostatics of the active site.
+
+**ActivityScore = (w1 * ESM-1v_LLR) + (w2 * MutMatrix) + (w3 * KLDiv) + (w4 * Vina) + (w5 * RMSF) - (w6 * pKaPen) + (w7 * NetQ) + (w8 * VolDelta) + (w9 * ddG) - (w10 * CoEvo) - (w11 * ProdRel) + (w12 * HydroDelta) + (w13 * AromaticAnchor)**
+
+* **Aromatic Anchors (w13):** Rewarding Trp/Phe/Tyr in the cleft for surface adsorption to PET plastic.
+* **Product Release (w11):** Penalizing new H-bond donors that "stick" to the TPA product, preventing turnover.
+* **pH Discrimination:** Using **PROPKA** to calculate the charge (`NetQ`) and Histidine protonation (`pKaPen`) shifts between 5.5 and 9.0.
+
+### **2. Expression Prediction (Total Titer Equation)**
+
+Predicting **Soluble Titer (mg/mL)** by modeling the competition between translation speed, folding energy, and purification efficiency.
+
+**ExpressionScore = (wA * RNA_DeltaG) + (wB * CAI) - (wC * Stall) + (wD * ddG) - (wE * SAP) + (wF * NetSolP) - (wG * SASA) - (wH * Protease) + (wI * NQ) + (wJ * Tag) + (wK * Surf) - (wL * Metal) - (wM * Cys) - (wN * Burden)**
+
+* **The DNA Gatekeeper:** Using **RNAfold** to model the mRNA stability around the RBS/Start codon.
+* **The Folding Burden:** Combining `ddG` (stability) and `SAP` (spatial aggregation) to predict inclusion body formation.
+* **The Purification Logic:** Weighting `Tag_Exposure` and `Metal_Binding_Patches` to predict how much protein actually reaches the final tube after IMAC.
+
+---
+
+## 📋 Task Board (Updated: Jan 2, 2026)
+
+### **1. High-Throughput Inference (Priority: High)**
+
+* [ ] **Backbone Mapping:** Assign all test variants to the 3 WT clusters (CaPETase vs. WP backbones).
+* [ ] **Stability Consensus:** Aggregate `esm-1v`, `deepddg`, `rosettaddg`, and `mutcompute`.
+* [ ] **pH Profiling:** Batch run **PROPKA** for all variants at pH 5.5 and 9.0.
+* [ ] **Genetic Scan:** Run **RNAfold** on vector-insert junctions and screen for Poly-Proline stalls.
+
+### **2. Biophysical Modeling (Priority: Mid)**
+
+* [ ] **Docking:** Extract `Vina_Delta_G` for PET-trimer binding.
+* [ ] **Dynamics:** Extract `W185_RMSF` (Gate Flexibility) from MD trajectories.
+* [ ] **Geometry:** Calculate `Cleft_Volume_Delta` and `Aromatic_Anchor` surface area.
+
+### **3. ML Training (Priority: Mid)**
+
+* [ ] **MasterDB Weight-Finder:** Train a 3-layer MLP on the 150-variant MasterDB to find the optimal  for each feature via SHAP.
+* [ ] **ESM Fine-tuning:** Specialized training on PETase-family MSA for improved zero-shot likelihoods.
+
+---
+
+## 🗓️ Project Timeline
+
+| Date | Milestone | Focus |
+| --- | --- | --- |
+| **Jan 2 (Today)** | **Feature Freeze** | Finalize all 26 feature columns and start batch inference. |
+| **Jan 8** | **First Rank Submission** | Generate initial CSV ranking based on MLP-derived weights. |
+| **Jan 16** | **Zero-Shot Deadline** | Finalized explainable ranking and biological abstract submission. |
+| **Mar 9** | **Predictive Deadline** | Refine models using Supervised Track training data. |
+
+---
+
+## 🔬 Core Insights: What makes a PETase "Special"?
+
+Our model prioritizes three critical structural motifs that distinguish true PETases from generic cutinases:
+
+1. **The Aromatic Gate (W185):** Must be flexible enough to stack PET but stable enough to maintain the cleft.
+2. **The  Loop:** Extended region (~238–260) that shapes the unique "open" cleft architecture.
+3. **The DS1 Disulfide:** A PETase-specific bridge (C233-C282) that provides the structural integrity needed for high-turnover activity.
+
+---
+
+**Team:** Justin (Bio-ML Architecture), Charlie (SQL/MLP Training), Sanju (Docking/MD Dynamics), Aaisha (Graph/Sequence Embeddings).
