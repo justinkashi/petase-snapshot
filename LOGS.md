@@ -1,4 +1,8 @@
+# **jan 3** 
+- Today will be the docking worksession w/ Sanju 
+- Need to give charlie the masterdb with the columns filled up (1) seq wo sigpep (2) activity/expression/stab/ph labels (3) structures 
 # **jan 2**
+- set up team meetings and catching up 
 - Activity Score = (w1 * ESM-1v_LLR) + (w2 * PETase_Specific_Mutation_Matrix_Score) + (w3 * KL_Divergence_PETase_vs_Cutinase) + (w4 * Docking_Vina_Affinity) + (w5 * MD_RMSF_W185_Gate) - (w6 * Active_Site_pKa_Penalty_at_pH) + (w7 * Cleft_Net_Charge_at_pH) + (w8 * Cleft_Volume_Delta) + (w9 * Global_Consensus_ddG) - (w10 * Coevolutionary_Disruption_Index) - (w11 * Product_Release_H_Bond_Penalty) + (w12 * Binding_Cleft_Hydrophobicity_Shift) + (w13 * Cleft_Aromatic_Anchor_Surface_Area)
 - Expression Score = (wA * mRNA_Folding_DeltaG_5prime) + (wB * Codon_Adaptation_Index_EC) - (wC * Ribosomal_Stall_and_PolyProline_Motifs) + (wD * Global_Consensus_ddG) - (wE * Spatial_Aggregation_Propensity_SAP) + (wF * NetSolP_Consensus_Score) - (wG * Total_SASA_Hydrophobic_Residues) - (wH * Protease_Motif_Count) + (wI * N_Terminal_Charge_Density) + (wJ * Tag_Exposure_IUPred_Score) + (wK * Surface_Accessibility_Near_Tag) - (wL * Metal_Binding_Internal_Patch_Count) - (wM * Cysteine_Count_Mismatch_Penalty) - (wN * Predicted_Metabolic_Burden) + (wP * Dye_Assay_Composition_Bias)
 - Caution and notes on manual equation versus learning the equation: 
