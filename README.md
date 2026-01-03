@@ -18,7 +18,7 @@ We are not "blindly" predicting. We are building a **mechanistic scoring engine*
 
 1. **Backbone Grouping:** Mapping all 4,988 variants to three core "ancestor" clusters identified in the test set: **CaPETase**, **WP_162908185.1**, and **WP_374935857.1**.
 2. **Feature Enrichment:** Moving beyond simple sequence stats to include hard physics (MD/Docking), local chemistry (pKa/NetQ), and genetic bottlenecks (mRNA/Codon Bias).
-3. **The "Hidden Killer" Audit:** Explicitly penalizing variants based on product inhibition, cysteine mismatches, and purification "ghosts" (IMAC-capture likelihood).
+3. **Hidden killers penalization:** Explicitly penalizing variants based on product inhibition, cysteine mismatches, and purification "ghosts" (IMAC-capture likelihood).
 
 ---
 
@@ -73,8 +73,8 @@ OTHER
 
 | Date | Milestone | Focus |
 | --- | --- | --- |
-| **Jan 2 (Today)** | **Feature Freeze** | Finalize all 26 feature columns and start batch inference. |
-| **Jan 8** | **First Rank Submission** | Generate initial CSV ranking based on MLP-derived weights. |
+| **Jan 3 (Today)** | **Feature Freeze** | Finalize all 26 feature columns, docking, masterdb |
+| **Jan 8** | **First Rank Submission** | Generate initial test set ranking based on MLP-derived weights and heuristic equation. |
 | **Jan 16** | **Zero-Shot Deadline** | Finalized explainable ranking and biological abstract submission. |
 | **Mar 9** | **Predictive Deadline** | Refine models using Supervised Track training data. |
 
