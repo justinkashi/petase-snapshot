@@ -1,4 +1,8 @@
 # **jan 4**
+- 1pm update
+	1. Run all tools against masterdb and tournament_wt/test 
+	2. Fetch remaining structure/seq/labels for mastedb and tournament_wt/test 
+
 - Currently
 	- Annotate mutant set by type of mutation (structurally/biologically beyond just mutation code)
 	- OBTAIN REMAINING LABELS MASTERDB: go through 27 papers

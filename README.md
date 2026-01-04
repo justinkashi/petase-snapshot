@@ -49,7 +49,7 @@ Predicting **Soluble Titer (mg/mL)** by modeling the competition between transla
 
 ---
 
-## 📋 Task Board (Updated: Jan 2, 2026)
+## 📋 Task Board (Updated: Jan 4, 2026)
 0. fetch remaining structures/act/exp/ph/stab labels of testset
 1. run all tools 
 	* annotation: phobius, tmhmm 
@@ -58,12 +58,11 @@ Predicting **Soluble Titer (mg/mL)** by modeling the competition between transla
 	* pH/pka: propka, 
 	* compute mutation score suppinfo 
 	* MDsim, docking biophysical features 
-2. Code the features (transfer annotations)
-3. MLP weights on masterdb 
+2. Code the features 
 
 OTHER 
-4. Finish dataset statistics and annotation graphs 
-5. ESM-2/3 fine-tuned: 
+- Slides, manuscript 
+- ESM-2/3 fine-tuned: 
 	* Trained on benchmark solubility and stability datasets 
 	* Trained on PETase datasets 
 
@@ -73,7 +72,6 @@ OTHER
 
 | Date | Milestone | Focus |
 | --- | --- | --- |
-| **Jan 3 (Today)** | **Feature Freeze** | Finalize all 26 feature columns, docking, masterdb |
 | **Jan 8** | **First Rank Submission** | Generate initial test set ranking based on MLP-derived weights and heuristic equation. |
 | **Jan 16** | **Zero-Shot Deadline** | Finalized explainable ranking and biological abstract submission. |
 | **Mar 9** | **Predictive Deadline** | Refine models using Supervised Track training data. |
