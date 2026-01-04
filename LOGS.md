@@ -1,4 +1,15 @@
 # **jan 4**
+- 
+- lots of activity measurements with different conditions we dont need that level of details its hard to implement specific conditions in the model like that.
+- wt_5 is LCC_wt funny enough 
+- wt_1 is a standard type IIb petase like IsPETase (Tm 48), but CaPETase is not as fragile (Tm 67) because it relies on its rigid core, while Is has a flexible loop that melts easily. I really need to annotate each masterdb and tournamentdb PETases for each different regions. 
+- found that tournament_wt_2 has an extra CBM35 domain fused to it naturally through evolution.
+- 4pm update, working on 2. now 
+	1. Going through papers (labels, methods)
+	2. Generate remaining structure for wt, test and masterdb (foldx)
+- going through each paper now, extracting docking methods, figures/tables for labels, writing notes on how to integrate different experiments, etc.  At bell rn. 
+- will need to specify from each activity study what kind of PET substrate was used, because different (amorph, cyrst,bottle, etc.) have different properties as %crystallinity, Mw, Mn, Dispersity (Bell et al.)
+- summarizing methods and figures from all papers to better guide docking 
 - 1pm update
 	1. Run all tools against masterdb and tournament_wt/test 
 	2. Fetch remaining structure/seq/labels for mastedb and tournament_wt/test 
