@@ -50,20 +50,20 @@ Predicting **Soluble Titer (mg/mL)** by modeling the competition between transla
 ---
 
 ## 📋 Task Board (Updated: Jan 2, 2026)
+0. fetch remaining structures/act/exp/ph/stab labels of testset
 1. run all tools 
-	* fetch remaining structures of testset
 	* annotation: phobius, tmhmm 
 	* STABILITY: esm-1v, ddgemb, rosettaddg, deepddg, mutcompute, rnafold,thermoprot, prostab, temstapro (type2) temberture (type2)
 	* SOLUBILITY: procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION 
 	* pH/pka: propka, 
 	* compute mutation score suppinfo 
 	* MDsim, docking biophysical features 
-2. fetch activity/expression/ph/temp studies 
-3. Code the features (transfer annotations)
-4. MLP weights on masterdb 
+2. Code the features (transfer annotations)
+3. MLP weights on masterdb 
+
 OTHER 
-5. Finish dataset statistics and annotation graphs 
-6. ESM-2/3 fine-tuned: 
+4. Finish dataset statistics and annotation graphs 
+5. ESM-2/3 fine-tuned: 
 	* Trained on benchmark solubility and stability datasets 
 	* Trained on PETase datasets 
 

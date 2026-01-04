@@ -1,4 +1,10 @@
+# **jan 4**
+- figuring out the 3 + 313 wt backbone information, then figure out docking stuff for meeting with sanju today 
+- Will need help coding features 	
 # **jan 3** 
+- working with gemini to figure out automating the docking for all 5000 test sets and what that looks like in code and in autodock and in pymol is it first pose then docking ? 
+- downloading papers + suppinfo 
+- Now working on 1. fetching remaining data for masterdb, aggregating all papers and studies possible. found 27 additional papers i did not look at, will need to quickly fetch any data and biological insights on engineering/mutations, but cant waste time, need to do gemini summary of biological insights, and quickly screening graphs/tables/suppinfo for labels, and will also need a note on how to consolidate data from different studies.
 - Today will be the docking worksession w/ Sanju 
 - Need to give charlie the masterdb with the columns filled up (1) seq wo sigpep (2) activity/expression/stab/ph labels (3) structures 
 # **jan 2**
