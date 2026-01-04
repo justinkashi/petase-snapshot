@@ -1,4 +1,12 @@
 # **jan 4**
+- Annotate mutant set by type of mutation (structurally/biologically beyond just mutation code)
+- OBTAIN REMAINING LABELS MASTERDB: go through 27 papers
+- OBTAIN REMAINING STRUCTURES: (ncbi ID) --> (taxa) + closest hit's pdb + fetch foldx/alphafold
+- need to fetch taxa of remaining 313 wt
+- all 3 terrestrial bacteria no marine 
+- wt_1 CaPETase
+- wt_2 is WP_162908185: 
+- wt_3 is WP_374935857: 
 - figuring out the 3 + 313 wt backbone information, then figure out docking stuff for meeting with sanju today 
 - Will need help coding features 	
 # **jan 3** 
