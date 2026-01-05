@@ -1,5 +1,7 @@
-# **jan 4**
+# **jan 5** 
 - 
+# **jan 4**
+- taking too long to fetch activity with docking info, just gonna fetch docking methods and graphs cuz docking is most critical at the moment with 12 days left.  
 - lots of activity measurements with different conditions we dont need that level of details its hard to implement specific conditions in the model like that.
 - wt_5 is LCC_wt funny enough 
 - wt_1 is a standard type IIb petase like IsPETase (Tm 48), but CaPETase is not as fragile (Tm 67) because it relies on its rigid core, while Is has a flexible loop that melts easily. I really need to annotate each masterdb and tournamentdb PETases for each different regions. 
