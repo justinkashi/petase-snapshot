@@ -1,5 +1,8 @@
 # **jan 5** 
-- 
+- ideas developed throughout: 
+	* tool to analyze/extract specific info from 30+ papers at scale
+	* protein structure visualization and attention maps according to different labels/learnings 
+	* a public PETase specific database of all enzyme labels studies with our way of integrating/denoising data from different experiment conditions 
 - Meeting at 1pm, going over questions for the zero shot deadline 
 # **jan 4**
 - taking too long to fetch activity with docking info, just gonna fetch docking methods and graphs cuz docking is most critical at the moment with 12 days left.  
