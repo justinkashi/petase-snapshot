@@ -1,7 +1,115 @@
 # **jan 6** 
+- UPDATED PLAN FOR THE DAY 
+	1. WT and Test set mutation type flagging/annotation 
+	2. Thermoprot
+	3. Mutcompute
+	4. Mut score (alam)
+	5. mutPSSM (Lu)
+	6. STABILITY: esm-1v, ddgemb, rosettaddg, deepddg, mutcompute, rnafold,thermoprot, prostab, temstapro (type2) temberture (type2)
+	7. SOLUBILITY: procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION 
+
+- try the flag --> score method from chatgpt 
+- continue off with annotating the test set
+- need to review the docking stuff from sanju 
+- once we have reference numbers for the 3wt, we can compare the wt to the test set by converting the mutation# to the code below that outputs/distinguishes the M class 
+- how can we distinguish the M class between the 3 wt? We can compare them structurally to the 5 classes by COMPARING:
+	* MSA alignment key regions (alam) (chen) (cui)
+	* central b-sheet region (bell)
+	* electrostatics of binding cleft (bell) (erickson) (hong) (ma)
+	* ensemble refinements (bell) 
+	* surface patch docking icmpro (bell)
+	* global superposition with zoom-ins (bell) (bugin) (chen) (erickson)
+	* pH effect on structure (norton)
+
+	* equilibriated michaelis complex (bugin)
+	* acylation and deacylation free energy profile (bugin) (garcia )
+	* Trp185 dihedral free energy profile (bugin) (Cui) (hong)
+	* Trp185-Tyr87 Aromatic interaction (transition state snapshots)  (bugin)
+
+	* RMSF of all atoms from 2 structures highlighting BhrPETase's H218/F222, F243 W104 (Cui) (garcia)
+	* Time evolution dihedral angles between  CA-CB-CG-CG1 atoms of W190 
+	* BhrPETase's Stacking interactions between W104-P258 (Cui)
+	* Distances between S165 OG and substrate's labile carbonyl atom 20-100ns (Cui) 
+	* Comprehensive one (Erickson)
+
+- need to establish strong/detailed reference of the 3wt in 3D modeling compared to IsPETase to determine a reference activity for the 3. what is the model learning/referencing/attending to, can attend not only to its own set of mutations from Ca but can try to backtrack from other types of mutations if they converge structurally 
+
+- Phylogeny
+* M1: cutinase-like, low PET activity 
+* M2: transitional class
+* M3: PETase-like 
+* M4: enhanced PETase
+* M5: Hyperactive PETase
+
+- if we can get an initial scoring using the mutationtype below, the next priorities will be: (1) run thermoprot (2) run mutcompute (lu) (3) calculate mutation score (alam) (4) calculate mutPSSM (Lu) (5) other stab/sol tools 
+
+- on the question of is it regression or classification, thats a very good point. It's a triage workflow we need to do so it will be clustering first (classification) with regression on very close/good scoring variants based on a learned score on anything labeled we have  (masterdb)
+
+- mutation types that single point mutations influence:
+
+A. Cys / Disulfide Liability
+
+A single mutation can introduce or remove a cysteine, creating risk of mis-paired disulfides, oxidation sensitivity, or disrupting an existing disulfide if that cysteine is part of one.
+
+B. Active Site & Substrate Binding
+
+A single mutation can change side-chain chemistry, size, or aromaticity of a residue that directly contacts PET or lines the binding cleft, altering binding affinity or orientation.
+
+C. Surface Charge / Solubility Remodeling
+
+A single mutation can add or remove a charged or hydrophobic residue on the surface, changing solubility, aggregation propensity, or long-range electrostatic attraction/repulsion.
+
+D. pH Robustness
+
+A single mutation can alter the local environment of ionizable residues (especially His/Asp/Glu), shifting their effective pKa and stabilizing or destabilizing catalysis across pH.
+
+E. Loop Rigidification / Flexibility
+
+A single mutation (especially Gly↔Pro or bulky↔small) can change backbone entropy or steric freedom of a loop, affecting dynamics and access to the active site.
+
+
+F. Aromatic Clamp / W-loop “Wobbling”
+
+A single mutation can add, remove, or reposition an aromatic side chain (e.g., Phe/Tyr/Trp), altering π-stacking and gating motions that control substrate positioning.
+
+G. Local Salt-Bridge / H-bond Rewiring
+
+A single mutation can create or break one salt bridge or hydrogen bond, locally stabilizing or destabilizing secondary structure or side-chain orientation.
+
+H. Hydrophobic Core Packing
+
+A single mutation can fill a cavity or create a void in the hydrophobic core, changing packing efficiency, stability, and thermal tolerance.
+
+I. Oxyanion Hole Geometry Change
+
+A single mutation can shift side-chain orientation or backbone positioning of residues contributing to oxyanion stabilization, altering transition-state stabilization.
+
+J. M5 + Family Motif Integrity
+
+A single mutation within a conserved motif can break a conserved interaction or geometry, even if chemically “small,” reducing catalytic efficiency or folding reliability.
+
+K. Electrostatic Field Tuning
+
+A single mutation can change the local or long-range electrostatic potential by introducing/removing a charged or polar side chain, thereby altering:
+	•	orientation of dipoles,
+	•	stabilization of charged intermediates,
+	•	guidance of substrate/product along the active-site path.
+
+This is not network rewiring, just field reshaping.
+
+L. Metal / Ca Coordination Weakening
+
+A single mutation can remove or alter a coordinating residue (Asp/Glu/Asn), weakening metal binding affinity or geometry without fully eliminating the site.
+
+- methods thinking vs project/hollistic thinking 
+- once finished with the test set, need to execute code on the masterdb as input, and give it to charlie so he sees if the features we give him correlate well with activity/stab/expression from public studies 
 - first of all what are the types of PETases evolutionarily: 
 	* 
 - tackling the test set now and focusing on coding the docking protocol
+
+
+
+
 # **jan 5** 
 - must change approach to focus ONLY on test dataset 
 - thermoprot, mutcompute, 
@@ -560,3 +668,4 @@ Build lightweight model with 150 PETase training data (Charlie)
 - looking at xcode can we use AR app, safari extension, sticker pack app or whatever else for something in bioinformatics/innovative ? 
 - pivoting to instrumentation, dignaostics --> models for blood pressure/time-series big data, link meta, can we use visionOS 
 - Need oscilloscope, 3D printer, cell free protein synthesis system, oxford nanopore minion, 
+try 

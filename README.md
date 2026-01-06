@@ -49,8 +49,8 @@ Predicting **Soluble Titer (mg/mL)** by modeling the competition between transla
 
 ---
 
-## 📋 Task Board (Updated: Jan 4, 2026)
-0. fetch remaining structures/act/exp/ph/stab labels of testset
+## 📋 Task Board (Updated: Jan 6, 2026)
+
 1. run all tools 
 	* annotation: phobius, tmhmm 
 	* STABILITY: esm-1v, ddgemb, rosettaddg, deepddg, mutcompute, rnafold,thermoprot, prostab, temstapro (type2) temberture (type2)
@@ -58,10 +58,11 @@ Predicting **Soluble Titer (mg/mL)** by modeling the competition between transla
 	* pH/pka: propka, 
 	* compute mutation score suppinfo 
 	* MDsim, docking biophysical features 
-2. Code the features 
 
 OTHER 
-- Slides, manuscript 
+- make operational comps model (on public + private companies), applied to pharma, energy, sustainability/agriculture 
+- phylogeny feature (marine, terrestrial, M1-5)
+- Graphs, slides, manuscript 
 - ESM-2/3 fine-tuned: 
 	* Trained on benchmark solubility and stability datasets 
 	* Trained on PETase datasets 
