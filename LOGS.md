@@ -1,4 +1,16 @@
+# **jan 6** 
+- first of all what are the types of PETases evolutionarily: 
+	* 
+- tackling the test set now and focusing on coding the docking protocol
 # **jan 5** 
+- must change approach to focus ONLY on test dataset 
+- thermoprot, mutcompute, 
+- almost done aggregating all docking methods from the papers
+- add the vina script to scripting.nd
+- Minutes:
+	* meet end of week, we'll talk about bit about GNNs 
+	* need to know what features   
+	* 
 - ideas developed throughout: 
 	* tool to analyze/extract specific info from 30+ papers at scale
 	* protein structure visualization and attention maps according to different labels/learnings 
@@ -547,3 +559,4 @@ Build lightweight model with 150 PETase training data (Charlie)
 **other**
 - looking at xcode can we use AR app, safari extension, sticker pack app or whatever else for something in bioinformatics/innovative ? 
 - pivoting to instrumentation, dignaostics --> models for blood pressure/time-series big data, link meta, can we use visionOS 
+- Need oscilloscope, 3D printer, cell free protein synthesis system, oxford nanopore minion, 
