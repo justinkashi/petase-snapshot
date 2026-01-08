@@ -1,6 +1,6 @@
 # Align 2025 PETase Engineering
 
-## Current Status: Zero-Shot Phase (No Tournament Labels)
+## Current Status: Zero-Shot Phase 
 
 **Deadline:** January 16, 2026  
 **Goal:** Rank 4,988 single-variant PETase sequences for:
@@ -9,8 +9,7 @@
 - **Activity at pH 9.0**
 ---
 
-## Abstract: What We Are Doing
-
+## Abstract
 We are building a **hybrid ranking engine** that combines four types of features:
 
 1. **General, model-agnostic biophysical features:**  
