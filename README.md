@@ -1,4 +1,4 @@
-# 🧬 Align 2025 PETase Engineering
+# Align 2025 PETase Engineering
 
 ## Current Status: The Zero-Shot Phase
 
@@ -21,7 +21,7 @@ For the expression note that they dont tell us a certain pH, stability and gene 
 We're looking for the mutation's effect on the activity at pH 5.5 and pH 9, effect on the expression. Note that all enzymes were expressed, purified, and assayed on PET the SAME way. So whats important is how the mutation changes key factors in gene expression, purification, and activity. We want to try to find this sort of golden equation that perfectly weights each feature to output activity (μmol [TPA]/min·mg [E]) and expression (mg/mL). The trick here is how do we find the function/weights of each feature to get to that equation? 
 From all the information we have, we can either learn what features and weights to use to learn what best predicts the effect of a PETase's single point mutation. Or we can make a heuristic model. This requires analytical work for each feature and understanding its relationship with activity and expression. 
 
-### **1. Activity Prediction (Unified Mechanistic Equation)**
+### **1. Activity Prediction (Unified Equation) (UNFINISHED) **
 
 Used for both Condition 1 (pH 5.5) and Condition 2 (pH 9.0) by varying the weights () based on the pH-dependent electrostatics of the active site.
 
@@ -46,7 +46,7 @@ Predicting **Soluble Titer (mg/mL)** by modeling the competition between transla
 ## 📋 Task Board (Updated: Jan 7, 2026)
 
 - UPDATED PLAN FOR THE DAY 
-	1. WT and Test set mutation type flagging/annotation 
+	1. WT and Test set mutation type flagging/annotation/MSA/evolutionary/M1-5 phylogenetic placement 
 	2. Thermoprot (lu) -> SANJU
 	3. GRAPE (lu) -> SANJU 
 	3. Mutcompute -> SANJU 
@@ -61,7 +61,7 @@ Predicting **Soluble Titer (mg/mL)** by modeling the competition between transla
 
 ---
 
-## 🗓️ Project Timeline
+## Project Timeline
 
 | Date | Milestone | Focus |
 | --- | --- | --- |
