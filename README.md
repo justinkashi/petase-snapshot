@@ -1,12 +1,6 @@
-# 🧬 Align 2025: Mechanistic PETase Engineering
+# 🧬 Align 2025 PETase Engineering
 
-**Engineering the next generation of plastic-degrading enzymes through evolution-aware and biophysically-grounded Machine Learning.**
-
-**Team:** Justin (Bioinformatics), Charlie (MLOps), Sanju (Docking/MD Dynamics), Aaisha (MLOps).
-
----
-
-## 🚀 Current Status: The Zero-Shot Sprint
+## Current Status: The Zero-Shot Phase
 
 **Deadline:** January 16, 2026
 
@@ -74,15 +68,3 @@ Predicting **Soluble Titer (mg/mL)** by modeling the competition between transla
 | **Jan 8** | **First Rank Submission** | Generate initial test set ranking based on MLP-derived weights and heuristic equation. |
 | **Jan 16** | **Zero-Shot Deadline** | Finalized explainable ranking and biological abstract submission. |
 | **Mar 9** | **Predictive Deadline** | Refine models using Supervised Track training data. |
-
----
-
-## 🔬 Core Insights: What makes a PETase "Special"?
-
-Our model prioritizes three critical structural motifs that distinguish true PETases from generic cutinases:
-
-1. **The Aromatic Gate (W185):** Must be flexible enough to stack PET but stable enough to maintain the cleft.
-2. **The  Loop:** Extended region (~238–260) that shapes the unique "open" cleft architecture.
-3. **The DS1 Disulfide:** A PETase-specific bridge (C233-C282) that provides the structural integrity needed for high-turnover activity.
-
---- 

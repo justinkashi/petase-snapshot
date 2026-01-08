@@ -19,8 +19,7 @@ Teams in this category modeled the 3D structure of the enzyme and its interactio
     ◦ Prediction: They trained linear regression and spline interpolation models to map these structural metrics to the experimental labels (activity, expression, stability) provided in the training set.
     ◦ Design: For the in vitro round, they used RFDiffusion and ProteinMPNN to design de novo structured insertions to interact with the substrate.
 • Team SergiR1996 used a Genetic Algorithm for multi-objective optimization. They employed Rosetta to calculate substrate binding energy and total system energy as fitness functions.
-    ◦ Activity: They additionally used DLKcat, a deep-learning tool designed to predict enzyme turnover numbers (k 
-cat), to estimate activity against specific substrates.
+    ◦ Activity: They additionally used DLKcat, a deep-learning tool designed to predict enzyme turnover numbers (k cat), to estimate activity against specific substrates.
     ◦ Expression: They used a consensus of SoluProt and MPEPE (machine learning predictors) to classify sequences as expressible or not.
 3. Evolutionary & Sequence-Based Approaches
 These strategies relied on the statistical patterns found in natural sequence alignments to infer functional constraints.
@@ -36,7 +35,7 @@ These strategies relied on the statistical patterns found in natural sequence al
 - one useful tool to build as part of this project is finding a way to scale MDsim on 5000 variants easily cuz cost explodes and we wish we could do it for more accurate results 
 - (1) finish the MSA zoom in of the motif table in the slides, then (2) compare with papers/suppinfo (3) meet 
 - easy workflow to quickly find the PEtase region/motifs in the 3wt backbone by doing an alignment against wtIsPETase on ncbi msa viewer you can just hover above and itll tell you the original position of that residue for each different query (3 wt)
-- note that wt_6 os wt_IsPETase has LED added at the end. And the signal peptide trimmed is actually from 1-27 + another 18 trimmed 
+- note that wt_6 iw wt_IsPETase but has LED added at the end. And the signal peptide trimmed is actually from 1-27 + another 18 trimmed 
 - blitzing the Is vs 3wt alignment for mutation flag annotation (check supp too)'
 
 - talk bit about the comps model 
