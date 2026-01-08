@@ -9,7 +9,7 @@
 - **Activity at pH 9.0**
 ---
 
-## Abstract: What We Are Doing (and Why It Works Zero-Shot)
+## Abstract: What We Are Doing
 
 We are building a **hybrid ranking engine** that combines four complementary pillars:
 
@@ -34,40 +34,48 @@ We are building a **hybrid ranking engine** that combines four complementary pil
 We do not treat all 4,988 variants as one homogeneous space. Each variant is assigned to a parent backbone cluster (WT lineage) so that scoring is **relative to the correct reference** rather than mixing incompatible architectures.`
 
 ---
+## Scoring System
 
-## Scoring System 
+### Stage 0 — Mutation Flagging
+Before any ML, evolutionary scoring, or structure scoring, we annotate each variant with binary flags and severity penalties for failure modes that should dominate ranking regardless of downstream predictors.
 
-### Stage 0 — Mutation Flagging (Deterministic Gate Layer)
-Before any ML, evolutionary, or structure scoring, we annotate each variant with **binary flags + severity penalties** for failure modes that are expected to dominate ranking regardless of downstream predictors.
+#### 0.1 PETase catalytic architecture
+- Catalytic triad integrity  
+  Ser Asp His equivalents present at mapped landmark positions
+- Oxyanion support  
+  Y87-region equivalent present and M161-equivalent backbone-NH context not disrupted
+- Cleft landmarks  
+  W159 W185 S238 N241 equivalents flagged by presence and mutation severity
 
-#### 0.1 PETase Catalytic Architecture (landmark-mapped)
-- **Catalytic triad integrity:** Ser–Asp–His equivalents present at mapped landmark positions  
-- **Oxyanion support:** Y87-region equivalent present **and** M161-equivalent backbone-NH context preserved (no local breaker mutations)  
-- **Cleft landmarks:** W159 / W185 / S238 / N241 equivalents (presence + mutation severity)
+#### 0.2 PETase motif and structural integrity
+- M-class M1 to M5 classification  
+  block-based detection with required spacing and positional coupling
+- Lipase box context  
+  GxSxG neighborhood and local embedding context
+- Disulfide liability  
+  loss of native Cys gain of new Cys and Cys placement patterns consistent with mispairing risk
 
-#### 0.2 PETase Motif / Structural Integrity (positional coupling enforced)
-- **M-class (M1–M5) classification:** block-based detection with required spacing (not “motif exists somewhere”)  
-- **Lipase box context:** GxSxG neighborhood (and embedding context where relevant)  
-- **Disulfide liability:** loss of native Cys, gain of new Cys, or Cys count/placement changes consistent with mispairing risk
+#### 0.3 Mechanistic mutation-type flags
+- Loop rigidity shocks  
+  Pro Gly swaps and bulky small swaps at loop and hinge sites near the gate and cleft
+- Electrostatic rewiring  
+  charge flips near catalytic residues salt-bridge networks or the cleft electrostatic field
+- Product-release stickiness  
+  new strong donor acceptor patterns near the exit path likely to trap products
 
-#### 0.3 Mechanistic Mutation-Type Flags (interpretable effect channels)
-- **Loop rigidity shocks:** Pro↔Gly or bulky↔small swaps at loop/hinge sites (gate/W-loop/cleft-adjacent)  
-- **Electrostatic rewiring:** charge flips near catalytic residues, salt-bridge networks, or cleft electrostatic field  
-- **Product-release stickiness:** creation of strong donor/acceptor patterns near the exit path likely to trap TPA/MHET-like products
-
-**Outputs:** a per-variant flag vector + penalty score used as (i) hard disqualifiers when severe, and (ii) additive penalties in later ranking stages.
+**Outputs:** a per-variant flag vector and penalty score used as hard disqualifiers when severe and additive penalties in later stages.
 
 ## Feature Engineering Pipeline (Zero-Shot)
 
 We compute three property tracks in parallel:
 
-### A) Activity @ pH 5.5 and pH 9.0 (same features, different weights)
+### A) Activity @ pH 5.5 and pH 9.0 
 Activity is treated as a function of:
 - catalytic geometry + cleft access (mechanistic constraints)
 - electrostatics/protonation sensitivity (pH dependence)
 - stability (active enzymes must stay folded under assay conditions)
 
-### B) Expression / recoverable soluble titer
+### B) Expression 
 Expression is treated as a competition between:
 - translation + folding burden
 - aggregation risk
