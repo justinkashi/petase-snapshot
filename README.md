@@ -63,7 +63,7 @@ Before any ML, evolutionary scoring, or structure scoring, we annotate each vari
 
 **Outputs:** a per-variant flag vector and penalty score used as hard disqualifiers when severe and additive penalties in later stages.
 
-## Feature Engineering Pipeline (Zero-Shot)
+## Feature Engineering
 
 We compute three property tracks in parallel:
 
@@ -143,7 +143,7 @@ A weighted combination of:
 
 ---
 
-## 📋 Task Board (Updated: Jan 7, 2026)
+## 📋 Task Board (Updated: Jan 8, 2026)
 
 1. WT and test-set mutation type flagging / annotation  
    - MSA zoom-ins for motif table  
