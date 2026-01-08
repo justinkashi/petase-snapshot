@@ -1,12 +1,59 @@
+# **jan 7**
+- Minutes 9pm meet
+	- 
+	- saw difference between the RSMD LB/UB between the top 2 conformations tehy are very different, do we tune the FE, UB 
+	- (6) energy search is optimistic so we might remove (LESS LONG )
+	- confused on (4) unbound systems energy 
+	- she set the coordinates based on catalytic triad --> need to confirm cleft all that 
+	- try different exhaustiveness levels, need to do it for top candidates of variants 
+- forgot critically to read other papers/attempts to predict enzyme activity/exprssion/stability change of large scale variants (>1000/wt), but its ok theres the 2023 align tournament with amylase. strategies used there was; 
+
+• Team TUM Rostlab utilized ProtT5, an encoder-decoder PLM. Instead of using frozen embeddings, they fine-tuned the model using Low-Rank Adaptation (LoRA) on the provided experimental data (activity, expression, stability) to create specific regression predictors for each property. For the generation phase, they used these fine-tuned "oracles" to score variants suggested by Efficient Evolution (using ESM models) and EvoPlay (a reinforcement learning agent).
+• Team AI4PD employed ZymCTRL, a conditional language model. They fine-tuned ZymCTRL on sequences with high expression and stability values to generate new variants. They found that the model's perplexity (a measure of how "natural" or expected a sequence is to the model) correlated with high activity and stability, using it as a primary filter. They further ranked sequences using ESM-1v embeddings and ProteinMPNN log-likelihoods.
+• Team Medium Bio benchmarked various embeddings, including ESM-1v, ESM-1b, and Georgiev Embeddings, training machine learning models (like Random Forests) on these features to predict properties. They selected the model with the lowest mean squared error to guide their sequence selection.
+
+2. Structure-Based & Physics-Based Modeling
+Teams in this category modeled the 3D structure of the enzyme and its interaction with the substrate to predict performance, often focusing on the transition state of the reaction.
+• Team Nimbus (the overall winner of the in silico round) used PyRosetta to model the pre-transition state of the enzyme-substrate complex. They predicted structures using ColabFold (AlphaFold2) or ESMFold and docked the substrate using DiffDock.
+    ◦ Strategy: They extracted various energetic and geometric metrics from these models (e.g., interface energy, packing).
+    ◦ Prediction: They trained linear regression and spline interpolation models to map these structural metrics to the experimental labels (activity, expression, stability) provided in the training set.
+    ◦ Design: For the in vitro round, they used RFDiffusion and ProteinMPNN to design de novo structured insertions to interact with the substrate.
+• Team SergiR1996 used a Genetic Algorithm for multi-objective optimization. They employed Rosetta to calculate substrate binding energy and total system energy as fitness functions.
+    ◦ Activity: They additionally used DLKcat, a deep-learning tool designed to predict enzyme turnover numbers (k 
+cat), to estimate activity against specific substrates.
+    ◦ Expression: They used a consensus of SoluProt and MPEPE (machine learning predictors) to classify sequences as expressible or not.
+3. Evolutionary & Sequence-Based Approaches
+These strategies relied on the statistical patterns found in natural sequence alignments to infer functional constraints.
+• Team Marks Lab used EVcouplings, a model that captures evolutionary couplings (co-variation) between residues in natural sequence alignments.
+    ◦ Strategy: They scored variants based on their probability under the EVcouplings model (assuming natural-like sequences are functional).
+    ◦ Bias: To improve performance, they "biased" the model using the provided experimental data—masking mutations known to be deleterious and boosting those known to be beneficial in the assay conditions.
+• Team Medium Bio also employed a Greedy Recombination strategy. They programmatically identified mutations that improved all three properties (activity, stability, expression) based on the training data and exhaustively recombined them. They also used Markov Chain Monte Carlo (MCMC) sampling of the sequence space using their trained Random Forest evaluators.
+
+- concept very important to understand and carry: what do motifs mean biologically is not that simple (eg. M4 is not: “there exists a [PG]G[YF] somewhere upstream and M3 somewhere downstream” M4 is: “the specific upstream oxyanion/clamp motif [PG]G[YF] that corresponds to the Tyr87 region occurs at the correct relative distance from the catalytic serine that defines the same catalytic architecture”) That implies positional coupling, not independent existence.
+- need to annotate the phylogeneti time/divergence of each little motif/blocks (aa and dna level) to have the evolutionary model just how Nelson did for CYP450s 
+- figured out how to use gemini, notebookLM, and gpt effectively, plus only usiong them to answer a question, overusing it leads to hallucination 
+- other useful tool is to improve ESM3 and PLMs at the attention and layer mechanism level
+- one useful tool to build as part of this project is finding a way to scale MDsim on 5000 variants easily cuz cost explodes and we wish we could do it for more accurate results 
+- (1) finish the MSA zoom in of the motif table in the slides, then (2) compare with papers/suppinfo (3) meet 
+- easy workflow to quickly find the PEtase region/motifs in the 3wt backbone by doing an alignment against wtIsPETase on ncbi msa viewer you can just hover above and itll tell you the original position of that residue for each different query (3 wt)
+- note that wt_6 os wt_IsPETase has LED added at the end. And the signal peptide trimmed is actually from 1-27 + another 18 trimmed 
+- blitzing the Is vs 3wt alignment for mutation flag annotation (check supp too)'
+
+- talk bit about the comps model 
 # **jan 6** 
+- 
 - UPDATED PLAN FOR THE DAY 
 	1. WT and Test set mutation type flagging/annotation 
-	2. Thermoprot
-	3. Mutcompute
-	4. Mut score (alam)
-	5. mutPSSM (Lu)
-	6. STABILITY: esm-1v, ddgemb, rosettaddg, deepddg, mutcompute, rnafold,thermoprot, prostab, temstapro (type2) temberture (type2)
-	7. SOLUBILITY: procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION 
+	2. Thermoprot (lu) -> SANJU
+	3. GRAPE (lu) -> SANJU 
+	3. Mutcompute -> SANJU 
+	4. Mut score (alam) -> JUSTIN 
+	5. mutPSSM (Lu) -> JUSTIN 
+	6. evocouplings -> CHARLIE 
+	7. Soluprot -> JUSTIN CHARLIE 
+	7. rosetta/pyrosetta/fastrelax/foldx method -> SANJU   
+	7. STABILITY: esm-1v, ddgemb, rosettaddg, deepddg, mutcompute, rnafold,thermoprot, prostab, temstapro (type2) temberture (type2)
+	8. SOLUBILITY: procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION 
 
 - try the flag --> score method from chatgpt 
 - continue off with annotating the test set
@@ -662,10 +709,3 @@ Finish function track annotations (interpro and blast)  (Justin)
 Work on docking of PET-PETase for function track (Zach?)
 Build lightweight model with 150 PETase training data (Charlie)
 
-
-
-**other**
-- looking at xcode can we use AR app, safari extension, sticker pack app or whatever else for something in bioinformatics/innovative ? 
-- pivoting to instrumentation, dignaostics --> models for blood pressure/time-series big data, link meta, can we use visionOS 
-- Need oscilloscope, 3D printer, cell free protein synthesis system, oxford nanopore minion, 
-try 

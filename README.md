@@ -49,23 +49,21 @@ Predicting **Soluble Titer (mg/mL)** by modeling the competition between transla
 
 ---
 
-## 📋 Task Board (Updated: Jan 6, 2026)
+## 📋 Task Board (Updated: Jan 7, 2026)
 
-1. run all tools 
-	* annotation: phobius, tmhmm 
-	* STABILITY: esm-1v, ddgemb, rosettaddg, deepddg, mutcompute, rnafold,thermoprot, prostab, temstapro (type2) temberture (type2)
-	* SOLUBILITY: procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION 
-	* pH/pka: propka, 
-	* compute mutation score suppinfo 
-	* MDsim, docking biophysical features 
+- UPDATED PLAN FOR THE DAY 
+	1. WT and Test set mutation type flagging/annotation 
+	2. Thermoprot (lu) -> SANJU
+	3. GRAPE (lu) -> SANJU 
+	3. Mutcompute -> SANJU 
+	4. Mut score (alam) -> JUSTIN 
+	5. mutPSSM (Lu) -> JUSTIN 
+	6. evocouplings -> CHARLIE 
+	7. Soluprot -> JUSTIN CHARLIE 
+	7. rosetta/pyrosetta/fastrelax/foldx method -> SANJU   
+	7. STABILITY: esm-1v, ddgemb, rosettaddg, deepddg, mutcompute, rnafold,thermoprot, prostab, temstapro (type2) temberture (type2)
+	8. SOLUBILITY: procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION 
 
-OTHER 
-- make operational comps model (on public + private companies), applied to pharma, energy, sustainability/agriculture 
-- phylogeny feature (marine, terrestrial, M1-5)
-- Graphs, slides, manuscript 
-- ESM-2/3 fine-tuned: 
-	* Trained on benchmark solubility and stability datasets 
-	* Trained on PETase datasets 
 
 ---
 
