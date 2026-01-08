@@ -1,16 +1,15 @@
 # **jan 7**
-- Minutes 9pm meet
-	- 
+- Minutes of the  meeting: 
 	- saw difference between the RSMD LB/UB between the top 2 conformations tehy are very different, do we tune the FE, UB 
 	- (6) energy search is optimistic so we might remove (LESS LONG )
 	- confused on (4) unbound systems energy 
 	- she set the coordinates based on catalytic triad --> need to confirm cleft all that 
 	- try different exhaustiveness levels, need to do it for top candidates of variants 
-- forgot critically to read other papers/attempts to predict enzyme activity/exprssion/stability change of large scale variants (>1000/wt), but its ok theres the 2023 align tournament with amylase. strategies used there was; 
+- what are other papers/attempts to predict enzyme activity/exprssion/stability change of large scale variants (>1000/wt) and in the 2023 align tournament with amylase: 
 
-• Team TUM Rostlab utilized ProtT5, an encoder-decoder PLM. Instead of using frozen embeddings, they fine-tuned the model using Low-Rank Adaptation (LoRA) on the provided experimental data (activity, expression, stability) to create specific regression predictors for each property. For the generation phase, they used these fine-tuned "oracles" to score variants suggested by Efficient Evolution (using ESM models) and EvoPlay (a reinforcement learning agent).
-• Team AI4PD employed ZymCTRL, a conditional language model. They fine-tuned ZymCTRL on sequences with high expression and stability values to generate new variants. They found that the model's perplexity (a measure of how "natural" or expected a sequence is to the model) correlated with high activity and stability, using it as a primary filter. They further ranked sequences using ESM-1v embeddings and ProteinMPNN log-likelihoods.
-• Team Medium Bio benchmarked various embeddings, including ESM-1v, ESM-1b, and Georgiev Embeddings, training machine learning models (like Random Forests) on these features to predict properties. They selected the model with the lowest mean squared error to guide their sequence selection.
+	• Team TUM Rostlab utilized ProtT5, an encoder-decoder PLM. Instead of using frozen embeddings, they fine-tuned the model using Low-Rank Adaptation (LoRA) on the provided experimental data (activity, expression, stability) to create specific regression predictors for each property. For the generation phase, they used these fine-tuned "oracles" to score variants suggested by Efficient Evolution (using ESM models) and EvoPlay (a reinforcement learning agent).
+	• Team AI4PD employed ZymCTRL, a conditional language model. They fine-tuned ZymCTRL on sequences with high expression and stability values to generate new variants. They found that the model's perplexity (a measure of how "natural" or expected a sequence is to the model) correlated with high activity and stability, using it as a primary filter. They further ranked sequences using ESM-1v embeddings and ProteinMPNN log-likelihoods.
+	• Team Medium Bio benchmarked various embeddings, including ESM-1v, ESM-1b, and Georgiev Embeddings, training machine learning models (like Random Forests) on these features to predict properties. They selected the model with the lowest mean squared error to guide their sequence selection.
 
 2. Structure-Based & Physics-Based Modeling
 Teams in this category modeled the 3D structure of the enzyme and its interaction with the substrate to predict performance, often focusing on the transition state of the reaction.
