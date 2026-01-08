@@ -1,63 +1,157 @@
 # Align 2025 PETase Engineering
 
-## Current Status: The Zero-Shot Phase
+## Current Status: Zero-Shot Phase (No Tournament Labels)
 
-**Deadline:** January 16, 2026
+**Deadline:** January 16, 2026  
+**Goal:** Rank 4,988 single-variant PETase sequences for:
+- **Expression / recoverable soluble titer (mg/mL)**  
+- **Activity at pH 5.5**  
+- **Activity at pH 9.0**
+---
 
-**Objective:** Rank the Align Tournament Dataset (4,988 variants) for **Expression**, **Activity (pH 5.5)**, and **Activity (pH 9.0)** without training on tournament labels.
+## Abstract: What We Are Doing (and Why It Works Zero-Shot)
 
-### Our Strategy: The Hybrid Heuristic-MLP Engine
+We are building a **hybrid ranking engine** that combines four complementary pillars:
 
-We are not "blindly" predicting. We are building a **mechanistic scoring engine** that translates biological laws into ranking signals.
+1. **General, model-agnostic biophysical features:**  
+   Universal predictors of foldability and expressibility (stability/ΔΔG proxies, solubility/aggregation risk, sequence “naturalness”/complexity), used as a baseline prior across all variants.
 
-1. **Backbone Grouping:** Mapping all 4,988 variants to three core "ancestor" clusters identified in the test set: **CaPETase**, **WP_162908185.1**, and **WP_374935857.1**.
-2. **Feature Enrichment:** Moving beyond simple sequence stats to include hard physics (MD/Docking), local chemistry (pKa/NetQ), and genetic bottlenecks (mRNA/Codon Bias).
-3. **Hidden killers penalization:** Explicitly penalizing variants based on product inhibition, cysteine mismatches, and purification "ghosts" (IMAC-capture likelihood).
+2. **PETase-specific mechanistic constraints:**  
+   Some mutations destroy PETase catalytic architecture; we explicitly detect and penalize these failures using PETase landmark and motif logic (triad integrity, oxyanion-hole geometry proxies, aromatic clamp/gate residues, disulfide liabilities, cleft-shaping residues, and motif/architecture breaks with positional coupling).
+
+3. **Evolutionary priors (PETase family models):**  
+   Variants that remain statistically consistent with functional PETase evolution are more likely to fold, express, and retain activity. We capture this with **co-evolutionary likelihood** and **PLM log-likelihood / pseudo-perplexity / Δlogprob** style scores, evaluated within the appropriate WT lineage.
+
+4. **Physics/structure refinement on a small subset (Nimbus-style):**  
+   We do not attempt docking/MD on all 4,988. Instead, we run **expensive structure modeling only after triage** to refine top candidates per lineage using standardized substrate placement, constrained minimization, and a compact set of geometric/energetic metrics.
+
 
 ---
 
-## The Feature Engineering Pipeline
-For the expression note that they dont tell us a certain pH, stability and gene expression and gene purification are whats important here.  Whereas for activity, the effect of the point mutation on activity will depend on the PETase mutant's stability, catalytic mechanism (cleft, gate, bridges). 
-We're looking for the mutation's effect on the activity at pH 5.5 and pH 9, effect on the expression. Note that all enzymes were expressed, purified, and assayed on PET the SAME way. So whats important is how the mutation changes key factors in gene expression, purification, and activity. We want to try to find this sort of golden equation that perfectly weights each feature to output activity (μmol [TPA]/min·mg [E]) and expression (mg/mL). The trick here is how do we find the function/weights of each feature to get to that equation? 
-From all the information we have, we can either learn what features and weights to use to learn what best predicts the effect of a PETase's single point mutation. Or we can make a heuristic model. This requires analytical work for each feature and understanding its relationship with activity and expression. 
+## Dataset Structure: Backbone Lineages and Coordinate System
 
-### **1. Activity Prediction (Unified Equation) (UNFINISHED) **
+### Backbone grouping (lineage assignment)
+We do not treat all 4,988 variants as one homogeneous space. Each variant is assigned to a parent backbone cluster (WT lineage) so that scoring is **relative to the correct reference** rather than mixing incompatible architectures.`
 
-Used for both Condition 1 (pH 5.5) and Condition 2 (pH 9.0) by varying the weights () based on the pH-dependent electrostatics of the active site.
+---
 
-**ActivityScore = (w1 * ESM-1v_LLR) + (w2 * MutMatrix) + (w3 * KLDiv) + (w4 * Vina) + (w5 * RMSF) - (w6 * pKaPen) + (w7 * NetQ) + (w8 * VolDelta) + (w9 * ddG) - (w10 * CoEvo) - (w11 * ProdRel) + (w12 * HydroDelta) + (w13 * AromaticAnchor)**
+## Scoring System 
 
-* **Aromatic Anchors (w13):** Rewarding Trp/Phe/Tyr in the cleft for surface adsorption to PET plastic.
-* **Product Release (w11):** Penalizing new H-bond donors that "stick" to the TPA product, preventing turnover.
-* **pH Discrimination:** Using **PROPKA** to calculate the charge (`NetQ`) and Histidine protonation (`pKaPen`) shifts between 5.5 and 9.0.
+### Stage 0 — Mutation Flagging (Deterministic Gate Layer)
+Before any ML, evolutionary, or structure scoring, we annotate each variant with **binary flags + severity penalties** for failure modes that are expected to dominate ranking regardless of downstream predictors.
 
-### **2. Expression Prediction (Total Titer Equation)**
+#### 0.1 PETase Catalytic Architecture (landmark-mapped)
+- **Catalytic triad integrity:** Ser–Asp–His equivalents present at mapped landmark positions  
+- **Oxyanion support:** Y87-region equivalent present **and** M161-equivalent backbone-NH context preserved (no local breaker mutations)  
+- **Cleft landmarks:** W159 / W185 / S238 / N241 equivalents (presence + mutation severity)
 
-Predicting **Soluble Titer (mg/mL)** by modeling the competition between translation speed, folding energy, and purification efficiency.
+#### 0.2 PETase Motif / Structural Integrity (positional coupling enforced)
+- **M-class (M1–M5) classification:** block-based detection with required spacing (not “motif exists somewhere”)  
+- **Lipase box context:** GxSxG neighborhood (and embedding context where relevant)  
+- **Disulfide liability:** loss of native Cys, gain of new Cys, or Cys count/placement changes consistent with mispairing risk
 
-**ExpressionScore = (wA * RNA_DeltaG) + (wB * CAI) - (wC * Stall) + (wD * ddG) - (wE * SAP) + (wF * NetSolP) - (wG * SASA) - (wH * Protease) + (wI * NQ) + (wJ * Tag) + (wK * Surf) - (wL * Metal) - (wM * Cys) - (wN * Burden)**
+#### 0.3 Mechanistic Mutation-Type Flags (interpretable effect channels)
+- **Loop rigidity shocks:** Pro↔Gly or bulky↔small swaps at loop/hinge sites (gate/W-loop/cleft-adjacent)  
+- **Electrostatic rewiring:** charge flips near catalytic residues, salt-bridge networks, or cleft electrostatic field  
+- **Product-release stickiness:** creation of strong donor/acceptor patterns near the exit path likely to trap TPA/MHET-like products
 
-* **The DNA Gatekeeper:** Using **RNAfold** to model the mRNA stability around the RBS/Start codon.
-* **The Folding Burden:** Combining `ddG` (stability) and `SAP` (spatial aggregation) to predict inclusion body formation.
-* **The Purification Logic:** Weighting `Tag_Exposure` and `Metal_Binding_Patches` to predict how much protein actually reaches the final tube after IMAC.
+**Outputs:** a per-variant flag vector + penalty score used as (i) hard disqualifiers when severe, and (ii) additive penalties in later ranking stages.
+
+## Feature Engineering Pipeline (Zero-Shot)
+
+We compute three property tracks in parallel:
+
+### A) Activity @ pH 5.5 and pH 9.0 (same features, different weights)
+Activity is treated as a function of:
+- catalytic geometry + cleft access (mechanistic constraints)
+- electrostatics/protonation sensitivity (pH dependence)
+- stability (active enzymes must stay folded under assay conditions)
+
+### B) Expression / recoverable soluble titer
+Expression is treated as a competition between:
+- translation + folding burden
+- aggregation risk
+- survivability post protein purification 
+
+### C) Shared priors and constraints
+These include PLM likelihoods, evolutionary couplings, and motif integrity.
+
+---
+
+## Tools Employed for Zero Shot Phase 
+
+### 1) Evolutionary / Sequence-Based 
+These generate a robust zero-shot prior for folding/function:
+- **EVcouplings** likelihood / Δlog-likelihood (per lineage)
+- **MutPSSM (Lu)** conservation-weighted mutation score
+- **PLM log-likelihood signals** (ESM-1v LLR or equivalent)
+- **Alam motif score** (M-class integrity + motif break penalties)
+
+### 2) Biophysical stability 
+We treat stability as a shared limiting factor for activity/expression:
+- **ThermoProt**
+- **ESM-1v stability proxy / LLR**
+- **ddG predictors:** ddGemb, DeepDDG, RosettaΔΔG, FoldX (as available)
+- Optional: Prostab / TemStaPro / other type-2 predictors
+
+### 3) Solubility / aggregation
+We explicitly penalize aggregation or insolubility failure modes:
+- **NetSolP / ProteinSol / SoluProt**
+- **Aggrescan3D** (if structure available; otherwise sequence proxy)
+- Optional: SAP-like surface hydrophobicity proxy if we can afford it
+
+### 4) pH / electrostatics 
+We model pH dependence primarily through ionization changes near the cleft:
+- **PROPKA** on WT structures at pH 5.5 and pH 9.0 (baseline)
+- Variant pKa runs only for mutations near active site / charged networks
+
+### 5) Structure/physics refinement (small subset only)
+Run only after triage (top-K per lineage):
+- Structure generation: AF2/ESMFold/ColabFold (WT + selected variants)
+- Substrate docking: standardized protocol (e.g., DiffDock or internal)
+- Constrained minimization: PyRosetta / Rosetta relax into a consistent pose family
+- Metrics panel: interface energy proxies, clashes/packing, catalytic distances, cleft width proxies
+
+---
+
+## Property Equations (Work In Progress)
+
+### ActivityScore(pH)
+A weighted combination of:
+- evolutionary priors (EVcouplings/PLM/PSSM)
+- mechanistic penalties (motif/architecture gates)
+- stability terms (ΔΔG ensemble)
+- pH terms (ΔpKa / NetQ proxies)
+- (optional) docking refinement terms for the top tranche
+
+*We maintain separate weight for pH 5.5 vs pH 9.0 to reflect electrostatic shifts.
+
+### ExpressionScore
+A weighted combination of:
+- solubility/aggregation predictors
+- stability burden predictors (ΔΔG)
+- sequence features tied to expression (codon/GC/CAI if relevant)
+- purification survivability proxies (surface patches / tag exposure if modeled)
+
+*Tournament protocols were fixed (expression, purification, assay), so the objective is not “universal expression” 
 
 ---
 
 ## 📋 Task Board (Updated: Jan 7, 2026)
 
-- UPDATED PLAN FOR THE DAY 
-	1. WT and Test set mutation type flagging/annotation/MSA/evolutionary/M1-5 phylogenetic placement 
-	2. Thermoprot (lu) -> SANJU
-	3. GRAPE (lu) -> SANJU 
-	3. Mutcompute -> SANJU 
-	4. Mut score (alam) -> JUSTIN 
-	5. mutPSSM (Lu) -> JUSTIN 
-	6. evocouplings -> CHARLIE 
-	7. Soluprot -> JUSTIN CHARLIE 
-	7. rosetta/pyrosetta/fastrelax/foldx method -> SANJU   
-	7. STABILITY: esm-1v, ddgemb, rosettaddg, deepddg, mutcompute, rnafold,thermoprot, prostab, temstapro (type2) temberture (type2)
-	8. SOLUBILITY: procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION 
+1. WT and test-set mutation type flagging / annotation  
+   - MSA zoom-ins for motif table  
+   - Per-lineage M1–M5 placement + phylogenetic placement  
 
+2. ThermoProt (Lu) → SANJU  
+3. GRAPE (Lu) → SANJU  
+4. MutCompute → SANJU  
+5. Alam mutation score / motif integrity → JUSTIN  
+6. MutPSSM (Lu) → JUSTIN  
+7. EVcouplings → CHARLIE  
+8. SoluProt + solubility consensus → JUSTIN / CHARLIE  
+9. Rosetta/PyRosetta/FoldX pipeline (relax + ΔΔG) → SANJU  
+10. Consolidate stability & solubility tool outputs into master feature table
 
 ---
 
@@ -65,6 +159,6 @@ Predicting **Soluble Titer (mg/mL)** by modeling the competition between transla
 
 | Date | Milestone | Focus |
 | --- | --- | --- |
-| **Jan 8** | **First Rank Submission** | Generate initial test set ranking based on MLP-derived weights and heuristic equation. |
-| **Jan 16** | **Zero-Shot Deadline** | Finalized explainable ranking and biological abstract submission. |
-| **Mar 9** | **Predictive Deadline** | Refine models using Supervised Track training data. |
+| **Jan 8** | First Rank Submission | Initial ranking from zero-shot priors + gates |
+| **Jan 16** | Zero-Shot Deadline | Final explainable ranking + abstract |
+| **Mar 9** | Predictive Deadline | Supervised refinement using training labels |

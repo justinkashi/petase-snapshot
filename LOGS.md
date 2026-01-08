@@ -30,7 +30,6 @@ These strategies relied on the statistical patterns found in natural sequence al
 
 - concept very important to understand and carry: what do motifs mean biologically is not that simple (eg. M4 is not: “there exists a [PG]G[YF] somewhere upstream and M3 somewhere downstream” M4 is: “the specific upstream oxyanion/clamp motif [PG]G[YF] that corresponds to the Tyr87 region occurs at the correct relative distance from the catalytic serine that defines the same catalytic architecture”) That implies positional coupling, not independent existence.
 - need to annotate the phylogeneti time/divergence of each little motif/blocks (aa and dna level) to have the evolutionary model just how Nelson did for CYP450s 
-- figured out how to use gemini, notebookLM, and gpt effectively, plus only usiong them to answer a question, overusing it leads to hallucination 
 - other useful tool is to improve ESM3 and PLMs at the attention and layer mechanism level
 - one useful tool to build as part of this project is finding a way to scale MDsim on 5000 variants easily cuz cost explodes and we wish we could do it for more accurate results 
 - (1) finish the MSA zoom in of the motif table in the slides, then (2) compare with papers/suppinfo (3) meet 
