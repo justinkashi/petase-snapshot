@@ -11,7 +11,7 @@
 
 ## Abstract: What We Are Doing
 
-We are building a **hybrid ranking engine** that combines four complementary pillars:
+We are building a **hybrid ranking engine** that combines four types of features:
 
 1. **General, model-agnostic biophysical features:**  
    Universal predictors of foldability and expressibility (stability/ΔΔG proxies, solubility/aggregation risk, sequence “naturalness”/complexity), used as a baseline prior across all variants.
@@ -19,10 +19,10 @@ We are building a **hybrid ranking engine** that combines four complementary pil
 2. **PETase-specific mechanistic constraints:**  
    Some mutations destroy PETase catalytic architecture; we explicitly detect and penalize these failures using PETase landmark and motif logic (triad integrity, oxyanion-hole geometry proxies, aromatic clamp/gate residues, disulfide liabilities, cleft-shaping residues, and motif/architecture breaks with positional coupling).
 
-3. **Evolutionary priors (PETase family models):**  
+3. **Evolutionary priors (PETase family specific):**  
    Variants that remain statistically consistent with functional PETase evolution are more likely to fold, express, and retain activity. We capture this with **co-evolutionary likelihood** and **PLM log-likelihood / pseudo-perplexity / Δlogprob** style scores, evaluated within the appropriate WT lineage.
 
-4. **Physics/structure refinement on a small subset (Nimbus-style):**  
+4. **Physics/structure refinement on a small subset:**  
    We do not attempt docking/MD on all 4,988. Instead, we run **expensive structure modeling only after triage** to refine top candidates per lineage using standardized substrate placement, constrained minimization, and a compact set of geometric/energetic metrics.
 
 
@@ -33,7 +33,6 @@ We are building a **hybrid ranking engine** that combines four complementary pil
 ### Backbone grouping (lineage assignment)
 We do not treat all 4,988 variants as one homogeneous space. Each variant is assigned to a parent backbone cluster (WT lineage) so that scoring is **relative to the correct reference** rather than mixing incompatible architectures.`
 
----
 ## Scoring System
 
 ### Stage 0 — Mutation Flagging
