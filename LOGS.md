@@ -1,7 +1,16 @@
+# **jan9** 
+- Now continuing off the wt set annotation, meaning characterizing as deeply as possible the 3 WT backbones compared to the literature, which means to IsPETase, CaPETase, and perhaps others that are well-characterized 
+	- Need to set the official closest most-characterized PETase closest to wt_2 and wt_3
+		wt_2: 
+	- wt annotation produce the graphs/results/outputs  
+
+
+# **jan8** 
+- break 
 # **jan 7**
 - Minutes of the  meeting: 
 	- saw difference between the RSMD LB/UB between the top 2 conformations tehy are very different, do we tune the FE, UB 
-	- (6) energy search is optimistic so we might remove (LESS LONG )
+	- (6) energy search is optimistic so we might remove (LESS LONG)
 	- confused on (4) unbound systems energy 
 	- she set the coordinates based on catalytic triad --> need to confirm cleft all that 
 	- try different exhaustiveness levels, need to do it for top candidates of variants 
