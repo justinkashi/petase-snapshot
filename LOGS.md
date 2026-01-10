@@ -1,8 +1,13 @@
 # **jan9** 
+
+- Run alam et al. Table S1 theoretical scoring system on the wt and test set and masterdb, masterdb is what we can use to make sure our methods make sense to interpret results from the  test ste 
+- Want to also integrate in the project FAIR Data principles on top of open source principles 
 - Now continuing off the wt set annotation, meaning characterizing as deeply as possible the 3 WT backbones compared to the literature, which means to IsPETase, CaPETase, and perhaps others that are well-characterized 
 	- Need to set the official closest most-characterized PETase closest to wt_2 and wt_3
-		wt_2: 
-	- wt annotation produce the graphs/results/outputs  
+		wt2: 
+		wt3: 
+	- Need to list the mutation codes publicly studies from CaPETase IsPETase so on and convert them to mutation codes that would be for the 3WT 
+	- wt annotation produce the graphs/results/outputs 
 
 
 # **jan8** 

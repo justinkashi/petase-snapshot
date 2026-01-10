@@ -148,6 +148,10 @@ A weighted combination of:
 9. Rosetta/PyRosetta/FoldX pipeline (relax + ΔΔG) → SANJU  
 10. Consolidate stability & solubility tool outputs into master feature table
 
+other: 
+- manuscript
+- slides
+
 ---
 
 ## Project Timeline
