@@ -1,5 +1,11 @@
-# **jan9** 
+# **jan 11** 
+- formalizing everything, need to perform as always lit review -> hypothesis. To organize everything. 
+- need to reorganize the drive folder 
+* Alam et al. theoretical efficiency scoring system from ST1 
+* Running thermoprot, mutcompute, GRAPE, EVcouplings
+* WT set annotation/alignment to literature 
 
+# **jan9** 
 - Run alam et al. Table S1 theoretical scoring system on the wt and test set and masterdb, masterdb is what we can use to make sure our methods make sense to interpret results from the  test ste 
 - Want to also integrate in the project FAIR Data principles on top of open source principles 
 - Now continuing off the wt set annotation, meaning characterizing as deeply as possible the 3 WT backbones compared to the literature, which means to IsPETase, CaPETase, and perhaps others that are well-characterized 
