@@ -1,12 +1,15 @@
 # **jan 12** 
-# **jan 11** 
 
+# **jan 11** 
 - On the expression and the plasmid expression system of hte tournament: Same plasmid means the vector parts (promoter/RBS/origin/antibiotic/tag sequence if fixed) are constants, so they don’t help ranking. But you still care about features at the interface between the variant sequence and the expression system, because the mutations change the insert, and that changes how the host expresses/folds it even in the same plasmid. Concretely, the only plasmid-context features that matter are those whose value changes when the coding/protein sequence changes:
-	1.	Translation / codon-level features (if CDS differs across variants)
+
+Translation / codon-level features (if CDS differs across variants)
 Even with the same plasmid, different CDS → different CAI/rare codons/mRNA structure near start. If your test set is amino-acid mutants but the CDS is not specified (or all CDS are re-synthesized with standardized codons), then codon features are irrelevant; otherwise they can matter.
-	2.	Signal peptide / secretion compatibility (if the construct uses secretion/periplasm)
+
+Signal peptide / secretion compatibility (if the construct uses secretion/periplasm)
 Same signal peptide region in the plasmid doesn’t mean the processed protein is the same: mutations near the N-terminus (or cleavage site / early residues) can change secretion efficiency and processing. If mutations are only in the mature enzyme region and the signal peptide is fixed and not mutated, then this mostly becomes a constant and can be ignored.
-	3.	Protein folding/solubility burden in the host
+
+Protein folding/solubility burden in the host
 Even with identical promoter/RBS, mutations can:
 
 	•	increase aggregation propensity
@@ -17,7 +20,6 @@ These are “expression” effects that do depend on sequence and are valid rank
 So the decision hinges on what exactly varies in your dataset:
 	•	If variants are provided only as AA sequences and all are synthesized with the same codon optimization strategy → drop CAI/rare-codon/mRNA-folding features; keep protein-level solubility/stability/PLL features.
 	•	If variants have real CDS that differs (your pipeline suggests you have CDS per variant) → codon and 5′ mRNA features can matter even with the same plasmid.
-
 
 
 - Implementation pattern per tool (what you actually save): FoldX/Rosetta: ddg_kcal then define stability_score = -ddg_kcal; mutPSSM/LuPSSM/EvoCouplings: one scalar per variant like delta_pssm or delta_E (higher better); MutCompute: llr = log P(mutAA) − log P(wtAA) at mutated site(s), aggregate by sum for multi-mutants; ThermoProt/GRAPE/ProStab/etc.: whatever their output “Tm/ΔTm/stability probability” is, convert to “higher better” and keep raw value; Solubility tools: keep raw probability/score (higher better). Then merge everything into master_features.csv and compute the three submission scores as weighted sums with guardrail penalties: score_act1 = w*ESM_mutLLR + w*mutcompute_llr + w*stability_score + w*pssm + (optional pH5) − big_penalties(flags); score_act2 same but pH9; score_expr = w*PLL + w*CAI − w*rare_codons + w*solubility + (optional stability) − penalties. Don’t tune 20 weights; do 2–3 ablations only: baseline, +stronger stability/struct-risk suppression, +/− pssm/evo; pick the one whose top-200 doesn’t contain flag failures and looks stable. Operationally assign owners exactly as you listed, but enforce one delivery rule for everyone: “deliver features_<tool>.csv with columns: variant_id, backbone_id(optional), tool_score(s), and a README line stating whether higher is better.
