@@ -1,9 +1,44 @@
+# **jan 12** 
 # **jan 11** 
-- formalizing everything, need to perform as always lit review -> hypothesis. To organize everything. 
-- need to reorganize the drive folder 
+
+- On the expression and the plasmid expression system of hte tournament: Same plasmid means the vector parts (promoter/RBS/origin/antibiotic/tag sequence if fixed) are constants, so they don’t help ranking. But you still care about features at the interface between the variant sequence and the expression system, because the mutations change the insert, and that changes how the host expresses/folds it even in the same plasmid. Concretely, the only plasmid-context features that matter are those whose value changes when the coding/protein sequence changes:
+	1.	Translation / codon-level features (if CDS differs across variants)
+Even with the same plasmid, different CDS → different CAI/rare codons/mRNA structure near start. If your test set is amino-acid mutants but the CDS is not specified (or all CDS are re-synthesized with standardized codons), then codon features are irrelevant; otherwise they can matter.
+	2.	Signal peptide / secretion compatibility (if the construct uses secretion/periplasm)
+Same signal peptide region in the plasmid doesn’t mean the processed protein is the same: mutations near the N-terminus (or cleavage site / early residues) can change secretion efficiency and processing. If mutations are only in the mature enzyme region and the signal peptide is fixed and not mutated, then this mostly becomes a constant and can be ignored.
+	3.	Protein folding/solubility burden in the host
+Even with identical promoter/RBS, mutations can:
+
+	•	increase aggregation propensity
+	•	destabilize the fold (lower soluble expression)
+	•	expose hydrophobics, change pI, etc.
+These are “expression” effects that do depend on sequence and are valid ranking features.
+
+So the decision hinges on what exactly varies in your dataset:
+	•	If variants are provided only as AA sequences and all are synthesized with the same codon optimization strategy → drop CAI/rare-codon/mRNA-folding features; keep protein-level solubility/stability/PLL features.
+	•	If variants have real CDS that differs (your pipeline suggests you have CDS per variant) → codon and 5′ mRNA features can matter even with the same plasmid.
+
+
+
+- Implementation pattern per tool (what you actually save): FoldX/Rosetta: ddg_kcal then define stability_score = -ddg_kcal; mutPSSM/LuPSSM/EvoCouplings: one scalar per variant like delta_pssm or delta_E (higher better); MutCompute: llr = log P(mutAA) − log P(wtAA) at mutated site(s), aggregate by sum for multi-mutants; ThermoProt/GRAPE/ProStab/etc.: whatever their output “Tm/ΔTm/stability probability” is, convert to “higher better” and keep raw value; Solubility tools: keep raw probability/score (higher better). Then merge everything into master_features.csv and compute the three submission scores as weighted sums with guardrail penalties: score_act1 = w*ESM_mutLLR + w*mutcompute_llr + w*stability_score + w*pssm + (optional pH5) − big_penalties(flags); score_act2 same but pH9; score_expr = w*PLL + w*CAI − w*rare_codons + w*solubility + (optional stability) − penalties. Don’t tune 20 weights; do 2–3 ablations only: baseline, +stronger stability/struct-risk suppression, +/− pssm/evo; pick the one whose top-200 doesn’t contain flag failures and looks stable. Operationally assign owners exactly as you listed, but enforce one delivery rule for everyone: “deliver features_<tool>.csv with columns: variant_id, backbone_id(optional), tool_score(s), and a README line stating whether higher is better.
+
+
+- Priorities: yes to running/deriving features now; no to “filling masterdb with more labels” as a blocking task. With 6 days left, labels are useful only if they already exist and can be added quickly; otherwise they’ll eat your time and still be mismatched to the tournament assay.
+
+- question?: turning masterdb into a ranked set, running charlie's code + tools/mutcomputeLupssm/mutationflagging on the masterdb to see if the ranked set makes sense compared to our ground truth? 
+- need to support current ipynb progress via converting the LuPSSM + mutcompute + run tools + PETase specific mutation flagging into --> scoring system ran on the test set. then we integrate it. but how 
+- does the flag of disulfidge bridge need 3d modeling 
+- NDCG ranking means the ranking is what matters so we need to filter/triage the dataset alot 
+- need to focus on one end-end pipeline that outputs an initial ranking.tsv after which we can 
+- now prioritize how we can model all types of mutations such as those found in the test set instead of focusing on mutations covered by literature. Will implement the literature mutations later. 
+- the mutations covered by the theoretical efficiency scoring system by alam et al. doesnt cover all the types of mutations we will find in the test set meaning we need that to be a feature with a weak weight unless one of the alam's mutation is found in the test set variant 
+- Mapped the mutations from Alam ST1 to the wt set, now need to do it for test set depending on the test set variant's mutation, lets say eg.V26A, need to annotate if that falls in one of Alam's mutation. Specifically the extract_alignment_position.py script checks for an input MSA and input alam mutation list, and outputs the aligned position at those alam positions for all the sequences in the MSA, in this case being the wt set. Need to continue this to the test set. 
+- need to do lit review it would have helped with focus from the beggining 
 * Alam et al. theoretical efficiency scoring system from ST1 
 * Running thermoprot, mutcompute, GRAPE, EVcouplings
 * WT set annotation/alignment to literature 
+* Go through Charlie's code
+* Go through Sanju's docking 
 
 # **jan9** 
 - Run alam et al. Table S1 theoretical scoring system on the wt and test set and masterdb, masterdb is what we can use to make sure our methods make sense to interpret results from the  test ste 
@@ -68,7 +103,7 @@ These strategies relied on the statistical patterns found in natural sequence al
 	5. mutPSSM (Lu) -> JUSTIN 
 	6. evocouplings -> CHARLIE 
 	7. Soluprot -> JUSTIN CHARLIE 
-	7. rosetta/pyrosetta/fastrelax/foldx method -> SANJU   
+	7. rosetta/pyrosetta/fastrelax/foldx DDG method -> SANJU   
 	7. STABILITY: esm-1v, ddgemb, rosettaddg, deepddg, mutcompute, rnafold,thermoprot, prostab, temstapro (type2) temberture (type2)
 	8. SOLUBILITY: procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION 
 
