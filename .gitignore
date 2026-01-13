@@ -1,10 +1,12 @@
-# virtual environments
+# virtual environments (never commit)
 venv/
 .venv/
+esm1v_env/
 esm1v_venv/
+data/esm1v_env/
 data/esm1v_venv/
 
-# python artifacts 
+# python junk
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
