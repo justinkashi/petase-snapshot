@@ -1,9 +1,16 @@
+# virtual environments
 venv/
-data/temp
+.venv/
+esm1v_venv/
+data/esm1v_venv/
+
+# python artifacts 
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
-*.env
-.env
-.DS_Store
 
+# misc
+.DS_Store
+.env
+*.env
+data/temp
