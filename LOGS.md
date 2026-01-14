@@ -1,8 +1,15 @@
 # **jan13** 
-- wrot eextensive notes in the main.ipynb esm1v block 
-- how to make esm1v script take more memory than 1.2Gb? On MPS, memory use is demand-driven, not user-configurable. Need to increase batch ize. 
-- esm1v with CPU -> takes 21% CPU now on btop and 3.1Gb memB. after 13min at batch 988.  after 33min its at test2500 or abtch 2500. 
-- esm1v on wt+test set with MPS -> taking 1.1Gb Memb, 1.2%CPU. Took 16min. Still have free 22% memory on btop so idk why before 1h ago i had 0 free mem. ok now i got 28% with only vscode + chatgpt app + terminal btop  
+- test of sweep #bath size and #workers on TIME -> 
+	- In a multi-process esm1v_mp.py batch-size sweep you should see the same qualitative behavior as single-process—runtime improves as --batch increases (better GPU occupancy, fewer kernel launches) and then plateaus—but you should not expect the same absolute timings or the same “best” batch size because 4 workers are sharing one GPU and will contend for SM time, memory bandwidth, and CUDA context scheduling; this typically makes the optimal per-worker batch smaller than in single-process. VRAM per worker will rise with batch due to larger activations, but weights dominate so it won’t scale linearly; total VRAM pressure is roughly procs × (model residency + activation(batch)), so you can hit OOM sooner than in single-process if you push batch too high. You should also expect more variance run-to-run from OS scheduling/context switching. Practically, you’ll usually see clear gains from batch 1→2→4, then diminishing returns somewhere around ~4–16 depending on your system, with multi-proc often preferring ~2–8 even if single-proc preferred ~8–20; the only reliable way to pick is wall-clock time for a representative subset or the full FASTA with the same --procs.
+- now running multiple process esm1v script 
+	- Total wall-clock runtime is governed by the slowest worker plus the one-time model load/warmup cost; batch size 10 from 5 improves throughput but does not significantly change VRAM because ESM-1v is weight-dominated, not activation-dominated
+- the batch size sweep test show (single process)
+	- increasing batch size doesnt speed up TIME that much. 
+	- But the RAM does decrease which apparently is an artifact from RSS. RSS here would be that during the sweep at each batch we run the full loop, the loop allocates/frees/so on, and over time python sees that those arenas arent being reused, and pytorch sees the cached buffers arent needed, and OS sees the pages are cold. So we notice a drop in RAM mid-sweep. 
+		- Batch size only affects temporary tensors during forward pass, GPU activations (not CPU RAM).CPU RAM dominated by Python interpreter + model metadata. 
+	- And GPU alloc doesnt change. 
+- so CUDA is 2x faster than MPS which is 5x faster than mac CPU (not multprocess,not fp16)
+- wrote notes in the main.ipynb esm1v block 
 - want to run esm1v using all C1-9 threads  
 - TASK FOR JAN 14 MEETING: go through the higlighted tools and check their input/output/way its calculated 
 	* ESM-1V: 
