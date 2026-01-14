@@ -1,4 +1,16 @@
 # **jan13** 
+- need to make a detailed MSA of the wt and test set vs masterdb as well so that we have a good reference going forward 
+- need the test set aligned residues positions mutations like we did for wt set found in masterdb 
+- Remember to finish the mutations lists in masterdb2 to include Han cui erickson lu etc. 
+- TO DO
+	* esm1v 
+	* esm3 
+	* docking output results from vina
+	* evcouplings
+	* deeprankgnn, geoevotranfsormer, 
+	* Han & Lu & Alam & Cui & Erickson & Garcia & Hong & Norton 
+	* mutcompute, mutcomputeX, provean, and protein-sol
+
 - test of sweep #bath size and #workers on TIME -> 
 	- In a multi-process esm1v_mp.py batch-size sweep you should see the same qualitative behavior as single-process—runtime improves as --batch increases (better GPU occupancy, fewer kernel launches) and then plateaus—but you should not expect the same absolute timings or the same “best” batch size because 4 workers are sharing one GPU and will contend for SM time, memory bandwidth, and CUDA context scheduling; this typically makes the optimal per-worker batch smaller than in single-process. VRAM per worker will rise with batch due to larger activations, but weights dominate so it won’t scale linearly; total VRAM pressure is roughly procs × (model residency + activation(batch)), so you can hit OOM sooner than in single-process if you push batch too high. You should also expect more variance run-to-run from OS scheduling/context switching. Practically, you’ll usually see clear gains from batch 1→2→4, then diminishing returns somewhere around ~4–16 depending on your system, with multi-proc often preferring ~2–8 even if single-proc preferred ~8–20; the only reliable way to pick is wall-clock time for a representative subset or the full FASTA with the same --procs.
 - now running multiple process esm1v script 
