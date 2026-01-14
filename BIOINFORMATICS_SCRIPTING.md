@@ -521,7 +521,7 @@ kallisto quant -i tcszi1_kallisto_index -o tcszi1_kallisto_output_bootstrap -b 5
   
   
 **TBLASTN**  
- **BGC**  
+**BGC**  
 ```
 for db in dzing_db.dmnd dalata_db.dmnd drotuntada_db.dmnd dcayensis_db.dmnd; do diamond blastp -k 1 -f 6 -e 1e-6 -d $db -q tleonto_bgc14.txt -o ${db}bgc14_tleonto_blastp.tsv
 done
@@ -873,3 +873,5 @@ SHOW TABLES;
 
 
 ```
+
+SOURCE JUSTIN KASHI NOTES 

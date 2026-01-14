@@ -1,5 +1,16 @@
-# **jan 12** 
+# **jan13** 
+- TASK FOR JAN 14 MEETING: go through the higlighted tools and check their input/output/way its calculated 
+	* ESM-1V: 
+- notes on running ESM-1v is trying to allocate ~24 GB for attention tensors. On Apple Silicon (MPS), PyTorch uses unified memory, but there is still a hard per-allocation limit and fragmentation constraints. You exceeded it.Even with BATCH_SIZE = 1, you still get massive parallelism: Inside each transformer layer, Inside attention matrix multiplies, Inside feedforward blocks
+That is handled by: Metal Performance Shaders (MPS) on Mac, and cuBLAS / cuDNN on NVIDIA GPUs
 
+The two main drivers of memory here are:
+	1.	Batch size (number of sequences at once)
+	2.	Max sequence length in the batch
+
+- Meeting with sanju charlie minutes same minutes and jan12_work compilation doc on the drive 
+# **jan 12** 
+- meeting with sanju minutes in https://docs.google.com/document/d/1rlT5fv3d3MEIsmlzb1Pukds4s6VxFLNMAoC4Ci3uVpo/edit?tab=t.0 
 # **jan 11** 
 - On the expression and the plasmid expression system of hte tournament: Same plasmid means the vector parts (promoter/RBS/origin/antibiotic/tag sequence if fixed) are constants, so they don’t help ranking. But you still care about features at the interface between the variant sequence and the expression system, because the mutations change the insert, and that changes how the host expresses/folds it even in the same plasmid. Concretely, the only plasmid-context features that matter are those whose value changes when the coding/protein sequence changes:
 
@@ -96,7 +107,9 @@ These strategies relied on the statistical patterns found in natural sequence al
 - talk bit about the comps model 
 # **jan 6** 
 - 
-- UPDATED PLAN FOR THE DAY 
+- UPDATED PLAN FOR THE DAY
+	- 
+	- Han flags 
 	1. WT and Test set mutation type flagging/annotation 
 	2. Thermoprot (lu) -> SANJU
 	3. GRAPE (lu) -> SANJU 
