@@ -1,4 +1,9 @@
 # **jan13** 
+- wrot eextensive notes in the main.ipynb esm1v block 
+- how to make esm1v script take more memory than 1.2Gb? On MPS, memory use is demand-driven, not user-configurable. Need to increase batch ize. 
+- esm1v with CPU -> takes 21% CPU now on btop and 3.1Gb memB. after 13min at batch 988.  after 33min its at test2500 or abtch 2500. 
+- esm1v on wt+test set with MPS -> taking 1.1Gb Memb, 1.2%CPU. Took 16min. Still have free 22% memory on btop so idk why before 1h ago i had 0 free mem. ok now i got 28% with only vscode + chatgpt app + terminal btop  
+- want to run esm1v using all C1-9 threads  
 - TASK FOR JAN 14 MEETING: go through the higlighted tools and check their input/output/way its calculated 
 	* ESM-1V: 
 - notes on running ESM-1v is trying to allocate ~24 GB for attention tensors. On Apple Silicon (MPS), PyTorch uses unified memory, but there is still a hard per-allocation limit and fragmentation constraints. You exceeded it.Even with BATCH_SIZE = 1, you still get massive parallelism: Inside each transformer layer, Inside attention matrix multiplies, Inside feedforward blocks
