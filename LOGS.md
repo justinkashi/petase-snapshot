@@ -1,6 +1,68 @@
+# **jan19** 
+- lit review on manuscript_v1 on drive 
+- leaderboard format possibility 
+-  add rosettafold/rfjoint/rosetta to use generative modelling and generate the structures of the variants and analyze their ddG 
+-  tools summary:
+	0. Mutatagenesis/variant effect predictor specific 
+		Envision
+		DeepSequence / EVE / EVEscape
+		SIFT / PolyPhen-2 / SNAP / SuSPect 
+		MutCompute
+		ECNet, SCANEER
+		UniKP, DLTKcat, CmpdEnzymPred 
+		ProPRIME
+		MutCompute	
+		MutComputeX
+		EVcouplings
+		Provean 
+		deeprankgnn
+		geoevotranfsormer
+		PETase specific: MutPSSM (from that one paper i forgot author name)
+		PETase specific: Alam mutation score / motif integrity
+	1. DDG 
+		FoldX generate + ddg 
+		RFjoint/RFold/Rosetta generate + 
+		other sructure based: PoPMuSiC, mCSM, SDM2, SAAFEC 
+		other sequence-based: I-Mutant 2.0, STRUM, SAAFEC-SEQ, BoostDDG,mGPfusion
+
+	2. Stability 
+		ThermoProt 
+		ddgemb, deepddg, prostab, temstapro (type2) temberture (type2) 
+	3. Expression
+		Soluprot 
+		Procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION
+	4. PLMs
+		* E5, Poet2, ESM1b, ESM1v, ESM2, ESM3, T5, georgiev
+	GRAPE (?)
+	consolidated results from all tools
+	* docking output results from vina
+
+
 # **jan18**
-- set up the GPUs 
-- 
+- set up the GPUs (I want to learn a lot more about low-level optimization of deep learning models to make the most of the available hardware) 
+- Single point mutation summary by chatgpt
+	1. understanding lit review so far on single point mutations on enzymes
+	What the literature converges on is that single amino-acid substitutions usually act through a small number of physical “levers” (folding stability, conformational dynamics, active-site geometry/electrostatics, and cellular handling), and the observable phenotype (activity/expression/solubility) depends strongly on where the mutation is and what environment/host you measure in.
+	Most single mutations are destabilizing (thermodynamically): across many proteins, the distribution of ΔΔG for random substitutions is skewed toward positive (destabilizing) values, and this statistical shape looks broadly similar across proteins (“universal” distribution idea).  ￼ Related, mutations that change or create new function are often destabilizing on average, because they perturb packing and active-site neighborhoods and/or increase dynamic heterogeneity; proteins can tolerate this only until a stability “buffer” is exhausted.  ￼
+
+	Stability, expression, solubility, and activity are coupled but not identical traits. A destabilizing point mutation can reduce the folded fraction at equilibrium and/or slow folding/increase misfolding, which tends to lower soluble expression and increase aggregation/proteolysis in cells; however, stabilizing mutations do not guarantee better solubility or expression, and several analyses note that many stability-prediction workflows over-select designs that can have solubility liabilities (a practical “stability–solubility” tension).  ￼ Deep mutational scanning (DMS) studies show these couplings directly at scale: many mutations decrease measured “fitness” (which often conflates expression and activity), while some improve one axis while harming another, revealing tradeoffs and multiple mechanisms.  ￼
+
+	For catalytic activity specifically, a single mutation can have (i) direct active-site effects (changing catalytic residues, substrate positioning, hydrogen-bond networks, electrostatics, water structure), or (ii) indirect allosteric/dynamical effects (shifting conformational ensembles, loop motions, access tunnels). This is why activity effects are harder to predict than stability: you can lose activity without large ΔΔG (pure mechanistic/dynamical disruption), or gain activity at a stability cost. Large experimental maps (thousands of missense variants) explicitly quantify these activity–stability landscapes and show that the tradeoff is common but not absolute: some regions/mutations improve both, many harm both, and the joint distribution depends on structural context.  ￼
+
+	Context dependence is a first-order theme: the same single substitution can look neutral, beneficial, or deleterious depending on temperature, pH, substrate, cofactors, crowding, and expression level/host (proteostasis). Multi-condition mutational scans and “expression × coding” epistasis experiments show that environment and expression regime can reshape the mutation-effect landscape—important if you care about both activity and expression under specific assay conditions.  ￼
+
+	2.  Understanding of effect of single point mutation on PETase enzymes 
+	there are many PETase mutation-effect studies, but they are mostly (i) targeted single-point “rational” mutations and (ii) directed-evolution/ML-derived variants that are then dissected with a small set of single/revertant mutants. I’m not aware of a public, true deep-mutational-scan (all 19 substitutions at most positions with activity + expression + stability readouts) for IsPETase in the way DMS is done for many soluble enzymes; the PETase landscape is instead inferred from repeated convergence of mutations across engineering campaigns and mechanistic follow-ups.
+	What we understand about the PETase landscape (IsPETase and engineered derivatives):
+		1.	Stability is a gating constraint, and “apparent activity” often rises mainly because stability enables hotter assays where PET is more degradable. Many of the highest-performing PETases are built on a small set of thermostabilizing substitutions (classically S121E, D186H, R280A; and in some lineages disulfide-style N233C/S282C) that raise Tm and allow operation at higher temperatures, which boosts PET chain mobility and hydrolysis rates.  ￼
+		2.	A small number of hotspots recur across independent lineages, implying strong structural “levers.” Reviews and primary engineering reports repeatedly mention mutations around (a) loop/active-site entrance regions, (b) positions that change local H-bonding/water-mediated networks, and (c) positions near the binding cleft and “subsite” shaping residues. For ThermoPETase (S121E/D186H/R280A), structural interpretations attribute gains largely to added hydrogen-bonding interactions and altered local hydration networks rather than dramatic active-site rewiring.  ￼
+		3.	Activity changes can come from conformational-ensemble shifts, not just “better binding” in a static structure. A mechanistic ACS Catalysis study showed a single-point mutant can increase the population of productive ground-state conformations (a conformational-selection framing), which is consistent with PETase being sensitive to loop dynamics and binding-site conformational heterogeneity.  ￼
+		4.	FAST-PETase and related “high-performance” variants illustrate a common pattern: combine a stability backbone with additional mutations that tune function at ~50–55 °C. Secondary sources summarizing FAST-PETase list the five substitutions relative to IsPETase (N233K, R224Q, S121E, D186H, R280A), and multiple later studies focus on why temperature and dynamics matter for this variant’s behavior.  ￼
+		5.	Expression/solubility is context-dependent and can be engineered orthogonally (sometimes via PTMs). A notable thread is yeast expression + glycosylation engineering of (thermostable) PETase variants, where glycosylation state measurably affects thermostability and PET-degradation performance—i.e., “expression system biology” is part of the landscape, not just the amino-acid sequence.  ￼
+		6.	High-concentration/crowded conditions reveal aggregation and non-ideal behavior that can dominate kinetics and “expression-like” outcomes in practice. A JBC 2024 kinetics/aggregation analysis reports aggregation tendencies under crowding for WT and a thermostable TS-PETase variant, which is a reminder that some mutations improve intrinsic stability but do not automatically solve formulation/aggregation constraints.  ￼
+
+	If you want a practical “landscape prior” for PETase single mutants: (i) expect most random substitutions to reduce function; (ii) stability-raising mutations are enriched on surface/loop regions that improve packing, salt-bridges, and hydration networks without breaking catalysis; (iii) mutations near the cleft/loops often show large, condition-sensitive effects (beneficial or harmful) via dynamics and substrate engagement; and (iv) expression/solubility can be driven by the host system and post-translational effects at least as much as modest ΔΔG shifts.  ￼	
+
 # **jan17**
 - state machines kris
 - randomized tests tiger beetlew
@@ -843,3 +905,4 @@ Work on docking of PET-PETase for function track (Zach?)
 Build lightweight model with 150 PETase training data (Charlie)
 
 tips logs only write 5-6 lines idk what the mental is but whatever it is for u make it 5-6 line long and understand deeply waht you wrote, dont do verbose lengthy texts in logs or u get lost, the point of logs is to not get lost as is the remaining resources or ai helpers or etc. 
+also add actually good summaries from gemini/gpt like the single point mutation one i added on jan18

@@ -1,28 +1,24 @@
 # Align 2025 PETase Engineering
-
 ## Timeline 
-**Deadline:** February 26, 2026  
-
+**Deadline Zero Shot:** Feb 26 - April 8
+**Deadline Supervised:** April 13 - May 8
 ---
-
 ## Abstract - Zero-Shot
-- - **Expression (mg/mL)**  
-- **Activity in citrate at pH 5. 5 (μmol_TPA / min*mg_E)**  
-- **Activity in glycine at pH 9.0 (μmol_TPA / min*mg_E)**
 - we are given a dataset of 313 wild-type PETase (wt set) and 4988 variants. (numbers.) 
 - we combine 3 classes of features (1) evolutionary (2) structural (3) PETase-specific constraints. Some describe global changes in the protein's enzyme expression and activity and some describe (2) changes specific to known key regions in PETase structure family  
 - we perform several rounds of scoring to develop sensical weights of these features that give signal that makes sense with the literature on PETase enzyme engineering  
 ---
+
 ## Workspace 
 helpers
   chatgpt 5.2
   gemini 3
 
-vscode - mac (/petorg)
+vscode - petorg/mac (M1 Max 32G)
   logs
   readme 
 
-vscode - ssh PC (/jan14)
+vscode - jan14/PC (CPU: AMDRyzen5 5600, GPU: RTX 3060)
 
 notesapp (phone)
   bioinformatics scripting
@@ -30,15 +26,22 @@ notesapp (phone)
   task list  
 
 drive
-  masterdb
+  minutes 
+  papers 
+  masterdb (papersdb, petasedb, conferences/seminars/tournaments/etc.)
   masterdb2 
 
-modal
+modal 1300$ GPU hours on NVIDIA H100
+
+rigs (77x 3060 GPU)  ($38 500)
+
 
 ---
 
 ## Scoring System
-
+- **Expression (mg/mL)**  
+- **Activity in citrate at pH 5. 5 (μmol_TPA / min*mg_E)**  
+- **Activity in glycine at pH 9.0 (μmol_TPA / min*mg_E)**
 ### Stage 0 — Mutation Flagging
 Before any ML, evolutionary scoring, or structure scoring, we annotate each variant with binary flags and severity penalties for failure modes that should dominate ranking regardless of downstream predictors.
 
