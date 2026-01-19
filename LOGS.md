@@ -1,17 +1,59 @@
+# **jan18**
+- set up the GPUs 
+- 
+# **jan17**
+- state machines kris
+- randomized tests tiger beetlew
+# **jan16**
+- in the lit review, need to include how different classes of bioinformatic tools give what information in respect to single point mutations in enzymes (eg. what are the assumptions/limits/space of the algorithms behind each bioinformatic tools)
+- 
+
+# **jan15**
+1. charlie sends ensemble ranking based on his pipeline -> will then analyze the top candidates from them according to literature 
+2. repeat analysis script for EVcouplings ... remaining tools 
+3. finishing esm1v.ipynb notebook 
+	- comments and results 
+	- compare esm1b/2/3, T5, georgiev, poet2, E5
+- continue abstract on cudaproject.txt
+- start literature review (witman han etc.)
+
+- ADIL MEETING:
+	Use fewer tools not more, start with simple, then can layer,
+	You do need reference to effectively test out hypothesis on what makes a good model, small datasets have limited information
+	Theres other datasets, if youre gonna make a new complex technique you need a good benchmarking way  
+	What is the expected limitations and assumptions of all these tools, lot of models have not been trained to do single point mutation well or struggle eg. alphafold, number of the PLMs, docking
+	Point mutations is not a trivial thing
+	Maybe its not 
+	Rationally layer on top
+	The newer models, E1 
+
+	Look at the datasets behind E1 POET start there 
+
+	Do 2 models only, then think of maybe epxnading it  
+
+	Dont think about all the infrastructure stuff, do simple notebook things get results we understand
+
+	Then iterate iterate 
+
+
 # **jan13** 
 - need to make a detailed MSA of the wt and test set vs masterdb as well so that we have a good reference going forward 
 - need the test set aligned residues positions mutations like we did for wt set found in masterdb 
 - Remember to finish the mutations lists in masterdb2 to include Han cui erickson lu etc. 
 - TO DO
+	* E5, Poet2, 
 	* esm1v 
 	* esm3 
+	* georgiev embedding 
 	* docking output results from vina
 	* evcouplings
 	* deeprankgnn, geoevotranfsormer, 
-	* Han & Lu & Alam & Cui & Erickson & Garcia & Hong & Norton 
+	* Wittman2021 & Han & Lu & Alam & Cui & Erickson & Garcia & Hong & Norton 
 	* mutcompute, mutcomputeX, provean, and protein-sol
+	
+	* docking, MDSim 
 
-- test of sweep #bath size and #workers on TIME -> 
+- test of sweep #batch size and #workers on TIME -> 
 	- In a multi-process esm1v_mp.py batch-size sweep you should see the same qualitative behavior as single-process—runtime improves as --batch increases (better GPU occupancy, fewer kernel launches) and then plateaus—but you should not expect the same absolute timings or the same “best” batch size because 4 workers are sharing one GPU and will contend for SM time, memory bandwidth, and CUDA context scheduling; this typically makes the optimal per-worker batch smaller than in single-process. VRAM per worker will rise with batch due to larger activations, but weights dominate so it won’t scale linearly; total VRAM pressure is roughly procs × (model residency + activation(batch)), so you can hit OOM sooner than in single-process if you push batch too high. You should also expect more variance run-to-run from OS scheduling/context switching. Practically, you’ll usually see clear gains from batch 1→2→4, then diminishing returns somewhere around ~4–16 depending on your system, with multi-proc often preferring ~2–8 even if single-proc preferred ~8–20; the only reliable way to pick is wall-clock time for a representative subset or the full FASTA with the same --procs.
 - now running multiple process esm1v script 
 	- Total wall-clock runtime is governed by the slowest worker plus the one-time model load/warmup cost; batch size 10 from 5 improves throughput but does not significantly change VRAM because ESM-1v is weight-dominated, not activation-dominated
@@ -800,3 +842,4 @@ Finish function track annotations (interpro and blast)  (Justin)
 Work on docking of PET-PETase for function track (Zach?)
 Build lightweight model with 150 PETase training data (Charlie)
 
+tips logs only write 5-6 lines idk what the mental is but whatever it is for u make it 5-6 line long and understand deeply waht you wrote, dont do verbose lengthy texts in logs or u get lost, the point of logs is to not get lost as is the remaining resources or ai helpers or etc. 

@@ -1,23 +1,39 @@
 # Align 2025 PETase Engineering
 
-## Current Status: Zero-Shot Phase 
+## Timeline 
+**Deadline:** February 26, 2026  
 
-**Deadline:** January 16, 2026  
-**Goal:** Rank 4,988 single-variant PETase sequences for:
-- **Expression / recoverable soluble titer (mg/mL)**  
-- **Activity at pH 5.5**  
-- **Activity at pH 9.0**
 ---
 
-## Abstract (need to finish)
-We are building a **hybrid ranking engine** that combines four types of features:
+## Abstract - Zero-Shot
+- - **Expression (mg/mL)**  
+- **Activity in citrate at pH 5. 5 (μmol_TPA / min*mg_E)**  
+- **Activity in glycine at pH 9.0 (μmol_TPA / min*mg_E)**
+- we are given a dataset of 313 wild-type PETase (wt set) and 4988 variants. (numbers.) 
+- we combine 3 classes of features (1) evolutionary (2) structural (3) PETase-specific constraints. Some describe global changes in the protein's enzyme expression and activity and some describe (2) changes specific to known key regions in PETase structure family  
+- we perform several rounds of scoring to develop sensical weights of these features that give signal that makes sense with the literature on PETase enzyme engineering  
+---
+## Workspace 
+helpers
+  chatgpt 5.2
+  gemini 3
 
-1. **General, family-agnostic features**  
+vscode - mac (/petorg)
+  logs
+  readme 
 
-2. **PETase-specific and evolutionary features**  
+vscode - ssh PC (/jan14)
 
-3. **3D modeling, docking/MD-sim features:**  
+notesapp (phone)
+  bioinformatics scripting
+  scripting 
+  task list  
 
+drive
+  masterdb
+  masterdb2 
+
+modal
 
 ---
 
@@ -152,12 +168,3 @@ other:
 - manuscript
 - slides
 
----
-
-## Project Timeline
-
-| Date | Milestone | Focus |
-| --- | --- | --- |
-| **Jan 8** | First Rank Submission | Initial ranking from zero-shot priors + gates |
-| **Jan 16** | Zero-Shot Deadline | Final explainable ranking + abstract |
-| **Mar 9** | Predictive Deadline | Supervised refinement using training labels |
