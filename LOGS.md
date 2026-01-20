@@ -1,4 +1,8 @@
 # **jan20**
+- build up abstracts and grant/tournament/etc. applications  we send out to build a strong base for our pitch scientifically and business wise 
+- meeting this week for applying to the bio it hackathon 
+- will need to send out some results/manuscript/articles/blogs so taht the AlignBio has something to write about in their 2026 publication as that is one of their incentive 
+- invite or make a slack and invite advisors like manual so on to help us
 - ask sanju for help in few weeks with their perspective on info gathered across sheets and referencedb 
 - continuing lit review on manuscript_v1 
 # **jan19** 
