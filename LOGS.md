@@ -1,5 +1,8 @@
+# **jan20**
+- ask sanju for help in few weeks with their perspective on info gathered across sheets and referencedb 
+- continuing lit review on manuscript_v1 
 # **jan19** 
-- lit review on manuscript_v1 on drive 
+- lit review on manuscript_v1 on drive, then notebook analyses for tools below 
 - leaderboard format possibility 
 -  add rosettafold/rfjoint/rosetta to use generative modelling and generate the structures of the variants and analyze their ddG 
 -  tools summary:
@@ -28,6 +31,7 @@
 	2. Stability 
 		ThermoProt 
 		ddgemb, deepddg, prostab, temstapro (type2) temberture (type2) 
+		dynamut2, enzyact 
 	3. Expression
 		Soluprot 
 		Procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION
@@ -39,7 +43,7 @@
 
 
 # **jan18**
-- set up the GPUs (I want to learn a lot more about low-level optimization of deep learning models to make the most of the available hardware) 
+- set up the GPUs (I want to learn a lot more about low-level optimization of deep learning models to make the most of the available hardware) not necessarily making the most of whatever hardware I had at my disposal. As such, I would often wonder whether I should focus my attention on squeezing out better model performance or optimizing the runtime and resource usage. 
 - Single point mutation summary by chatgpt
 	1. understanding lit review so far on single point mutations on enzymes
 	What the literature converges on is that single amino-acid substitutions usually act through a small number of physical “levers” (folding stability, conformational dynamics, active-site geometry/electrostatics, and cellular handling), and the observable phenotype (activity/expression/solubility) depends strongly on where the mutation is and what environment/host you measure in.
