@@ -10,6 +10,11 @@
 ---
 
 ## Workspace 
+comms/news/emails
+  outlook
+  whatsapp
+  etc. 
+
 helpers
   chatgpt 5.2
   gemini 3
