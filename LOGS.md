@@ -1,4 +1,14 @@
+# **jan21**
+- 
+- annoying issue with connecting via ssh to tailscalepc from mac now its not working? also had issue with the right password to connect via termius via tailscalepc via iphone.. --> for the mac pc_tailscale thing, its cuz tailscale was not up on the mac-end. so do sudo tailscale up. then itll work. 
+- workflow i like, testing the outputs from others, continuing lit review, running tools/deeper notebook analyses, cuda gpu stuff, slides 
+- still got 1. lit review 2. run tools as my priorities 
+- can use HPC from lab 
+- first iteration of submission ranks analysis gave me all 5 submission types give the same top500 ranks ?? these plots/consensus outputs are telling you “the 5 submissions are basically the same ranking (at least at the top)”. That’s why it feels useless — because there’s no disagreement signal to visualize. --> treat the 5 submissions as one ranking, not five. They don’t add information right now.
+- 
 # **jan20**
+- making biochatgpt but with CUDA-integrated workflows and code the whole way? -> more notes in cudaproject.txt 
+- *logging proper chatgpt prompts and answers - to learn for autonomous systems that will be coming out *
 - charlie's submission rankings 
 - continuing lit review on manuscript_v1 
 # **jan19** 
