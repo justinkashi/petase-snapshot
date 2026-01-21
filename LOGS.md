@@ -1,5 +1,5 @@
 # **jan20**
-- charlie's 
+- charlie's submission rankings 
 - continuing lit review on manuscript_v1 
 # **jan19** 
 - lit review on manuscript_v1 on drive, then notebook analyses for tools below 
