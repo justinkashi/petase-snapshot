@@ -1,5 +1,16 @@
+# **jan22**
+- (1) interpret rank_from_esm_only.py vs generate_rank.py 
+- (2) work on features, ranking/weights, 
+- (3) lit review
+- (4) run tools 
 # **jan21**
--  was doing phasex analaysis of esm1/2/3/ consensus rankings and i need to look more into	Most single mutants introduce at least one residue that the model thinks is less likely in that context, which drops the average PLL.
+- confusing the submission requirement and the realtive ordering ranks 
+	- *_rank_esm_only = true ranks (1 = best) from sorting the proxy score.
+	- *_pred_esm_only in esm_only_prelim_submission_like.csv = submission-like numbers made by mapping those ranks/percentiles into the required output ranges: activity_1 → 0–10 activity_2 → 0–10 expression → 0–2 
+	- They’re monotonic with the score (better score ⇒ higher “pred”), but not calibrated to real units.
+- we can start getting distribution of mutations that are ranked top from different model iterations with diff features and weights to see if they land in hot spots? 
+- starting preliminary ranking using esm1/2/3 llr pll and consensus stats as features for 3 ranking logics (act1 act2 expression). We can add extra features to feed into these 3 ranking logics, and play with the weights/logic  
+-  was doing phasex analysis of esm1/2/3/ consensus rankings and i need to look more into	Most single mutants introduce at least one residue that the model thinks is less likely in that context, which drops the average PLL.And the PLL is averaged over the whole sequence, so even one bad position can noticeably reduce the mean.
 - finished esm1v/2/3 consensus LLR and PLL, now looking at petase_pipeline 31 features. 
 - put local esm3 usage in petase_pipeline.py
 - nvidia-smi: is a client tool that talks to the NVIDIA driver through NVML (NVIDIA Management Library). It only shows real numbers if the process you’re running it from can “see” the physical GPU + driver stack.
