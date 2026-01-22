@@ -1,6 +1,20 @@
 # **jan21**
-- Ok so what do i do after qc the charlie submission rankings? 
-- figuring out chalrie3 rankings order theyre all the same .....  -> theyre still the same 
+- need to finish this quick so i can get to looking at charlie2 and charlie4 folders 
+- wrote esm3_concurrent.py, but it keeps failing with 401 error, the insight was So what happens is: thread A sends request with auth header thread B overwrites / clears session state requests start going out without auth server returns 401 for everything This is a classic “shared client across threads” failure.
+	- CONCLUSION FOR NOW JAN21: Your account is rejecting parallel sessions (server-side), and you should stay with the non-concurrent esm3_tester.py (or reduce to --workers 1
+	- esm.sdk.client("esm3") is NOT thread-safe and/or it mutates shared auth headers/state internall. That’s why it can fail even with workers=1 sometimes if the code path differs (warmup vs main loop timing), but with workers>1 it becomes consistent. When you add concurrency, requests race and the Authorization header/cookie/session gets clobbered → server sees “missing/invalid token” → 401.
+	- The only difference is how many requests are in-flight at once: esm3_tester.py: 1 request at a time (serial) esm3_concurrent.py: N requests at a time (--workers N) (parallel)The difference between esm3_concurrent and esm3_tester is how the client is authenticated + how concurrency interacts with the ESM SDK. because m = client("esm3", token="DUMMY") meanas the function accepts the token but doesnt mean the client is authenticated with the key. So concurrency can increase throughput only if the server + your account allow parallel requests without rate-limiting/401/429.
+	- so how to incerase throughput on esm3 remote? (1) esm 3.2.3 (latest ver) doesnt support batching in encode() (2) parallel requests using from concurrent.futures import ThreadPoolExecutor. 
+	- esm3 remote throughput -> 21 seq/s To get real scaling, we need an API call that accepts multiple sequences in one request (true server batching). Your current SDK path is not doing that.
+	- esm3_tester takes time to debug... 
+	- esm2_tester works 
+	- now writing esm2 and 3 writers and testers 
+	- wrote esm1v_tester_mac 
+	- ok so definitive on windwpws+ cuda the gpu throughput is 18 seq/s (of seq len around 250)
+	- making esm1v_tester and esm1v_writer for WINDOWS + CUDA and then for MAC, and then for esm2 and esm3 
+(1)charlie sbumision rankings 
+(2) test esm3 batch mode for charlie code
+(3) check charlie2 and charlie4 notebooks 
 - annoying issue with connecting via ssh to tailscalepc from mac now its not working? also had issue with the right password to connect via termius via tailscalepc via iphone.. --> for the mac pc_tailscale thing, its cuz tailscale was not up on the mac-end. so do sudo tailscale up. then itll work. 
 - workflow i like, testing the outputs from others, continuing lit review, running tools/deeper notebook analyses, cuda gpu stuff, slides 
 - still got 1. lit review 2. run tools as my priorities 
