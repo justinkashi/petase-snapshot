@@ -1,6 +1,21 @@
 # **jan21**
+-  was doing phasex analaysis of esm1/2/3/ consensus rankings and i need to look more into	Most single mutants introduce at least one residue that the model thinks is less likely in that context, which drops the average PLL.
+- finished esm1v/2/3 consensus LLR and PLL, now looking at petase_pipeline 31 features. 
+- put local esm3 usage in petase_pipeline.py
+- nvidia-smi: is a client tool that talks to the NVIDIA driver through NVML (NVIDIA Management Library). It only shows real numbers if the process you’re running it from can “see” the physical GPU + driver stack.
+- wrapping up esm1/2/3 writer and tester .py files. 
+- CHARLIE SANJU MEETING NOTES 
+	- for next few days, work more on features and tools 
+	- MIT BIO IT stuff: 
+		- feb 2 submission abstract, send an email about our idea cfde-trainingcenter@orau.org -> we did we asked the questions sent email 
+	- 2. ENSEMBLE RANKING: need to tune the weights in charlie4/generate_submission.py  -> debug ranking 
+	- 1. FEATURES: petase_pipeline.py -> gives features, we add features on that, everyone can contribute (eg. i need to try esm1v in there)
+- now continuing with (1) lit review (2) tool notebook analysis runs (3) charlie4 and charlie2 analysis codes 
+- wrote esmc_tester.py it works now, ok so now we have esm1v/2/3 testers that work. 
+- huggingface is to give weights easily to donwload on ur machien isntead of using lets say forge api for esm3 
 - need to finish this quick so i can get to looking at charlie2 and charlie4 folders 
 - wrote esm3_concurrent.py, but it keeps failing with 401 error, the insight was So what happens is: thread A sends request with auth header thread B overwrites / clears session state requests start going out without auth server returns 401 for everything This is a classic “shared client across threads” failure.
+	- CONCLUSION FINAL: JUST DO ASYNC THREADED LIKE THEY SAY IN THE GITHUB https://github.com/evolutionaryscale/esm  
 	- CONCLUSION FOR NOW JAN21: Your account is rejecting parallel sessions (server-side), and you should stay with the non-concurrent esm3_tester.py (or reduce to --workers 1
 	- esm.sdk.client("esm3") is NOT thread-safe and/or it mutates shared auth headers/state internall. That’s why it can fail even with workers=1 sometimes if the code path differs (warmup vs main loop timing), but with workers>1 it becomes consistent. When you add concurrency, requests race and the Authorization header/cookie/session gets clobbered → server sees “missing/invalid token” → 401.
 	- The only difference is how many requests are in-flight at once: esm3_tester.py: 1 request at a time (serial) esm3_concurrent.py: N requests at a time (--workers N) (parallel)The difference between esm3_concurrent and esm3_tester is how the client is authenticated + how concurrency interacts with the ESM SDK. because m = client("esm3", token="DUMMY") meanas the function accepts the token but doesnt mean the client is authenticated with the key. So concurrency can increase throughput only if the server + your account allow parallel requests without rate-limiting/401/429.

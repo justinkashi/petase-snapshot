@@ -148,18 +148,13 @@ class Phase1ESM3:
     def __init__(self, token: str):
         print("🧬 Initializing ESM3 client...")
         try:
-            from esm.sdk import client as esm_client
-            from esm.sdk.api import ESMProtein, GenerationConfig, LogitsConfig
-            
-            self.client = esm_client(
-                model=Config.ESM3_MODEL,
-                url=Config.ESM3_URL,
-                token=token
-            )
+            from esm.models.esm3 import ESM3 
+            from esm.sdk.api import ESMProtein, LogitsConfig
+
+            self.model = ESM3.from_pretrained("esm3-open").to("cuda").eval()
             self.ESMProtein = ESMProtein
-            self.GenerationConfig = GenerationConfig
             self.LogitsConfig = LogitsConfig
-            print("✅ ESM3 client initialized successfully")
+            print("✅ ESM3 LOCALLY THIS TIME! initialized successfully")
         except Exception as e:
             print(f"❌ Failed to initialize ESM3 client: {e}")
             raise
@@ -192,11 +187,9 @@ class Phase1ESM3:
             
             # Step 1: Encode the protein
             protein = self.ESMProtein(sequence=sequence)
-            encoded = self.client.encode(protein)
-            
-            # Step 2: Get logits from encoded protein
-            output = self.client.logits(encoded, self.LogitsConfig(sequence=True, return_embeddings=True))
-            
+            encoded = self.model.encode(protein)
+            output = self.model.logits(encoded, self.LogitsConfig(sequence=True, return_embeddings=True))
+                    
             # Extract logits tensor
             logits = output.logits
             if hasattr(logits, 'sequence'):
