@@ -1,4 +1,21 @@
 # **jan23** 
+
+- analyzing the results with phaseanalysis:
+	- Raw esm*_pseudo_likelihood should look backbone-shifted (3 peaks in esm1v/esm3 and 2 in esm2)
+	- esm*_delta_pll should be much more centered/overlapping.
+- made the phase_analysis give grouped histograms now 
+- 	•	LLR is usually more “local” (site-specific preference / mutation effect style).
+	•	delta_pll is a “global” log-likelihood change relative to WT, and can reflect distributed effects (including context around the site) and how the model scores the whole sequence.
+- organizing this 3 module workflow (1) build_features.py (2) phase_analysis.py (3) scorer.py
+- workflow right now: 
+	build_features.py → build_esm_consensus_features.tsv (features) 
+	•	build_features.py stays a deterministic “feature assembly + QC normalization” step.
+
+	rank.py → esm_only_prelim_ranks.tsv (define scoring logic)
+	•	rank.py becomes the experimentation surface: you can change weights/penalties/objectives quickly without rebuilding ESM features every time. (same rows + added score columns like S1/S2/S3/S4). The way it scores is based on how you define it. It doesn’t automatically use all features. You decide which features matter by defining score formulas (initially simple; later weighted combos). The rest of the feature columns can remain in the output for debugging and analysis, but they don’t affect ranking unless referenced in a score. By the way you could also use just phasexanalysis to obtain scores for example python phasex_analysis.py --in esm_only_prelim_ranks.tsv --score-cols S1,S2,S3,S4 --topk 200. 
+	
+	phasex_analysis.py --score-cols ... → analyzes those score columns (topK overlap, top candidates per score, etc.)
+
 - can we ask actual protein engineering ML teams and bioML teams how they organize their summary/reports/folders/meetings ?? -> ask charlie and sanju 
 - can we look deeper into why esm1v works so well for variant calling and is different from esm2/3 ? 
 - results on the buildfeatures(esm1v/2/3)+phase dashboard -> The blocks behave as expected:
