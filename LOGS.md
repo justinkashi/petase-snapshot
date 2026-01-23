@@ -1,4 +1,21 @@
+# **jan23** 
+- 
+- note on what the autoflip PLL thing we ran into was: auto_flip_pll_consensus exists because PLL-like outputs are not guaranteed to have the same sign convention across different writers/models/pipelines. If one model’s “pseudo_likelihood” is effectively the negative of another model’s (or you accidentally exported “loss” for one and “log-likelihood” for another), then averaging them is meaningless: they will anti-correlate and cancel.
 # **jan22**
+- today will work on 
+	1. lit review
+	2. play with features in petase_pipeline 
+	3. play with weights in rank_from_esm_only 
+- pipeline workflow is (1) build_esm_consensus -> data integration + feature engineering (2) phase_analysis -> what features we should keep/remove/weight differently 
+- fixing build_esm_consensus and phase_analysis .py files to interpret the results / analyze the LLR and PLL features from esm1v/2/3
+- Q: did align do a DMS to generate their test set of 5000 variants/ Most likely yes: it’s “DMS-like” (single mutants), but not a full DMS.
+•	DMS-like = lots of single substitutions across many positions.
+•	Not full DMS = they didn’t include every position × 19 AA (that would be far >5,000 unless they restricted positions heavily).
+And no, it’s very unlikely they did iterative rounds (like evolve → pick winners → mutate again) for the test set generation. That kind of multi-round design usually produces:
+	•	multi-mutants,
+	•	clustered lineages,
+	•	clear “families” of variants,
+	•	and a non-uniform mutation-count distribution.
 - (1) interpret rank_from_esm_only.py vs generate_rank.py 
 - (2) work on features, ranking/weights, 
 - (3) lit review
