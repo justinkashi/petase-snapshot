@@ -1,5 +1,6 @@
 # **jan23** 
-- 
+- can we ask actual protein engineering ML teams and bioML teams how they organize their summary/reports/folders/meetings ?? -> ask charlie and sanju 
+- can we look deeper into why esm1v works so well for variant calling and is different from esm2/3 ? 
 - results on the buildfeatures(esm1v/2/3)+phase dashboard -> The blocks behave as expected:
 	•	llr_mean/median/min/max are all highly correlated with the per-model LLR columns → they’re mostly redundant summaries of the same signal.
 	•	delta_pll_mean/median are highly correlated with the per-model esm*_delta_pll → good, the WT mapping/delta construction is working.
