@@ -1,5 +1,10 @@
 # **jan23** 
 - 
+- results on the buildfeatures(esm1v/2/3)+phase dashboard -> The blocks behave as expected:
+	•	llr_mean/median/min/max are all highly correlated with the per-model LLR columns → they’re mostly redundant summaries of the same signal.
+	•	delta_pll_mean/median are highly correlated with the per-model esm*_delta_pll → good, the WT mapping/delta construction is working.
+	•	The “rank_*” columns are strongly anti-correlated with their underlying values because ranks are in the opposite direction (better value → smaller rank). That’s normal and not a bug.
+- module 1 buildfeatures note: do not accidentally making one feature dominate by scale (handled later via normalization/weights).
 - note on what the autoflip PLL thing we ran into was: auto_flip_pll_consensus exists because PLL-like outputs are not guaranteed to have the same sign convention across different writers/models/pipelines. If one model’s “pseudo_likelihood” is effectively the negative of another model’s (or you accidentally exported “loss” for one and “log-likelihood” for another), then averaging them is meaningless: they will anti-correlate and cancel.
 # **jan22**
 - today will work on 
