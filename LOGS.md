@@ -1,4 +1,28 @@
 # **jan23** 
+- meeting tomorrow to implement a tool fully 
+- note on esm1v/2/3 vs msa/alignents: For contrast with PLMs, classic MSA/covariation fitness models (e.g., EVmutation/EVcouplings-style) that also estimate evolutionary constraints but via alignments/statistical physics rather than neural LMs.
+- phaseanalysismodeb + esm1v/2/3 results:
+	Right now, you are ranking variants by ESM-derived signals, for example:
+		•	llr_mean
+	→ “On average, how much do ESM1v/2/3 prefer this mutation over WT?”
+		•	delta_pll_mean
+	→ “How much more likely does ESM think this mutant sequence is than the WT sequence?”
+	
+	Because you don’t know which signal corresponds to real activity or expression yet.
+	So you ask:
+		•	“What if I rank by LLR?”
+		•	“What if I rank by ΔPLL?”
+	Each choice produces a different ordering of the same variants.
+
+	Mode B asks if I rank variants using signal A vs signal B, do I mostly get the same top variants?
+	Ranking by llr_mean gives Top-200 set A, Ranking by delta_pll_mean gives Top-200 set B, Overlap = 34 variants. 
+
+	Why this matters because you will submit a ranked list/ Even without knowing activity:
+	•	Rank #1 is “best guess”
+	•	Rank#200 is “still worth testing”
+	•	Rank#3000 is “probably bad”
+
+	The Jaccard ≈ 0.09 for delta PLL vs LLR -> Ranking by LLR and ranking by ΔPLL choose almost completely different mutants.so ranking defines which mutants get experimental attention.
 
 - analyzing the results with phaseanalysis:
 	- Raw esm*_pseudo_likelihood should look backbone-shifted (3 peaks in esm1v/esm3 and 2 in esm2)
@@ -113,6 +137,9 @@ And no, it’s very unlikely they did iterative rounds (like evolve → pick win
 		geoevotranfsormer
 		PETase specific: MutPSSM (from that one paper i forgot author name)
 		PETase specific: Alam mutation score / motif integrity
+		aqaffinity sandbox
+		proteingym
+		Boltz2 
 	1. DDG 
 		FoldX generate + ddg 
 		RFjoint/RFold/Rosetta generate + 
@@ -121,8 +148,8 @@ And no, it’s very unlikely they did iterative rounds (like evolve → pick win
 
 	2. Stability 
 		ThermoProt 
-		ddgemb, deepddg, prostab, temstapro (type2) temberture (type2) 
-		dynamut2, enzyact 
+		ddgemb(https://ddgemb.biocomp.unibo.it/), deepddg (https://protein.org.cn/ddg.html), prostab, temstapro (type2) temberture (type2) 
+		dynamut2 (https://biosig.lab.uq.edu.au/dynamut2/), enzyact ()
 	3. Expression
 		Soluprot 
 		Procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION
