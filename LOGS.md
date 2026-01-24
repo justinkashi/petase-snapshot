@@ -1,4 +1,8 @@
 # **jan23** 
+- 
+- now also but not alot doing lit review, slides, github organization ....................  
+- now also adding more PLM features (Profluent-E1, POET2, T5, GeorgieV) as writer.py files and test in the buildfeature phaseanalysis pipeline 
+- now trying the label verification feature from phaseanalysis modeC, using features from esm1v/2/3 labels from integrated_benchmarkdb to fine tune the weights of the scorer.py module on the benchmarkdb and apply it to the align tournament test set. Also implement comparison statistical of the masterdb1 to the benchmarkdb to understand where the petase data lies in the distribution of benchmarkdb. 
 - meeting tomorrow to implement a tool fully 
 - note on esm1v/2/3 vs msa/alignents: For contrast with PLMs, classic MSA/covariation fitness models (e.g., EVmutation/EVcouplings-style) that also estimate evolutionary constraints but via alignments/statistical physics rather than neural LMs.
 - phaseanalysismodeb + esm1v/2/3 results:
