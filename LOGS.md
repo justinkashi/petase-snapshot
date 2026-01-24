@@ -1,5 +1,10 @@
+# **jan24**
+	•	Activity signal: LLR-heavy scores (S_llr, S_risk) can be very strong on at least one enzyme (glucosidase) and are not purely one-hotspot (31 unique positions in top50).
+	•	Stability/thermal signal: ΔPLL (S_dpll) gives a measurable melting-point lift and shows plausible stabilizing hotspots.
+	•	Expression: mixed/LLR-leaning scores help on amylase; glucosidase expression labels aren’t informative.
+
 # **jan23** 
-- 
+- need to look more into the align2023 github for scoring approach and zero shot approaches  
 - now also but not alot doing lit review, slides, github organization ....................  
 - now also adding more PLM features (Profluent-E1, POET2, T5, GeorgieV) as writer.py files and test in the buildfeature phaseanalysis pipeline 
 - now trying the label verification feature from phaseanalysis modeC, using features from esm1v/2/3 labels from integrated_benchmarkdb to fine tune the weights of the scorer.py module on the benchmarkdb and apply it to the align tournament test set. Also implement comparison statistical of the masterdb1 to the benchmarkdb to understand where the petase data lies in the distribution of benchmarkdb. 
