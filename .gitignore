@@ -9,7 +9,7 @@ data/esm1v_venv/
 evc_petase/
 evcouplings_venv/
 plmc/
-
+data/db/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
