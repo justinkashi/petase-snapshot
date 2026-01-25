@@ -1,1 +1,0 @@
-{"cbbde90e3-5162-45ff-8aab-ebdfa5bdf838":"name: WT_A\njob_id: 37142\ntries: 1\nstatus: run\ncommand:\n- evcouplings_runcfg WT_A_config.txt\n- evcouplings_summarize protein_monomer WT_A WT_A_config.txt\nresources:\n  queue: ''\n  time: 24:00:00\n  mem: 16G\n  nodes: 4\n  done: WT_A_stdout.log\n  error: WT_A_stderr.log\nworkdir:\nenvironment: {}\n"}
