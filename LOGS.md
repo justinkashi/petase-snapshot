@@ -1,3 +1,73 @@
+# **jan25** 
+- for hte evcouplings align part: Use MMseqs2 instead of jackhmmer (often 10–100× faster)
+- A evc_epistatic_sum
+	•	What it is: predicted ΔE under the pairwise Potts model (PLMC) including couplings (J terms).
+	•	Intuition: “Does this mutation fit the coevolution constraints?”
+	•	Strength: captures context-dependent compatibility (good for function if function is constrained by networks of residues).
+	•	Weakness: needs a decent MSA; if MSA is weak, scores are noisy or collapse.
+
+B evc_independent_sum
+	•	What it is: predicted ΔE under an independent model (fields only, no pair couplings).
+	•	Intuition: “Is this mutation generally allowed at this site in evolution?”
+	•	Strength: strong for “don’t break the protein” / general viability.
+	•	Weakness: less sensitive to epistasis, can look like a conservation proxy.
+
+C evc_freq_sum
+	•	What it is: MSA observed frequency of the substituted AA at that position.
+	•	Intuition: “Has evolution already tried this exact substitution?”
+	•	Strength: very interpretable, strong “sanity check” feature.
+	•	Weakness: sparse; many substitutions will be 0.
+
+D evc_colcon_sum (column conservation)
+	•	What it is: position-level conservation metric (same for all substitutions at same position).
+	•	Intuition: “How constrained is this site overall?”
+	•	Strength: good for “mutations in conserved sites are risky.”
+	•	Weakness: does not distinguish V26A vs V26C (as you noticed).
+
+- 	1.	Substitution never observed in the MSA at that position
+Your frequency=0.0 for many of those rows confirms this.
+When frequency=0, EVcouplings often assigns a similar “very bad” penalty for many rare AAs → same prediction_*.
+	2.	Column is highly conserved
+Your evc_colcon_sum is identical for all mutants at pos 26 because it’s a position-level value, not mutation-level.
+So it will always be the same for all 19 substitutions at that position.
+	3.	Regularization / pseudocount effects (plmc)
+When the data doesn’t constrain a mutation, the model defaults to similar energies for multiple substitutions.
+- Option A (recommended): treat “missing” as a feature, don’t force-fill. Option B: rebuild EVcouplings so it scores more positions (proper “fix”).  Biological interpretation: the MSA doesn’t support learning constraints there (not enough homologous evidence at that residue).. Biologically it means: EVcouplings has no reliable evolutionary constraint signal for that specific substitution at that position (in that WT background / alignment), so it cannot score it. It’s not “neutral” or “bad” by itself — it’s “out of model / unsupported”. EVcouplings only produces scores for positions that survive:
+	•	focus region selection (region, first_index)
+	•	gap/coverage filtering (minimum_sequence_coverage, minimum_column_coverage)
+	•	redundancy filtering (hhfilter, seqid_filter)
+	•	sometimes additional internal trimming / lowercase-column logic
+
+So “not scanned” = not enough usable evolutionary information at that position, or it was excluded by preprocessing.
+
+- You can now score any test variant by summing its mutations’ prediction_epistatic (or prediction_independent) from the correct WT table.
+
+Lookup key
+
+Use (pos, wt, subs) or just mutant string like G33A.
+
+Example row:
+	•	pos=33
+	•	wt=G
+	•	subs=A
+	•	prediction_epistatic=1.206…
+
+Multi-mutant scoring (simple baseline)
+
+For a variant with mutations ["G33A","S160T","W185F"]:
+	•	evc_score_epi_sum = sum(prediction_epistatic for each mutation)
+	•	evc_score_ind_sum = sum(prediction_independent for each mutation)
+Also store:
+	•	min / max / mean
+	•	count of mutations found vs missing
+- using the reuslts of evcuoplings and its MSA and mutate matrix of all single point mutations instead of running locally but will try again locally once downloaded uniref90 instead of using swissprot for the evcouplings pipeline locally 
+- notes on evcouplings:
+ on engine: local these fields are mostly used to size internal parallelism and satisfy required config keys; they don’t “reserve” RAM/cores like a scheduler would, and (2) whether you actually get multi-core speedups depends on the underlying tools (notably whether plmc was compiled with OpenMP; your earlier Mac compile issues suggest it may be single-threaded there). Runtime varies widely with alignment size and the number of sequences; with align: existing the “align” stage is mostly preprocessing and should be relatively quick, while PLMC inference can dominate if the MSA is large.
+Workflow (what each stage does): align = produce/ingest an MSA and derive a “focus” alignment around your target (region/first_index mapping, gap filtering, optional redundancy filtering); couplings = fit a Potts model (pairwise Markov random field) to the MSA; in practice EVcouplings calls plmc which does pseudo-likelihood maximization and writes a model (fields h and couplings J); mutate = score mutation(s) by computing ΔE (change in statistical energy under the fitted Potts model) for each mutation string you provide. The environment.time/memory/queue entries are “resource request” fields for cluster submitters; for engine: local they are not enforced reservations, but EVcouplings’ code path requires the keys to exist. You can boost cores/cpu in the YAML for the PC, but again: you only get real speedups if the underlying executable is threaded (e.g., OpenMP-enabled plmc).
+Yes—you can provide your own MSA: set align.protocol: existing and point raw_alignment_file to your alignment (Stockholm/A2M/FASTA depending on what EVcouplings expects for that path). Compatibility requirements: the MSA must include the target sequence, the target should correspond to the region/first_index you specify, and it should be a clean amino-acid alignment (consistent length, gaps as -, no weird characters). EVcouplings may still build an internal “focus” alignment and apply some bookkeeping, but it won’t do the database search if you use existing.
+frequencies_file is derived from the (focus) MSA: it’s the per-position residue frequency table used downstream by the couplings/contact machinery; it’s not “extra data” beyond the MSA. plmc is the core inference engine: it estimates the Potts parameters. lambda_J and lambda_h are regularization strengths (L2 penalties) on couplings J and fields h; higher values shrink parameters more (reducing overfitting but potentially underfitting).
+- debugging evcouplings ...
+- evcouplings needing jckhmmer, need to find whats at the root of jckhmmer and how many tools depend on it + for other dependancies than jckhmmer 
 # **jan24**
 - meeting with sanju
 	- RUNNING TOOLS - EVCOUPLINGS 

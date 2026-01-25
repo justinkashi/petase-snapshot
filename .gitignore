@@ -3,13 +3,14 @@ venv/
 .venv/
 esm1v_env/
 esm1v_venv/
-data/esm1v_env/
-data/esm1v_venv/
 .venv_evc310/
 evc_petase/
 evcouplings_venv/
 plmc/
-data/db/
+evc_results_0.3/
+evc_results_0.7/
+db/
+
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
