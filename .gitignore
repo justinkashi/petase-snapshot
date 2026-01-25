@@ -5,7 +5,11 @@ esm1v_env/
 esm1v_venv/
 data/esm1v_env/
 data/esm1v_venv/
-
+.venv_evc310
+evc_petase
+evcouplings_venv
+WT_A
+plmc
 # python junk
 __pycache__/
 *.pyc

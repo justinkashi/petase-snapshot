@@ -1,0 +1,56 @@
+pipeline: protein_monomer
+stages:
+- align
+- couplings
+- mutate
+
+global:
+  prefix: WT_A
+  work_dir: evc_petase/WT_A
+  sequence_id: WT_A
+  sequence_file: evc_petase/WT_A/wt.fasta
+  first_index: 1
+  cpu: 4
+environment:
+  engine: local
+  cores: 4
+  queue: ''
+  time: 24:00:00
+  memory: 16G
+  configuration: {}
+tools:
+  jackhmmer: /opt/homebrew/bin/jackhmmer
+  hmmbuild: /opt/homebrew/bin/hmmbuild
+  hmmpress: /opt/homebrew/bin/hmmpress
+  hhfilter: /opt/homebrew/bin/hhfilter
+  plmc: /Users/bustin/petorg/plmc/bin/plmc
+databases:
+  uniprot_sprot: db/uniprot_sprot.fasta
+align:
+  protocol: standard
+  database: uniprot_sprot
+  iterations: 3
+  region: [1, 259]
+  domain_threshold: 0.001
+  sequence_threshold: 0.001
+  use_bitscores: false
+  nobias: false
+  seqid_filter: 0.8
+  reuse_alignment: false
+  checkpoints_hmm: false
+  checkpoints_ali: false
+  extract_annotation: false
+couplings:
+  protocol: standard
+  model: plmc
+  theta: 0.2
+  min_sequence_distance: 5
+  frequencies_file: WT_A/align/WT_A_frequencies.csv
+  plmc:
+    binary: /Users/bustin/petorg/plmc/bin/plmc
+    lambda_J: 0.01
+    lambda_h: 0.01
+    max_iter: 500
+mutate:
+  protocol: standard
+  mutations_file: evc_petase/WT_A/mutations.txt

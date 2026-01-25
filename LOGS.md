@@ -1,4 +1,8 @@
 # **jan24**
+- meeting with sanju
+	- RUNNING TOOLS - EVCOUPLINGS 
+		- look into the plmc requirement to oisntall evcouplings 
+- note on results from the accuracy of esm1v/2/3 features on the labels of the train.csv 
 	•	Activity signal: LLR-heavy scores (S_llr, S_risk) can be very strong on at least one enzyme (glucosidase) and are not purely one-hotspot (31 unique positions in top50).
 	•	Stability/thermal signal: ΔPLL (S_dpll) gives a measurable melting-point lift and shows plausible stabilizing hotspots.
 	•	Expression: mixed/LLR-leaning scores help on amylase; glucosidase expression labels aren’t informative.

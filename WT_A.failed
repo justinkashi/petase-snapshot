@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/Users/bustin/petorg/.venv_evc310/lib/python3.10/site-packages/evcouplings/utils/pipeline.py", line 508, in execute_wrapped
+    outcfg = execute(**config)
+  File "/Users/bustin/petorg/.venv_evc310/lib/python3.10/site-packages/evcouplings/utils/pipeline.py", line 187, in execute
+    outcfg = runner(**incfg)
+  File "/Users/bustin/petorg/.venv_evc310/lib/python3.10/site-packages/evcouplings/align/protocol.py", line 1708, in run
+    return PROTOCOLS[kwargs["protocol"]](**kwargs)
+  File "/Users/bustin/petorg/.venv_evc310/lib/python3.10/site-packages/evcouplings/align/protocol.py", line 1489, in standard
+    jackhmmer_outcfg = jackhmmer_search(**kwargs)
+  File "/Users/bustin/petorg/.venv_evc310/lib/python3.10/site-packages/evcouplings/align/protocol.py", line 1049, in jackhmmer_search
+    check_required(
+  File "/Users/bustin/petorg/.venv_evc310/lib/python3.10/site-packages/evcouplings/utils/config.py", line 116, in check_required
+    raise MissingParameterError(
+evcouplings.utils.config.MissingParameterError: Missing required parameters: sequence_download_url 
+Given: {'jackhmmer': '/opt/homebrew/bin/jackhmmer', 'hmmbuild': '/opt/homebrew/bin/hmmbuild', 'hmmpress': '/opt/homebrew/bin/hmmpress', 'hhfilter': '/opt/homebrew/bin/hhfilter', 'plmc': '/Users/bustin/petorg/plmc/bin/plmc', 'uniprot_sprot': 'db/uniprot_sprot.fasta', 'protocol': 'standard', 'database': 'uniprot_sprot', 'iterations': 3, 'region': [1, 259], 'domain_threshold': 0.001, 'sequence_threshold': 0.001, 'use_bitscores': False, 'nobias': False, 'seqid_filter': 0.8, 'reuse_alignment': False, 'checkpoints_hmm': False, 'checkpoints_ali': False, 'extract_annotation': False, 'prefix': 'WT_A/align/WT_A', 'work_dir': 'evc_petase/WT_A', 'sequence_id': 'WT_A', 'sequence_file': 'evc_petase/WT_A/wt.fasta', 'first_index': 1, 'cpu': 4}
