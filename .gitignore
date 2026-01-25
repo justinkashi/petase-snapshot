@@ -19,3 +19,8 @@ __pycache__/
 .env
 *.env
 data/temp
+
+# local databases
+/data/db/uniprot_sprot.fasta
+/data/db/uniprot_sprot.fasta.gz
+/data/db/
