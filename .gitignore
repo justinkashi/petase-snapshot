@@ -24,3 +24,7 @@ data/temp
 /data/db/uniprot_sprot.fasta
 /data/db/uniprot_sprot.fasta.gz
 /data/db/
+
+# local db
+/data/db/uniprot_sprot.fasta
+/data/db/uniprot_sprot.fasta.gz
