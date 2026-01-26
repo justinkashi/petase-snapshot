@@ -1,27 +1,41 @@
+# **jan26** 
 # **jan25** 
 2. GROUND TRUTH REFERENCE BENCHMARK
-	
-1. RUNNING TOOLs
+	align2023 amylase: wt var col 
+	align2023 glucosidase: 
+	ProteinGym: 
+	MaveDB: 
+	NESG Sol: 
+	Soluprot Sol: 
+	Price Sol: 
+	PSI Sol:
+	Meltome Stab:
+	FireprotDB Stab:
+	ThermomutDB Stab 
+	CAFA-5 Kaggle: 142k var
+	Novozymes kaggle: 31k var
+	Protsol Sol: 71k 
+	ProthermDB
+
+1. RUNNING TOOLS
 		[EVcouplings]
+		[ESM1v, ESM2, ESM3/c]
+		(profluent E5, POET2, GeorgieV)
+		(MutCompute)
 		Envision
 		DeepSequence / EVE / EVEscape
 		SIFT / PolyPhen-2 / SNAP / SuSPect 
-		MutCompute
 		ECNet, SCANEER
 		UniKP, DLTKcat, CmpdEnzymPred 
 		ProPRIME
-		MutCompute	
-		MutComputeX
-
 		Provean 
 		deeprankgnn
 		geoevotranfsormer
-		PETase specific: MutPSSM (from that one paper i forgot author name)
-		PETase specific: Alam mutation score / motif integrity
+		PETase specific: MutPSSM other paper 
+		PETase specific: Alam mutation score /motif integrity
+	Structural/docking/mdsim 		
 		aqaffinity sandbox
-		proteingym
-		Boltz2 
-	1. DDG 
+		Boltz2  
 		FoldX generate + ddg 
 		RFjoint/RFold/Rosetta generate + 
 		other sructure based: PoPMuSiC, mCSM, SDM2, SAAFEC 
@@ -31,14 +45,11 @@
 		ThermoProt 
 		ddgemb(https://ddgemb.biocomp.unibo.it/), deepddg (https://protein.org.cn/ddg.html), prostab, temstapro (type2) temberture (type2) 
 		dynamut2 (https://biosig.lab.uq.edu.au/dynamut2/), enzyact ()
+		
 	3. Expression
 		Soluprot 
 		Procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION
-	4. PLMs
-		* E5, Poet2, ESM1b, ESM1v, ESM2, ESM3, T5, georgiev
-	GRAPE (?)
-	consolidated results from all tools
-	* docking output results from vina
+		
 - for the evcouplings align part: Use MMseqs2 instead of jackhmmer (often 10–100× faster)
 - A evc_epistatic_sum
 	•	What it is: predicted ΔE under the pairwise Potts model (PLMC) including couplings (J terms).
