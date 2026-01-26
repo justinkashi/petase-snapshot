@@ -28,3 +28,13 @@ data/temp
 # local db
 /data/db/uniprot_sprot.fasta
 /data/db/uniprot_sprot.fasta.gz
+
+# large local datasets (do not commit)
+db/uniprot_sprot.fasta
+db/uniprot_sprot.fasta.gz
+data/benchmark/stab_benchmark/meltome_cross-species.csv
+data/benchmark/stab_benchmark/fireprotdb.sql
+misc/fireprotdb_results.csv
+data/benchmark/protsolm_data/protsolm_train.csv
+misc/thermomutdb.json
+misc/abhydrolaseSF1_biocatnet.fasta
