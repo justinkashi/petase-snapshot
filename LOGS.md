@@ -1,5 +1,59 @@
+# **jan28** 
+- run tools, build benchmarkdb+features,
+# **jan27** 
+- Pandas 3.0 just got released, what does this mean for computational systems biology: 
+Core improvements in Pandas 3.0
+	•	Copy-on-Write (CoW) becomes the default and only mode, making DataFrame modifications predictable and reducing unnecessary memory duplication. This eliminates the old SettingWithCopyWarning and can reduce memory footprint in large pipelines.  ￼
+	•	A dedicated string data type (str) by default replaces the older NumPy-object storage for text columns. This improves type safety and performance on string operations.  ￼
+	•	Better integration with Apache Arrow via PyArrow can accelerate I/O and in-memory operations, particularly on columnar data, yielding speed and memory improvements.  ￼
+	•	Performance optimizations across group-by, window functions, and other core operations (30–40 % speedups in many cases).  ￼
+	•	Removal of deprecated APIs and behaviors, requiring some code updates (e.g., append() removed, stricter indexing rules).  ￼
+
+Practical impacts on AlignBio2025 and systems biology projects
+	•	Large dataset handling: Many bioinformatics pipelines involve multi-GB tables (variants, annotations, expression matrices). Reduced memory overhead and CoW semantics help when you transform and subset these tables repeatedly. Faster group-by and joins can speed QC and feature engineering phases.  ￼
+	•	Feature engineering pipelines: Nullable types make handling missing values more consistent. This reduces workarounds for NaN/None mixing, which matter when preparing features for ML models (e.g., annotation matrices or phenotype tables).  ￼
+	•	IO performance: Tighter PyArrow integration benefits reading/writing Parquet or Arrow formats at scale (common in biobank-scale or multi-omics workflows).  ￼
+	•	Reproducibility and debugging: More predictable indexing and copies mean fewer silent bugs in data transformations, improving reliability of preprocessing and analysis scripts.  ￼
+
+Considerations before upgrading
+	•	Code changes may be required to handle API removals and stricter behaviors.  ￼
+	•	Test performance and results against your current pipelines to confirm gains outweigh migration effort.
+
 # **jan26** 
-s
+- looking into Mosaic/Escalante
+- RUNNING ... benchmarkdb extracting wt-var pairs, to run all tools on it, to have ground truth reference to evaluate features on 
+- ran evcouplings on masterdb1, waiting for results, 
+- After Amber MD (as a late-stage, top-N feature), the highest-leverage next 3–4 tools for zero-shot ranking are:
+	1.	FoldX ΔΔG (stability/packing, fast, scalable to thousands)
+
+	•	Output features: ΔΔG_fold (mutant−WT), local interaction energy around active-site/loop residues, clash flags.
+	•	Why priority: cheapest structure-based signal that correlates with foldability and often with expression/activity viability when you’re exploring many mutants.
+
+	2.	Solubility/expression predictor (SoluProt + one of Protsol / NetSolP / Protein-Sol-type)
+
+	•	Output features: predicted soluble expression probability/score; aggregation propensity proxies.
+	•	Why priority: Align’s targets include expression; this is usually orthogonal to PLM “fitness” scores and catches obvious liabilities.
+
+	3.	Thermostability predictor (ThermoProt + one other stability model like TemStaPro/DynaMut2 class)
+
+	•	Output features: ΔTm / stability score; consensus/mean across methods; disagreement as uncertainty.
+	•	Why priority: gives a second, non-FoldX stability channel; combining a physics-ish ΔΔG with learned stability often improves rank robustness.
+
+	4.	Docking / binding proxy to PET (quick docking for top-N, not all 5000)
+
+	•	Output features: docking score, contact counts to catalytic pocket, substrate pose stability over short restrained MD, MM/GBSA ΔG_bind on a small snapshot set.
+	•	Why priority: it’s your most direct “activity-ish” signal tied to PET interactions; do it only after triaging candidates with PLMs + stability + solubility.
+
+Practical sequencing for the pipeline: (A) run FoldX + solubility + learned stability on all 5000, (B) take top 200–500 (plus a diversity slice), (C) do docking + short Amber MD/MMGBSA at pH 5.5 and 9, and use pH-differences as features.
+- running masterdb1 into evcouplings 
+- meeting with sanju 
+	- went over interpreting evc results
+		- run on masterdb1, benchmarkdb 
+	- priority need to run 
+	(1) amber MD-SIM 
+	(2) FoldX DDG 
+	(3) Soluprot, Protsol, NetsolP (4) Thermoprot, Dynamut2, TemStaPro 
+	(5) Docking + MDSim  
 # **jan25** 
 2. GROUND TRUTH REFERENCE BENCHMARK
 	align2023 amylase: wt var col 
@@ -23,6 +77,7 @@ s
 		[ESM1v, ESM2, ESM3/c]
 		(profluent E5, POET2, GeorgieV)
 		(MutCompute)
+		(Escalante/Mosaic)
 		Envision
 		DeepSequence / EVE / EVEscape
 		SIFT / PolyPhen-2 / SNAP / SuSPect 
