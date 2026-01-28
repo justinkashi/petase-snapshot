@@ -1,5 +1,5 @@
 # **jan28** 
-- run tools, build benchmarkdb+features,f
+- run tools, build benchmarkdb+features,fsd
 # **jan27** 
 - Pandas 3.0 just got released, what does this mean for computational systems biology: 
 Core improvements in Pandas 3.0
