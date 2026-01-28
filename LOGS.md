@@ -1,4 +1,35 @@
 # **jan28** 
+- what to do about expression from CDS-vector for align: If your PETase “expression” label is recombinant yield in E. coli, the realistic hackathon move
+	1.	Fix the construct assumptions (at minimum: do you know the RBS/5′ UTR and start context, or do you only have CDS?).
+	2.	Score each CDS variant with 5′ opening energy/accessibility and/or OSTIR translation initiation rate (this is usually the strongest signal).  ￼
+	3.	Add lightweight CDS covariates: CAI/tAI, GC%, rare-codon runs/cluster metrics; optionally a solubility proxy at the AA level (orthogonal to “expression”).
+	4.	If you need “one backbone,” treat OSTIR/TIsigner as the backbone score and the others as small additive features.
+- Tool idea: takes input list of CDS variants with one vector backbone and predicts expression in different parameters like ecoli/etc. 
+- PLM-gpu Project ideas:
+	Local PLM embedding factory (MPS-accelerated)
+	Build a CLI + cache that takes FASTA(s) and emits standardized embeddings (per-residue + pooled), with batching, resume, and metadata; supports ESM-family checkpoints you use; writes Parquet/Arrow; includes deterministic hashing so reruns are free. Value: turns “run ESM on 5k–500k sequences” into an industrial primitive you can reuse across every project.
+
+	Mutation-effect benchmark harness for protein tasks
+	A clean framework that ingests multiple deep mutational scanning datasets / assay tables and evaluates any scorer (PLL/LLR, embeddings + linear model, stability predictors) with consistent splits, metrics (Spearman, AUROC, NDCG), and leakage checks. Value: makes your modeling claims defensible and speeds iteration; immediately useful to teams.
+
+	Structural surrogate pipeline without full AlphaFold
+	Instead of full AF-at-scale, use “cheap structure signals”: ESM-based contact/structure heads (if available), secondary-structure/disorder predictors, coevolution proxies, and simple graph features; optionally add AF only for top-K. Value: 80/20 structure-informed ranking with 10–100× less compute.
+
+	End-to-end “protein scoring service” (MLOps)
+	A small service (FastAPI) that exposes endpoints: /embed, /score, /explain, with a job queue, artifact store, and versioned models; includes a web dashboard that shows distributions, outliers, and provenance. Value: converts notebooks into a shareable product; strong for real-world engineering credibility.
+
+	Data-quality + provenance layer for bio pipelines
+	A library that enforces schemas for FASTA/TSV/assay tables, validates sequence lengths/alphabet, detects duplicates/leakage, tracks transforms, and emits a “data card” report (hashes, counts, missingness, mutation density). Value: prevents silent errors; teams will reuse it.
+
+	Active learning loop for variant selection
+	Implement “pick next variants” with uncertainty + diversity (e.g., ensemble variance, embeddings clustering, constrained design regions), and simulate on historical assays to show reduced lab budget for same performance. Value: connects ML to experimental ROI.
+
+	Apple-silicon-optimized inference cookbook (real, not hype)
+	A reproducible guide + scripts showing when MPS helps (batch size curves, dtype choices, throughput), with profiling and fallbacks; includes a “device sanity check” to prove you’re on MPS. Value: saves you and others days; practical and shareable.
+- Q: would generating alphafoldstructures (at scale, optimized pipeline) able to use metal mac
+	A: AlphaFold2 is JAX-based; JAX can target Apple GPUs via Apple’s Metal plug-in (jax-metal), but that path is explicitly experimental and not all JAX functionality is guaranteed to work. In practice, most people doing serious batch structure generation still run on CUDA GPUs; on macOS you’re usually limited to CPU runs or experimental/community ports/forks (which can work for demos but are not a stable “optimized pipeline” for scale).
+- Q: does esm models all that able to train on mac metal ? i know it does its thing on python but what about bare metal mac and would htere be improvements and is that useful? 
+	- A: Yes—ESM (PyTorch) can run and be fine-tuned on Apple Silicon using Metal via PyTorch’s mps backend, i.e., you move the model/tensors to device="mps" and it executes on the M1 Max GPU. In practice, it’s most useful for inference/embedding generation and small fine-tunes; it’s usually not competitive with CUDA for large-scale training, and you can hit backend limitations (e.g., no float64, incomplete operator coverage, and single-device training constraints). For “bare metal” improvements: you’re basically choosing between (a) PyTorch MPS (easy drop-in, good for prototyping) and (b) rewriting/porting to Apple-first stacks (Core ML / MLX) which can be faster for some workloads but requires more engineering and won’t be a drop-in for ESM code. If your goal is your PETase workflow: MPS can be a real win for batch embedding generation locally; for heavy training or big sweeps, you’ll still typically want CUDA machines.
 - run tools, build benchmarkdb+features,fsd
 # **jan27** 
 - Pandas 3.0 just got released, what does this mean for computational systems biology: 
@@ -78,6 +109,8 @@ Practical sequencing for the pipeline: (A) run FoldX + solubility + learned stab
 		(profluent E5, POET2, GeorgieV)
 		(MutCompute)
 		(Escalante/Mosaic)
+
+
 		Envision
 		DeepSequence / EVE / EVEscape
 		SIFT / PolyPhen-2 / SNAP / SuSPect 
@@ -103,6 +136,8 @@ Practical sequencing for the pipeline: (A) run FoldX + solubility + learned stab
 		dynamut2 (https://biosig.lab.uq.edu.au/dynamut2/), enzyact ()
 		
 	3. Expression
+		RiboDecode
+		TIsigner, OSTIR, Salis RBS, DeepCodon
 		Soluprot 
 		Procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION
 		
