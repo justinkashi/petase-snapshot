@@ -1,4 +1,43 @@
 # **jan28** 
+- (side) plan to learn rust: 
+How to learn Rust efficiently
+
+Weeks 1–2: fundamentals with immediate payoff: ownership/borrowing, iterators, error handling (Result), traits, lifetimes only as needed. Build 2–3 tiny CLIs that read/write FASTA/FASTQ/BAM-like data and emit TSV/Parquet.
+
+Weeks 3–5: “bioinformatics-grade” engineering: streaming IO, zero-copy parsing, compression (BGZF), concurrency (rayon), and profiling (cargo flamegraph, criterion). Rust becomes valuable when you can process files without blowing RAM and can safely parallelize.
+
+Weeks 6+: interoperability-first: wrap Rust as Python modules with pyo3/maturin so you can drop Rust into existing notebooks/pipelines without rewriting your stack. This is usually the highest ROI pattern in computational biology.
+
+Where Rust is genuinely useful in compbio/bioinformatics/BioML
+
+High-throughput file formats & streaming: spec-compliant readers/writers and transformations for genomics formats (SAM/BAM/CRAM/VCF/BED/GFF/GTF, BGZF, tabix, etc.)—noodles is a major ecosystem piece here.
+
+Fast sequence parsing and k-mer/minimizer work: FASTA/FASTQ parsing and k-mer oriented processing with minimal copying—needletail is explicitly designed for this.
+
+Embedding/search infrastructure: take PLM embeddings (ESM/ProtT5/etc.) and build a robust, fast ANN index + query service (HNSW, IVF-PQ) or offline batch join against metadata; Rust shines for latency, memory control, and safe concurrency.
+
+Pipeline kernels: the “hot loops” in your feature extraction (k-mer stats, alignment summaries, pileup-like transforms, SIMD-friendly numeric transforms) as Rust extensions called from Python.
+
+Production-ish tooling: reproducible single-binary CLIs, deterministic deployments, strong typing around schemas/metadata, and safer concurrency than ad-hoc Python multiprocessing.
+
+Rust in ML (what’s real today)
+
+Rust is not the center of model research/training in BioML, but it’s increasingly usable for inference and tooling. Options include Candle (Hugging Face) for performant inference (including GPU support) and Burn as a Rust-native DL framework. In practice: you’ll still train in PyTorch/JAX, then use Rust for serving, batch inference plumbing, or custom kernels.
+
+A valuable/interesting Rust project in 2026 (practical + relevant)
+Pick one that matches what you already do (PLM + large datasets):
+
+“Genomics/Proteomics streaming feature engine”: a Rust CLI that ingests FASTA/FASTQ + optional BAM/CRAM + annotations, computes configurable features (k-mer/minimizers, QC stats, motif scans), and outputs Arrow/Parquet for downstream pandas/Polars; use noodles for formats and needletail for FASTX.
+
+“Embedding index + retrieval service for proteins”: Rust service that stores ESM embeddings, supports nearest-neighbor queries, filters by metadata, and returns candidates + explanations; pair it with your existing Python that generates embeddings.
+
+“Python→Rust acceleration package for your pipeline”: identify 1–2 bottlenecks (e.g., FASTA parsing + mutation featurization + big joins) and ship them as a pip install-able Rust extension. This is the most directly career-relevant because it demonstrates you can harden and speed up real BioML workflows.
+
+What is ESM written in, and would it “need Rust”?
+
+The mainstream ESM codebases are Python + PyTorch (e.g., Meta’s facebookresearch/esm for ESM-1/2/ESMFold) and the newer ESM3 codebase is also published as a Python repo.
+
+ESM doesn’t need Rust; research iteration speed and CUDA kernel ecosystems keep it Python-centric. Rust is most sensible around ESM: fast preprocessing, dataset plumbing, embedding indexing, inference orchestration, or a high-performance service layer. Re-implementing ESM training in Rust is possible but usually negative ROI unless you’re specifically building infrastructure or kernels.
 - what to do about expression from CDS-vector for align: If your PETase “expression” label is recombinant yield in E. coli, the realistic hackathon move
 	1.	Fix the construct assumptions (at minimum: do you know the RBS/5′ UTR and start context, or do you only have CDS?).
 	2.	Score each CDS variant with 5′ opening energy/accessibility and/or OSTIR translation initiation rate (this is usually the strongest signal).  ￼
@@ -102,15 +141,13 @@ Practical sequencing for the pipeline: (A) run FoldX + solubility + learned stab
 	Novozymes kaggle: 31k var
 	Protsol Sol: 71k 
 	ProthermDB
-
+test
 1. RUNNING TOOLS
 		[EVcouplings]
 		[ESM1v, ESM2, ESM3/c]
 		(profluent E5, POET2, GeorgieV)
 		(MutCompute)
 		(Escalante/Mosaic)
-
-
 		Envision
 		DeepSequence / EVE / EVEscape
 		SIFT / PolyPhen-2 / SNAP / SuSPect 
