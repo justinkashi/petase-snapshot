@@ -1,3 +1,60 @@
+# **feb2** 
+- 
+# **feb1** 
+- 2. GROUND TRUTH REFERENCE BENCHMARK
+	align2023 amylase: wt var col 
+	align2023 glucosidase: 
+	ProteinGym: 
+	MaveDB: 
+	NESG Sol: 
+	Soluprot Sol: 
+	Price Sol: 
+	PSI Sol:
+	Meltome Stab:
+	FireprotDB Stab:
+	ThermomutDB Stab 
+	CAFA-5 Kaggle: 142k var
+	Novozymes kaggle: 31k var
+	Protsol Sol: 71k 
+	ProthermDB
+test
+1. RUNNING TOOLS
+		[EVcouplings]
+		[ESM1v, ESM2, ESM3/c]
+		(profluent E5, POET2, GeorgieV)
+		(MutCompute)
+		(Escalante/Mosaic)
+		Envision
+		DeepSequence / EVE / EVEscape
+		SIFT / PolyPhen-2 / SNAP / SuSPect 
+		ECNet, SCANEER
+		UniKP, DLTKcat, CmpdEnzymPred 
+		ProPRIME
+		Provean 
+		deeprankgnn
+		geoevotranfsormer
+		PETase specific: MutPSSM other paper 
+		PETase specific: Alam mutation score /motif integrity
+	Structural/docking/mdsim 		
+		aqaffinity sandbox
+		Boltz2  
+		FoldX generate + ddg 
+		RFjoint/RFold/Rosetta generate + 
+		other sructure based: PoPMuSiC, mCSM, SDM2, SAAFEC 
+		other sequence-based: I-Mutant 2.0, STRUM, SAAFEC-SEQ, BoostDDG,mGPfusion
+
+	2. Stability 
+		ThermoProt 
+		ddgemb(https://ddgemb.biocomp.unibo.it/), deepddg (https://protein.org.cn/ddg.html), prostab, temstapro (type2) temberture (type2) 
+		dynamut2 (https://biosig.lab.uq.edu.au/dynamut2/), enzyact ()
+		
+	3. Expression
+		RiboDecode
+		TIsigner, OSTIR, Salis RBS, DeepCodon
+		Soluprot 
+		Procesa/netsolp, protsol (ecoli), progsol/gatsol (type2), aggrescan3D, VECTOR ANNOTATION
+		
+- run tools, build benchmarkdb+features - RUNNING ... benchmarkdb extracting wt-var pairs, to run all tools on it, to have ground truth reference to evaluate features on 
 # **jan28** 
 - (side) plan to learn rust: 
 How to learn Rust efficiently
@@ -69,7 +126,7 @@ ESM doesn’t need Rust; research iteration speed and CUDA kernel ecosystems kee
 	A: AlphaFold2 is JAX-based; JAX can target Apple GPUs via Apple’s Metal plug-in (jax-metal), but that path is explicitly experimental and not all JAX functionality is guaranteed to work. In practice, most people doing serious batch structure generation still run on CUDA GPUs; on macOS you’re usually limited to CPU runs or experimental/community ports/forks (which can work for demos but are not a stable “optimized pipeline” for scale).
 - Q: does esm models all that able to train on mac metal ? i know it does its thing on python but what about bare metal mac and would htere be improvements and is that useful? 
 	- A: Yes—ESM (PyTorch) can run and be fine-tuned on Apple Silicon using Metal via PyTorch’s mps backend, i.e., you move the model/tensors to device="mps" and it executes on the M1 Max GPU. In practice, it’s most useful for inference/embedding generation and small fine-tunes; it’s usually not competitive with CUDA for large-scale training, and you can hit backend limitations (e.g., no float64, incomplete operator coverage, and single-device training constraints). For “bare metal” improvements: you’re basically choosing between (a) PyTorch MPS (easy drop-in, good for prototyping) and (b) rewriting/porting to Apple-first stacks (Core ML / MLX) which can be faster for some workloads but requires more engineering and won’t be a drop-in for ESM code. If your goal is your PETase workflow: MPS can be a real win for batch embedding generation locally; for heavy training or big sweeps, you’ll still typically want CUDA machines.
-- run tools, build benchmarkdb+features,fsd
+- run tools, build benchmarkdb+features 
 # **jan27** 
 - Pandas 3.0 just got released, what does this mean for computational systems biology: 
 Core improvements in Pandas 3.0
