@@ -38,3 +38,4 @@ misc/fireprotdb_results.csv
 data/benchmark/protsolm_data/protsolm_train.csv
 misc/thermomutdb.json
 misc/abhydrolaseSF1_biocatnet.fasta
+.venv_evc310/
