@@ -1,5 +1,5 @@
 # **feb2** 
-- 
+- make a sandbox platform where can upload many types of bioinformatics files like boltzlab sandbox
 # **feb1** 
 - 2. GROUND TRUTH REFERENCE BENCHMARK
 	align2023 amylase: wt var col 
@@ -19,6 +19,7 @@
 	ProthermDB
 test
 1. RUNNING TOOLS
+		Diffdock, rosettafold all atom, equibind, tankbind, GINNA, UniMol, flow dock, posebench/busters, gromacs, perturbation free energy toolkit, scheodinger FEP, Apodock, karmadock. 
 		[EVcouplings]
 		[ESM1v, ESM2, ESM3/c]
 		(profluent E5, POET2, GeorgieV)
