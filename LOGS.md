@@ -1,3 +1,8 @@
+# **feb8** 
+- annoying to play with ESM and E1 models wiht python. openprotein (strong platform, no github, or its the old one) and esm (yes github but minimal platform) are using marketing/branding for competition and story in market they like 
+
+# **feb3** 
+- simulate discovery of CYP450 candidature in biosynthetic pathway of a plant by batch docking all CYP450s against all metabolites found via LCMS ?
 # **feb2** 
 - make a sandbox platform where can upload many types of bioinformatics files like boltzlab sandbox
 # **feb1** 
@@ -19,6 +24,9 @@
 	ProthermDB
 test
 1. RUNNING TOOLS
+		Use structural encoding (AS) 
+		Blosum matrix (AS)
+		CataPro 
 		Diffdock, rosettafold all atom, equibind, tankbind, GINNA, UniMol, flow dock, posebench/busters, gromacs, perturbation free energy toolkit, scheodinger FEP, Apodock, karmadock. 
 		[EVcouplings]
 		[ESM1v, ESM2, ESM3/c]
@@ -33,7 +41,7 @@ test
 		ProPRIME
 		Provean 
 		deeprankgnn
-		geoevotranfsormer
+		geoevobuilder
 		PETase specific: MutPSSM other paper 
 		PETase specific: Alam mutation score /motif integrity
 	Structural/docking/mdsim 		

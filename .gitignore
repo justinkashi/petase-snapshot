@@ -1,41 +1,9 @@
 # virtual environments
 venv/
-.venv/
-esm1v_env/
-esm1v_venv/
-.venv_evc310/
-evc_petase/
-evcouplings_venv/
 plmc/
-evc_results_0.3/
-evc_results_0.7/
-
+evc_results_
 __pycache__/
-*.pyc
-.ipynb_checkpoints/
-
-# misc
 .DS_Store
-.env
-*.env
-data/temp
-
-# local databases
-/data/db/uniprot_sprot.fasta
-/data/db/uniprot_sprot.fasta.gz
-/data/db/
-
-# local db
-/data/db/uniprot_sprot.fasta
-/data/db/uniprot_sprot.fasta.gz
-
-# large local datasets (do not commit)
-db/uniprot_sprot.fasta
-db/uniprot_sprot.fasta.gz
-data/benchmark/stab_benchmark/meltome_cross-species.csv
-data/benchmark/stab_benchmark/fireprotdb.sql
-misc/fireprotdb_results.csv
-data/benchmark/protsolm_data/protsolm_train.csv
-misc/thermomutdb.json
-misc/abhydrolaseSF1_biocatnet.fasta
-.venv_evc310/
+data/
+misc/
+results/ 
