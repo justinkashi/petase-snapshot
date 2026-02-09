@@ -1,4 +1,7 @@
-# **feb8** 
+# **feb9**
+- cleaning up repo (mac petorg)
+
+ **feb8** 
 - annoying to play with ESM and E1 models wiht python. openprotein (strong platform, no github, or its the old one) and esm (yes github but minimal platform) are using marketing/branding for competition and story in market they like 
 
 # **feb3** 
