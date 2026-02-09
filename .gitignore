@@ -5,4 +5,4 @@ __pycache__/
 data/
 misc/
 results/ 
-.venv_evc310
+.venv_evc310/
