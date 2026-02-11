@@ -1,4 +1,118 @@
+# **feb11**
+- 
+- dynamut2 is directly relevant for us but (1) no open github available while the web server is broken/slow (2) specializing for certain species (bacteria/plants/etc.): What DynaMut2 Uses (from the paper)
+
+Data: ProTherm single‑point mutations plus multiple‑point mutations. They add hypothetical reverse mutations to balance classes and exclude reverse entries with |ΔΔG| > 2.0 kcal/mol.
+Structures: Prefer biological assemblies; if not available, use asymmetric unit (for NMR, use asymmetric unit).
+Features: Protein dynamics from Normal Mode Analysis (NMA) using bio3D, wild‑type residue environment, substitution propensities, contact potential scores (AAINDEX), interatomic interactions (via Arpeggio), plus their graph‑based signatures (atoms as nodes, interactions as edges, pharmacophore classes and distance patterns summarized as cumulative distributions).
+Model: Random Forest (scikit‑learn), with incremental stepwise greedy feature selection.
+Outputs: ΔΔG for single and multiple mutations (up to three), plus NMA‑based dynamics visualizations in the web UI.
+Replication Plan (local code, no web server)
+
+Data curation
+Use ProTherm for ΔΔG labels. Implement reverse mutations for balancing and filter out reverse entries with |ΔΔG| > 2.0 kcal/mol. Reproduce their train/test splits if possible.
+Structure prep
+Parse PDB/mmCIF, choose biological assembly, map chain and residue numbering, remove alternate locations, handle missing residues.
+Feature extraction
+Compute these per mutation using the wild‑type structure.
+NMA dynamics: run bio3D (R) to extract normal modes and per‑residue dynamics features.
+Graph‑based signatures: build atom‑level graph around the wild‑type residue, assign pharmacophore classes, summarize distance patterns as cumulative distribution functions.
+Interatomic contacts: run Arpeggio and count hydrophobic and other contact types involving the wild‑type residue.
+Contact potentials: compute AAINDEX‑based contact scores.
+Substitution propensities: encode residue substitution scores (e.g., BLOSUM or other propensity measures if you follow their prior mCSM work).
+Model training
+Train RandomForestRegressor on feature vectors, apply stepwise greedy feature selection, and validate on non‑redundant and blind test sets.
+Prediction CLI
+Given a PDB + mutation list, compute features and output ΔΔG.
+Gaps You’ll Need to Decide
+
+The exact graph‑based signature recipe isn’t fully specified in this paper. It references their mCSM graph‑signature framework, which is not detailed here.
+Exact feature list and RF hyperparameters aren’t enumerated; the paper notes stepwise greedy selection but doesn’t list final features.
+Multiple‑mutation feature aggregation isn’t described in detail (sum/mean/pairwise distances), so you’ll need to choose a strategy or infer from earlier mCSM/DynaMut work.
+Pragmatic path forward
+If you want a working local replacement quickly, we can:
+
+Implement a “DynaMut2‑inspired” pipeline that follows the same feature families (NMA + Arpeggio + AAINDEX + substitution propensities) and train an RF model on your curated dataset.
+Add graph‑based signatures later if we can find or re‑create the mCSM signature algorithm.
+If you want me to start coding this, tell me:
+
+Which structures and mutation sets you want to run first (e.g., PETase variants).
+Whether you prefer an approximate DynaMut2‑style model now, or you want to invest in matching the mCSM graph‑signature method more closely.
+# **feb10** 
+- why does provean need 200-300Gb of ncbi-nr data: 
+PROVEAN’s score is based on evolutionary evidence: it runs BLAST/PSI‑BLAST to find homologs, clusters them, then computes how each mutation affects alignment scores. To get a reliable supporting set, it needs a very large protein database (nr) so it can find enough diverse homologs for many proteins. That’s why the dataset is huge.
+
+If you use a smaller database (e.g., Swiss‑Prot), it can run faster, but you may get fewer homologs and less reliable or unstable scores for some proteins.------> the issue with all these tools is the yrely on ncbi-nr withotu any annotation to guide/tune to the specialization of the tool. Also they need better coverage of species in which they find homologs for eg. plants we need much more sequencing and marine too. 
+
+- Short answer: with PROVEAN v1.1.5 (which uses BLAST+ 2.4.0 per the README you pasted), you should use dbV4. Support for dbV5 starts in BLAST+ 2.8.1+, so BLAST 2.4.0 won’t read dbV5; therefore PROVEAN 1.1.5 needs dbV4. This is an inference from BLAST’s version‑5 support timeline. (ncbi.nlm.nih.gov)
+
+What dbV4/dbV5 are (and why it matters):
+
+dbV4 = the legacy BLAST database format (GI‑based, no built‑in taxonomy). It’s no longer updated and lives under the /blast/db/v4/ directory on NCBI’s BLAST db FTP site; archives are named with _v4 (e.g., nr_v4.*.tar.gz). (ncbiinsights.ncbi.nlm.nih.gov)
+dbV5 = the newer BLAST database format (taxonomy‑aware, accession‑based/GI‑less, supports multi‑character PDB chain IDs). It requires newer BLAST+ (2.8.1+/2.9.0+) and is now the default at the root /blast/db/ directory. (ncbi.nlm.nih.gov)
+
+- Dynamut2 -> for MISSENSE mutations 
+- When checking for chains in a x-ray structure why theres 2 chains: X‑ray structures, the asymmetric unit often has two copies of the protein. It’s different because you’re counting different things now. 507/479 was from len(residues) earlier, which counts everything in the chain (waters, ligands, modified residues, etc.). 257 is from one_letter_code() which only counts standard amino acids, and then you removed X (unknown/modified residues), which shortens it further. X‑ray structures often omit disordered residues, so the resolved chain is shorter than the full sequence (e.g., 299 aa).
+- GEMMI: Red flags for “weird PDB”
+Any chain IDs longer than 1 character (will be remapped/collide in PDB).
+>99,999 atoms (PDB atom serial limit).
+Residue numbers > 9999 (PDB residue limit).
+Multiple models (some tools only read the first).
+Huge number of chains (>62 single‑char IDs).
+
+- .CIF -> .PDB: Most structures convert 1‑to‑1 with geometry preserved.
+Losses/changes can happen because PDB has tighter limits (chain IDs, atom/residue numbering, alternate locations, long residue/ligand names, multiple models, metadata).
+If the mmCIF uses features beyond PDB limits, the converter will truncate or remap those fields.
+- dynamut 2, xray vs AF compare results 
+- XRAY VS AF: Use the experimental X-ray structure if (a) it’s the correct wild-type sequence/backbone you’re mutating, (b) it has good local geometry around the mutated site(s), and (c) it’s reasonably complete (few missing residues near the region of interest). Otherwise use an AlphaFold model for the exact parent sequence you’re using in the tournament/backbone.An X-ray PDB is an experimentally determined structure; an AlphaFold (AF) model is a computational prediction. The main practical differences that matter for mutation-stability tools like DynaMut2:
+
+What “reality” they reflect
+
+X-ray: one (or a few) conformations consistent with crystallography data, influenced by crystal packing, constructs, ligands, temperature, etc.
+
+AF: a predicted fold for the input sequence, closer to an “in-solution plausible” conformation, but not experimentally constrained.
+
+Confidence / uncertainty
+
+X-ray: quality is captured by resolution, R-factors, B-factors, electron density; local regions can still be ambiguous or missing.
+
+AF: gives per-residue confidence (pLDDT) and sometimes predicted alignment error; low-confidence loops/termini can be wrong even if the core is right.
+
+Completeness and modeling artifacts
+
+X-ray: can have missing residues, alternate side-chain conformations, bound waters/ions/ligands; may have engineered mutations or truncations.
+
+AF: usually full-length, but side-chain rotamers, loop placements, and local packing can be imperfect; no crystal waters unless you add them.
+
+Local geometry at the mutation site (critical for ΔΔG predictions)
+
+X-ray often has more realistic local packing if the region is well-resolved and matches your exact sequence.
+
+AF can be better if the X-ray structure is missing that region, has different sequence, or has unusual strain from crystal contacts.
+
+Comparability across backbones
+
+Mixing X-ray and AF can shift baselines because they differ systematically in local strain, loop placement, and side-chain packing. That’s why standardizing the source (all AF or all X-ray) improves cross-parent comparability.
+- docker run --rm -p 8070:8070 lfoppiano/grobid:0.7.2
+- curl -s http://localhost:8070/api/isalive
+- In that case you’ll need a true long‑context model (LED/LongT5/BigBird‑Pegasus), or a Pegasus‑X checkpoint that really exposes 16k in HF.
+- BigBird‑Pegasus dates to 2020. (huggingface.co)
+PEGASUS‑X was released in 2022 and supports up to 16k tokens when using a true PEGASUS‑X checkpoint. (huggingface.co)
+LED‑16384 and LongT5‑16384 are long‑document summarizers that are still widely used, but they’re from the earlier long‑context era. (huggingface.co)
+What’s newer (long‑context, open‑weights)
+
+Llama 3.1 (128k context). (github.com)
+Qwen2.5 (128k context; many sizes, including instruction‑tuned variants). (qwen2.org)
+Qwen2.5‑Turbo (up to 1M context, hosted). (qwen2.org)
+Llama 4 (1M–10M context according to Meta’s model table, but huge and not practical for most local runs). (github.com)
+
 # **feb9**
+- theres either webserver platform or githubs for compbio and some bioinformatic tools (theres a difference). 
+- Working on codex to batch run all the github tools on our dataset without thinking too much 
+	- Paper side: writing on codex the code needed to send the 
+	- Github side: need to clone all tools 
+- vector institute, mcgill bioinformatics hub, apple, PA elna medical 
+- mcgill ventures, bioit, scipy, stanford rnafold 
 - cleaning up repo (mac petorg)
 
  **feb8** 

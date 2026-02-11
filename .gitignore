@@ -6,3 +6,6 @@ data/
 misc/
 results/ 
 .venv_evc310/
+tools/
+bioapps/
+petase_paperdb/
