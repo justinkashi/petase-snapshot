@@ -1,3 +1,28 @@
+# **feb13** 
+- BOLTZ2: 
+- POET2: (1) substitution analysis of all 3 WT (2) rerun rank seq analysis but unmasking the remaining critical PETase motifs  
+- TUNING POET2 RESULTS: try using strong activity+expression PETase variants for the CONTEXT. Also try fixing the very very important residues of wt1/2/3 in the query instead of just S D H triad. 
+- POET2: Substitution analysis + Rank sequences analysis 
+- context of POET2: In the context of the AlignBio 2025 PETase tournament, choosing the right context for PoET-2 is critical because the model uses "retrieval-augmentation." It doesn't just look at the query sequence; it uses the context to "prime" itself on the evolutionary constraints of that specific enzyme family.
+
+Since you are targeting the zero-shot task for PETase variants, here is the recommended hierarchy for your context:
+
+1. The "Gold Standard" Context: Curated PETase MSA
+For the best performance, you should use a Multiple Sequence Alignment (MSA) specifically containing known PET-degrading enzymes and their close homologs.
+
+Why: PoET-2 is designed to learn from "sequences-of-sequences." By providing an MSA of PETases, you are showing the model exactly which residues are conserved across plastic-degrading specialists versus general esterases.
+
+What to include:
+
+IsPETase (the wild type from Ideonella sakaiensis).
+
+Known high-performers: FAST-PETase, LCC (Leaf-branch Compost Cutinase), and DuraPETase.
+
+Pfam sequences: Use the Dienelactone hydrolase family (PF01738) or sequences from the PETase-like cluster.
+- kept 1541/1557 sequences with S129/D175/H206 intact
+# **feb12**
+- CURRENTLY: NEED TO filter out the tournament_test from wt1/2/3 that dont have S D or H (the unmasked/fixed residues in poet2)
+- running poet2 openprotein, with whole masterdb as context, query being wt1 and input the testset of wt1, with SDH triad fixed, but hten said seq 645 must have D206 meaning we must filter it out remove it 
 # **feb12** 
 - 
 - What about fireprot, hotspot wizard? FireProt requires a protein structure (PDB) as input. It combines energy-based (FoldX + Rosetta) and evolution-based filtering to identify potential stabilizing mutations.Hotspot: It integrates structural, evolutionary, and functional information to identify positions likely to tolerate mutation without catastrophic loss of function. Structural hotspots (HotSpot Wizard) Use it to identify mutable positions and conserved positions to avoid before scoring with ESM or ΔΔG. Structural stability filters (FireProt) Focus on stabilizing mutations predicted by FireProt as likely beneficial for expression/stability, then combine with language model and ΔΔG scoring for activity.Use them only if you want structural stability guidance, not as your main zero-shot ranking engine. For both FireProt and HotSpot Wizard, you input the wild-type PETase structure (PDB or high-quality AlphaFold model), not your 5000 mutants; they analyze the WT and output (i) predicted stabilizing single mutations (FireProt) and/or (ii) mutable “hotspot” positions and mutability/stability assessments (HotSpot Wizard).Verify catalytic residues are correct for PETase. The list you show (129, 130, 154, 175, 206) does not match canonical IsPETase catalytic triad numbering (typically Ser160–His237–Asp206 in IsPETase numbering). If your PDB is renumbered, confirm positions correspond to the true catalytic residues. Do not proceed if these are wrong.
@@ -339,7 +364,7 @@ Practical sequencing for the pipeline: (A) run FoldX + solubility + learned stab
 	Price Sol: 
 	PSI Sol:
 	Meltome Stab:
-	FireprotDB Stab:
+	FireprotDB Stab
 	ThermomutDB Stab 
 	CAFA-5 Kaggle: 142k var
 	Novozymes kaggle: 31k var
