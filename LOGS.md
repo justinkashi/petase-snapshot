@@ -1,5 +1,26 @@
-# **feb11**
+# **feb12** 
 - 
+- What about fireprot, hotspot wizard? FireProt requires a protein structure (PDB) as input. It combines energy-based (FoldX + Rosetta) and evolution-based filtering to identify potential stabilizing mutations.Hotspot: It integrates structural, evolutionary, and functional information to identify positions likely to tolerate mutation without catastrophic loss of function. Structural hotspots (HotSpot Wizard) Use it to identify mutable positions and conserved positions to avoid before scoring with ESM or ΔΔG. Structural stability filters (FireProt) Focus on stabilizing mutations predicted by FireProt as likely beneficial for expression/stability, then combine with language model and ΔΔG scoring for activity.Use them only if you want structural stability guidance, not as your main zero-shot ranking engine. For both FireProt and HotSpot Wizard, you input the wild-type PETase structure (PDB or high-quality AlphaFold model), not your 5000 mutants; they analyze the WT and output (i) predicted stabilizing single mutations (FireProt) and/or (ii) mutable “hotspot” positions and mutability/stability assessments (HotSpot Wizard).Verify catalytic residues are correct for PETase. The list you show (129, 130, 154, 175, 206) does not match canonical IsPETase catalytic triad numbering (typically Ser160–His237–Asp206 in IsPETase numbering). If your PDB is renumbered, confirm positions correspond to the true catalytic residues. Do not proceed if these are wrong.
+
+Keep all catalytic residues marked as essential. These should be fixed (non-mutable). That is correct.
+
+Use a high-quality structure. Prefer X-ray PDB if available; otherwise a high-confidence AlphaFold model. Make sure chain and residue numbering match your intended WT.
+
+Do not modify pocket/tunnel parameters unless you have a reason. Default probe radius (2.8 Å) and tunnel settings are fine for standard stability design.
+
+Understand what FireProt will output. It will propose predicted stabilizing single mutations (ΔΔG-based + evolutionary filtering). It will not rank all 5000 mutants.
+- Soluprot is not designed for single point mutation effect prediction -> why? 
+- What about enzyminer -> no. design makes it structurally a homolog discovery and enzyme selection framework, not a single-point mutation effect predictor.
+# **feb11**
+- What produces NaN in PROVEAN’s code path
+
+The only path to NaN is: SetSubjectSequences() returns early with no supporting sequences, so sum_weights_ stays 0 and delta_score_ /= 0 becomes NaN.
+That happens if SetSequenceInfoFromBlastOut() returns -1 (parse error). In that case PROVEAN just returns early and keeps going, which yields NaNs without a crash. See SequenceDB.cpp (lines 388-394).
+
+- provean returned nan for all 3 runs all 3wt mutations. what this means -> no alignment made by psi-blast? debug. 
+- even with 2 provean running oin 2 terminal, the psiblast cpu usage is halved and total cpu iusgae on mac is same -> how can we make it use all cpu cores on mac ? 
+- Your prompt sees C build artifacts and activates its C module, which displays:
+- It did not run. The script is failing because macOS ships a BSD getopt, and PROVEAN requires GNU “enhanced” getopt.
 - dynamut2 is directly relevant for us but (1) no open github available while the web server is broken/slow (2) specializing for certain species (bacteria/plants/etc.): What DynaMut2 Uses (from the paper)
 
 Data: ProTherm single‑point mutations plus multiple‑point mutations. They add hypothetical reverse mutations to balance classes and exclude reverse entries with |ΔΔG| > 2.0 kcal/mol.
@@ -331,6 +352,8 @@ test
 		(profluent E5, POET2, GeorgieV)
 		(MutCompute)
 		(Escalante/Mosaic)
+		Hotspot Wizard
+		Fireprot 
 		Envision
 		DeepSequence / EVE / EVEscape
 		SIFT / PolyPhen-2 / SNAP / SuSPect 

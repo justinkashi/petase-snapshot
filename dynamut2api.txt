@@ -1,0 +1,214 @@
+DynaMut2
+API - Documentation
+Here we offer an API (Application Programming Interface) to assist users in integrating DynaMut2 into their research pipelines.
+
+In summary, all jobs submitted to our server are labelled with a unique ID which is used to query the status (in queue, processing, processed).
+
+Single Prediction - https://biosig.lab.uq.edu.au/dynamut2/api/prediction_single
+POST - Job Submission
+Arguments
+
+pdb (optional) - 4 character PDB code
+pdb_file (optional) - file in PDB format
+chain (required) - Chain identifier
+mutation(required) - Point mutation code (aaFrom + residueNumber + aaTo)
+email (optional) - Email for contact when the job is finished
+Return
+
+job_id - ID used for uniquely identify each job
+Examples
+
+curl
+
+$ curl https://biosig.lab.uq.edu.au/dynamut2/api/prediction_single -X POST -i -F pdb_file=@/home/ubuntu/1u46.pdb -F mutation=E346K -F chain=A
+HTTP/1.0 200 OK
+
+Content-Type: application/json
+
+Content-Length: 33
+
+Date: Wed, 10 Jun 2020 05:10:59 GMT
+
+{
+
+"job_id": "159176585954"
+
+}
+
+python launch
+
+GET - Retrieve Job Results
+Arguments
+
+job_id - ID used for uniquely identify each job. Generated upon submission
+Return
+
+For jobs still being processed or waiting on queue, the message below will be returned from querying this endpoint:
+message - RUNNING
+For jobs successfully processed by DynaMut2, the following data will be returned:
+prediction -
+Examples
+
+curl
+
+$ curl https://biosig.lab.uq.edu.au/dynamut2/api/prediction_single -X GET -F job_id=15917658595
+HTTP/1.0 200 OK
+
+Content-Type: application/json
+
+Content-Length: 33
+
+Date: Wed, 10 Jun 2020 05:10:59 GMT
+
+{
+
+"prediction": "1.4",
+
+"chain": "A",
+
+"res_number": 346,
+
+"wild-type": "E",
+
+"mutant": "K",
+
+"results_page": "https://biosig.lab.uq.edu.au/dynamut2/results_prediction/15917658595",
+
+}
+
+python launch
+
+List Prediction - https://biosig.lab.uq.edu.au/dynamut2/api/prediction_list
+POST - Job Submission
+Arguments
+
+pdb (optional) - 4 character PDB code
+pdb_file (optional) - file in PDB format
+mutation_list (required) - .txt or .csv file with mutation list. One mutation code per line (aaFrom + residueNumber + aaTo).
+Return
+
+job_id - ID used for uniquely identify each job
+Examples
+
+curl
+
+$ curl https://biosig.lab.uq.edu.au/dynamut2/api/prediction_list -X POST -i -F pdb_file=@/home/ubuntu/1u46.pdb -F mutations_list=@/home/ubuntu/mutations.txt
+HTTP/1.0 200 OK
+
+Content-Type: application/json
+
+Content-Length: 33
+
+Date: Wed, 10 Jun 2020 05:10:59 GMT
+
+{
+
+"job_id": "159177158175"
+
+}
+
+python launch
+
+GET - Retrieve Job Results
+Arguments
+
+job_id - ID used for uniquely identify each job. Generated upon submission
+Return
+
+For jobs still being processed or waiting on queue, the message below will be returned from querying this endpoint:
+message - RUNNING
+For jobs successfully processed by DynaMut2, the following data will be returned:
+Array list of results (in json format) for each mutation identified with a sequencial identifying number
+Examples
+
+curl
+
+$ curl https://biosig.lab.uq.edu.au/dynamut2/api/prediction_list -X GET -F job_id=159177158175
+HTTP/1.0 200 OK
+
+Content-Type: application/json
+
+Content-Length: 33
+
+Date: Wed, 10 Jun 2020 06:11:53 GMT
+
+{
+
+"1": {"mutation":"E346K","chain":"A","prediction":"1.4"},
+
+"2": {"mutation":"A347K","chain":"A","prediction":"1.7"},
+
+"3": {"mutation":"A347Y","chain":"A","prediction":"0.23"},
+
+}
+
+python launch
+
+Multiple Mutations Prediction - https://biosig.lab.uq.edu.au/dynamut2/api/prediction_mm
+POST - Job Submission
+Arguments
+
+pdb (optional) - 4 character PDB code
+pdb_file (optional) - file in PDB format
+mutation_list (required) - .txt or .csv file with mutation list. One mutation code per line (aaFrom + residueNumber + aaTo).
+Return
+
+job_id - ID used for uniquely identify each job
+Examples
+
+curl
+
+$ curl https://biosig.lab.uq.edu.au/dynamut2/api/prediction_mm -X POST -i -F pdb_file=@/home/ubuntu/1u46.pdb -F mutations_list=@/home/ubuntu/mutations.txt
+HTTP/1.0 200 OK
+
+Content-Type: application/json
+
+Content-Length: 33
+
+Date: Wed, 10 Jun 2020 05:10:59 GMT
+
+{
+
+"job_id": "159177154575"
+
+}
+
+python launch
+
+GET - Retrieve Job Results
+Arguments
+
+job_id - ID used for uniquely identify each job. Generated upon submission
+Return
+
+For jobs still being processed or waiting on queue, the message below will be returned from querying this endpoint:
+message - RUNNING
+For jobs successfully processed by DynaMut2, the following data will be returned:
+Array list of results (in json format) for each mutation identified with a sequencial identifying number
+Examples
+
+curl
+
+$ curl https://biosig.lab.uq.edu.au/dynamut2/api/prediction_mm -X GET -F job_id=159177154575
+HTTP/1.0 200 OK
+
+Content-Type: application/json
+
+Content-Length: 33
+
+Date: Wed, 10 Jun 2020 06:16:53 GMT
+
+{
+
+"A E346K;A T118P": {"avg_distance":"47.18","prediction":"-0.84","sum_ddg":"-0.42"},
+
+}
+
+python launch
+
+Biosig Lab launch
+Our group is interested in developing and experimentally validating novel computational methods to exploit this data, enhancing the impact of genome sequencing, structural genomics, and functional genomics on biology and medicine.
+
+Baker Heart and Diabetes Institute
+Bio21 Molecular Science and Biotechnology Institute
+Best viewed using Chrome on 1280x960 resolution and above
