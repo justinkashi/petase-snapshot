@@ -1,6 +1,117 @@
+# **feb15** 
+1. Variant Effect 
+	- Provean: debugging
+	- ProSST
+	- EvoEF2
+
+2. Catalysis 
+	- CatPred
+	- DLKcat 
+	- 
+3.  Docking 
+	- Autodock Vina
+	- FlowDock 
+
+4. Stability
+	- SaProt 
+	- Neurosnap Protein Fold Stability
+	- TemStaPro
+	- ThermoMPNN
+	- ProteinMPNN-ddg
+	- FoldX-ddg
+
+5. Solubility/Expression 
+	- TIsigner
+	- SoDoPE
+	- 
+
+6. pH 
+	- EpHod 
+
+
+
+# **feb14** 
+1. debugging provean -> (IN PROGRESS)
+
+2. finishing poet2 rank/subanalysis -> DONE
+
+3. run boltz2 -> ONLY FOR TOP CANDIDATES 
+
+4. run foldx/docking with different SMILES for different catalytic potential -> (IN PROGRESS)
+
+4. webservers: salislab/tisigner/aggrescan3d, neurosnap.ai (EpHod-pH,EvoEF2, ProSST, flowdock,SaProt,ThermoMPNN,ProteinMPNN-ddg, Vina/smina, neurofold-stability prediction,TemStaPro,DLKcat, CatPred, SoDoPE, TIsigner)
+
+5. githubs: catapro, catopt, deeprankgnn, deepsequence, dlkcat, ep1, ephod ,evolicty, (gatsol, geoevobuilder, mutcompute), proteinmpnn, rjfoint2, ribodecode, rosetaafoldallatom, saprot, unikp 
+
+- docking different SMILES gives different signal on the catalysis capacity of mutants: 1. The Primary Target Product: MHET
+The protocol specifically measures MHET (Mono-2-hydroxyethyl terephthalate) as a major enzymatic product. This is the most critical intermediate for zero-shot modeling because it represents the successful cleavage of the PET chain by the enzyme.
+
+SMILES: C1=CC(=CC=C1C(=O)O)C(=O)OCCO
+
+2. The Terminal Product: TPA
+The tournament also quantifies TPA (Terephthalic acid) using a d4-TPA internal standard. While PETase primarily produces MHET, the presence of TPA indicates deeper degradation or secondary hydrolysis.
+
+SMILES: C1=CC(=CC=C1C(=O)O)C(=O)O
+
+3. The Inhibitory Intermediate: BHET
+While not explicitly cited as an internal standard in the protocol, BHET (Bis-2-hydroxyethyl terephthalate) is a known intermediate in PET hydrolysis that can bind to the PETase active site in a non-catalytic pose, potentially inhibiting the enzyme. Modeling BHET helps identify variants that might be prone to product inhibition.
+
+SMILES: OCCOC(=O)c1ccc(cc1)C(=O)OCCO
+
+4. The Substrate Proxy: 2-HE(MHET)2 (PET Tetramer)
+The protocol uses a powdered PET substrate (Goodfellow ES30-PD-000132), which is semi-crystalline. For computational modeling (like Boltz-2 or docking), a single monomer is often too small to capture the "cleft-lining" interactions described in your MSA. A tetramer is the standard proxy for modeling the enzymatic mechanism.
+
+SMILES (PET Tetramer): C1=CC(=CC=C1C(=O)OCCOC(=O)C2=CC=C(C=C2)C(=O)OCCOC(=O)C3=CC=C(C=C3)C(=O)OCCOC(=O)C4=CC=C(C=C4)C(=O)OCCO)C(=O)OCCO
+- we can play with different PET polymer lengths to see which fits into extended vs less extended ones -> check what pH 9 does to the key structural regions of PETase
+- I think the approach of using many tools/features will help during the supervised phase because we will have a way to test which features correlate well with activity and expression 
+
+For zero-shot it’s hard to know how to score without a reference ground truth, we can try asking for advice on how to use these results in zero shot 
+
+- Based on the PoET-2 documentation and the state-of-the-art retrieval-augmented architecture, here are the recommended settings for your AlignBio 2025 PETase zero-shot ranking task.1. Number of Prompts to EnsembleRecommendation: 3–5.Why: Setting this higher (e.g., 5) increases the diversity of the context sampled by the model. This leads to more stable and robust log-likelihood scores because the model calculates the average across several different subsets of your homologous sequences.2. Prompt Sampling Method: "Neighbors"Recommendation: Keep it on Neighbors.Why: This is the default for a reason. It samples sequences with weights inversely proportional to their redundancy. For your task, this prevents the "IsPETase Echo Chamber" by ensuring the model doesn't just attend to 50 near-identical versions of the same protein, but instead captures a diverse evolutionary signal.3. Homology LevelRecommendation: 0.8 (Default) or slightly lower (0.6) if you want even more diversity.Why: This defines the identity threshold at which sequences are considered "neighbors". At 0.8, any sequence with $>80\%$ identity is grouped as redundant. Reducing this makes the context even more diverse.4. Maximum Similarity to Seed SequenceRecommendation: 0.95.Why: This is a crucial filter. Setting this to 0.95 (or even 0.90) ensures that your context does not contain sequences that are virtually identical to your query. If the context is too similar to the query, the model's likelihood scores can become "flat" or uninformative because it’s basically just looking at itself.5. Maximum Total Number of ResiduesRecommendation: 12,288 (Default).Why: This is the "memory limit" for the hierarchical attention mechanism. PETases are roughly ~290 residues long; this setting allows PoET-2 to look at approximately 40 sequences simultaneously in each prompt. If you want the model to see more sequences, you would have to decrease the sequence length, which isn't an option for full-length PETases.
+- If CaPETase naturally possesses an H at this position, it suggests the enzyme is evolutionarily closer to a classic cutinase architecture. It likely operates via a more rigid "lock-and-key" mechanism suited for varying substrates or higher temperatures, rather than the specialized "induced fit" mechanism IsPETase uses for flexible PET chains at ambient temperatures
+- Hydrophobicity: Phenylalanine is more hydrophobic than Tyrosine. Since PET (Polyethylene terephthalate) is a very "greasy," hydrophobic polymer, having a Phenylalanine can sometimes improve the binding affinity for the terephthalate rings through 
+ stacking or hydrophobic interactions.
+Sterics: Phenylalanine is slightly smaller/less bulky than Tyrosine because it lacks the -OH. This might open up the active site cleft slightly to accommodate the polymer chain differently.
+
+- If CaPETase aligns F61 to that Y87 position, the backbone of F61 is almost certainly doing the heavy lifting.
+2. Why F61 instead of Y87?
+The shift from Tyrosine to Phenylalanine is a common evolutionary "tweak."
+1. debugging provean 
+2. finishing poet2 rank/subanalysis
+3. run boltz2 
+4. webservers: salislab/tisigner/aggrescan3d
+5. githubs: catapro, catopt, deeprankgnn, deepsequence, dltkcat, ep1, ephod ,evolicty, (gatsol, geoevobuilder, mutcompute), proteinmpnn, rjfoint2, ribodecode, rosetaafoldallatom, saprot, unikp 
+
 # **feb13** 
+- debugging provean: You likely did not fail during PSI-BLAST. You failed right after it, in PROVEAN’s blast-output parsing.
+
+For your run pattern (provean.sh -q ... -v ... --num_threads 10), the code path is:
+
+PSI-BLAST runs (long step):
+SequenceDB.cpp (lines 1543-1629)
+
+PROVEAN parses blast output:
+SequenceDB.cpp (lines 169-241)
+
+If any blast line is malformed (or parse/open fails), it returns -1 at:
+SequenceDB.cpp (lines 203-205)
+
+Then SetSubjectSequences() exits early without building supporting sequences:
+SequenceDB.cpp (lines 390-394)
+
+Program still continues to scoring (bug):
+provean.cpp (line 83)
+
+No supporting sequences means sum_weights_ stays 0; then division by zero gives nan:
+SequenceDB.cpp (lines 970-997)
+
+That explains your symptom exactly: PSI-BLAST can run for >60 min, then all variants become nan because the supporting set was never successfully built.
+
+
+
 - BOLTZ2: 
 - POET2: (1) substitution analysis of all 3 WT (2) rerun rank seq analysis but unmasking the remaining critical PETase motifs  
+- I think sub analysis means if we fix those residues, relative to that what are the probability/variability of the other residues ? 
 - TUNING POET2 RESULTS: try using strong activity+expression PETase variants for the CONTEXT. Also try fixing the very very important residues of wt1/2/3 in the query instead of just S D H triad. 
 - POET2: Substitution analysis + Rank sequences analysis 
 - context of POET2: In the context of the AlignBio 2025 PETase tournament, choosing the right context for PoET-2 is critical because the model uses "retrieval-augmentation." It doesn't just look at the query sequence; it uses the context to "prime" itself on the evolutionary constraints of that specific enzyme family.
