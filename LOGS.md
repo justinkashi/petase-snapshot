@@ -1,3 +1,16 @@
+# **feb25** 
+1. Run tools + implement 4-5 paperds 
+2. Read papers
+3. Integrate results and analyze, filter out obviously bad candidates, solidify top500 candidates 
+
+# **feb24** 
+- gemini on hold to receive papers 
+# **feb23**
+- no overthinking, the plan is to run the ~14 neurosnap.ai tools + aggrescan3d + (provean) + TISigner + 4-5 comp PETase papers, filter out obviously mutants, solidify top 500 candidates 
+
+- AGGRESCAN3D output analysis: Instead of looking at every residue, focus only on those with an A3D score > 1.5. These are your "hotspots." If your mutation in the PETase zeroshot dataset falls in one of these zones, it’s a high-priority candidate for stability analysis.2. Map Scores onto the 3D Structure (PDB)The best way to "see" the result is to project the scores back onto your protein model. Most A3D outputs include a modified PDB file where the B-factor column has been replaced by the A3D scores.Action: Open this modified PDB in PyMOL or ChimeraX.Visualization: Use a command like spectrum b, red_white_blue, minimum=-2, maximum=2.Interpretation: Red areas are your "danger zones" for aggregation, while blue areas are highly soluble. For a PETase, you want to ensure your mutations aren't turning a "white" (neutral) area into a "red" (aggregating) one.3. Calculate the "Global Score" Change ($\Delta \text{GSA}$)For the tournament, you likely need a single number to rank your variants. A3D provides a Global Score (GSA), which is the average of all residue scores.$$\Delta \text{GSA} = \text{GSA}_{\text{variant}} - \text{GSA}_{\text{wild-type}}$$If $\Delta \text{GSA}$ is negative: Your mutation likely improved the solubility/stability of the PETase.If $\Delta \text{GSA}$ is positive: You may have inadvertently created a "sticky" patch that could lead to misfolding or precipitation.4. Analyze Local vs. Remote EffectsCheck if your mutation caused a distal change. Sometimes a mutation at the surface can cause a structural shift that exposes a hydrophobic core elsewhere.Compare the residue-level scores of the Wild Type (WT) vs. the Mutant.If residues far away from your mutation site suddenly show increased A3D scores, your mutation might be destabilizing the entire fold.
+# **feb16** 
+- need to finish running tools 
 # **feb15** 
 1. Variant Effect 
 	- Provean: debugging
