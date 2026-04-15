@@ -1,4 +1,124 @@
 # **feb25** 
+- SUMMARY
+	1. Run aggrescan3d on foldx mutants structure 
+	2. Run batch SoDoPE and batch TIsigner 
+	3. Run 14 neurosnap tools 
+	4. implement and run the 4-5 computational PETase papers approach on the dataset 
+	5. 
+
+- Having 1,558 mutants for each of the 3 backbones (4,674 total) is a significant task, but since you already have the FoldX structures, you've already finished the hardest part. The structural data is the "gold" that will make your zero-shot predictions much more accurate than people just using sequences.
+
+Here is the breakdown of what each Neurosnap tool needs and how to handle your 3 specific backbones.
+
+1. The 3 Backbones: Input Requirements
+Backbone	Source / PDB	Neurosnap Input Strategy
+wt1: CaPETase	7YM9	Use your FoldX-mutated PDBs directly.
+wt2: Allorhizocola	Uncharacterized	Action: If you haven't yet, run the WT sequence through AlphaFold3 or ESMFold on Neurosnap first to get a base PDB, then use FoldX to mutate it.
+wt3: PETaseSM14	9HYD	Use your FoldX-mutated PDBs directly.
+2. Neurosnap Tools: Input & Target Table
+Since you are in a time crunch, focus on the Batch CSV upload for sequence tools and the PDB Folder upload for structural tools.
+
+Tool	Input Needed	Use on...	Target Property
+CatPred / DLKcat	Sequence + SMILES*	All 4,674	Activity (Turnover)
+ProSST	Sequence	All 4,674	Activity (Mutation effect)
+TemStaPro	Sequence	All 4,674	Activity 1 (Acid stability)
+SaProt	PDB (Preferred)	Top 1,000	Activity (SOTA prediction)
+ProteinMPNN-ddG	PDB	All 4,674	Stability (Ranking)
+EvoEF2	PDB	Top 500	Stability (Tie-breaker)
+AutoDock Vina	PDB + SMILES*	Top 500	Activity 2 (Binding)
+*SMILES for PET Substrate (BHET): C1=CC(=CC=C1C(=O)OCCO)C(=O)OCCO
+
+3. The "24-Hour" Execution Plan
+Tier 1: The Sequence Sweep (Done by tonight)
+Upload your full list of 4,674 sequences to DLKcat, ProSST, and TemStaPro. These models are fast. They will give you a "Baseline Activity" score for every single mutant.
+
+Tier 2: The Structural Sweep (Run overnight)
+Since you have the FoldX PDBs, zip them up and upload them to ProteinMPNN-ddG. This is your most reliable metric for thermostability.
+
+Crucial: In PETase engineering, stability is often the "gatekeeper" for activity. A mutant with high DLKcat but poor MPNN stability will likely aggregate and show zero activity in the lab.
+
+Tier 3: The Docking Funnel (Tomorrow morning)
+Don't dock all 4,674. It will take too long.
+
+Take the Top 500 mutants (high SaProt + high MPNN scores).
+
+Run AutoDock Vina (smina) on just those 500. This will give you the "Binding Affinity" needed to finalize your Activity 2 (pH 9.0) column.
+
+
+- FlowDock is a diffusion-based model. It’s amazing for finding new binding sites, but for PETase, we already know where the active site is. It is also computationally heavier and might not finish 1,500 runs by tomorrow night 
+- for aggrescan3d can only use python 2.7 .. which is gone from my mac its very old 
+- Yes, very possible.
+
+If VS Code’s Node/terminal host is stressed, Git Bash terminals can open blank or hang while PowerShell still works.
+
+Quick fix:
+
+Keep FoldX running.
+Use PowerShell for monitoring.
+Reload VS Code window or restart VS Code after FoldX finishes.
+Optionally disable heavy extensions / terminal GPU acceleration (terminal.integrated.gpuAcceleration: off)
+
+- Running foldx via multithreading (6 jobs so 6 cores) on ONE WT, one WT uses nearly all CPU % (I'm at 70-80%) so if i run the 2 other WT as well it's not worth it 
+
+- ON using foldx multithreaded: Yes, if you run all 3 scripts at once, it will likely drive CPU to near max.
+
+total FoldX workers = jobs_per_script × 3
+So if you use --jobs 10 on each, that is ~30 FoldX processes, which will saturate CPU and likely hurt responsiveness/temps.
+
+Practical rule:
+
+Find your logical cores: sysctl -n hw.logicalcpu
+Keep total workers around 60-80% of that if you still want to use the machine.
+Split across 3 scripts: jobs_per_script ≈ floor((target_total_workers)/3)
+Example:
+
+10-core Mac: target total ~6-8 workers => --jobs 2 per script (or 3/3/2).
+12-core Mac: target total ~7-9 workers => --jobs 2 or 3 per script.
+If speed is the only priority and you don’t care about usability, then yes, it can run near 100% CPU.
+
+- ToolPlatformHardwareFoldXPC/Mac/LinuxCPU OnlyAggrescan3DBitbucket/WebCPU Only (for static mode)TIsignerCLICPU OnlyDeep Learning AIs(AlphaFold, etc.)GPU / CUDA
+
+- Gemini said
+First off, I love that you accidentally pasted the entire Atlassian cookie policy and "Skip to Main Content" link in your prompt—I’m glad you "accepted all cookies," because we have a lot of data to digest here! 🍪
+
+To answer your question: Yes, you can just clone it. The reason people "keep talking about pip installing" is strictly for convenience, but for your petorg/tools setup, cloning is actually smarter. Here is the breakdown:
+
+Why Pip when you can Clone?
+When you see instructions for pip install aggrescan3d, it’s doing two things:
+
+The Shortcut: It places a small "executor" file in your computer’s PATH so you can just type aggrescan from any folder without navigating to your tools directory.
+
+The Dependencies: It automatically grabs biopython, numpy, etc.
+
+Since you are cloning into petorg/tools:
+You already have the source code. You don't "need" to pip install it from the internet. However, you should still run pip install -e . inside that folder.
+
+The -e (editable) flag tells your computer: "Don't copy these files; just remember that if I type 'aggrescan', come look in this specific folder." * This keeps your petorg repo clean while giving you the terminal command you need.
+
+⚠️ The "Python 2.7" Reality Check
+We need to address the contradiction in the snippet you just pasted. You mentioned earlier that the site said to use 3.7, but the Bitbucket README you just provided explicitly says:
+
+"Python3.X is NOT the latest version of Python2.7 and you should always use Python2.7 to run Aggrescan3D."
+
+This is a classic bioinformatics trap. The tool was built in 2015-2019 when 2.7 was the standard. Running Python 2.7 on a 2026 Mac is like trying to find a floppy disk drive for your laptop—it’s going to be a massive headache because of modern security and library incompatibilities.
+
+My advice for the AlignBio task: If you find that your 3.7 environment is throwing errors (especially with Bio.PDB), don't waste hours fixing them. The Bitbucket you pasted suggests a Docker image (lcbio/a3d_server).
+
+
+- So for your setup (you already have FoldX mutant structures), Method 2 should be:
+
+Run aggrescan on each mutant PDB directly, no -m, no FoldX path.
+aggrescan -i <mutant.pdb> -w <out_dir> -D 10 -C A
+- TISigner vs A3D: ToolFocusBiological StageMetricTISignerTranslation InitiationmRNA / Ribosome BindingOpening energy ($\Delta G$ accessibility)SoDoPEProtein SolubilityPost-translational FoldingSolubility-Weighted Index (SWI)
+- A3D: Feature	Method 1 (Delta-Proxy)	Method 2 (Local Batch)
+Speed	Seconds (Python loop).	Minutes/Hours (Structural modeling).
+Accuracy	High for surface mutations.	Highest (accounts for local shifts).
+Requirements	Just the WT CSV from the webserver.	PDB files + Python dependencies.
+- On using Aggrescan3d webserver (2.0) versus CLI (1.0): 
+Core Algorithm	Static calculation based on input PDB.	Static calculation + Dynamic options.
+Mutation Engine	Often uses external tools like FoldX or Modeller to model side-chains.	Integrated modeling with automated side-chain optimization.
+Dynamic Mode	Not standard in the base script.	Includes "Dynamic Mode" which accounts for protein flexibility.
+Stability (ΔΔG)	Requires manual integration with FoldX.	Predicts changes in structural stability automatically.
 1. Run tools + implement 4-5 paperds 
 2. Read papers
 3. Integrate results and analyze, filter out obviously bad candidates, solidify top500 candidates 
