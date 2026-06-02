@@ -1,3 +1,41 @@
+# **june 1** 
+- make a flow chart of the pipeline send to charlie 
+- work on the figures part of the scipy manuscript with sanju 
+- review of PETase + enzyme models 
+- run the bioinformatic tools layer + docking + mdsim + potential QM
+
+# **may27**
+- 
+- Try esmC, esmfold2, new models out 
+- Try layer sweep like in esm biohub notebook tutorial, see which esm layer is best to differentiate singular enzyme's catalytic reaction (notebook looks at 3rd hierarchy in EC so differentiates enzyme family)
+# **may 26** 
+- the order of the tools and what properties they give is important for the pipeline, to make efficient 
+# *may16**
+- 
+- setting up MCP for paperdb knowledge -> not worth will do later 
+- clean misc folder 
+- clean up data folder 
+- a clean results notebook or something to show experiments analysis by blocks ? 
+- maybe should have an experiments folder? 
+- merge tools and bioapps 
+- put molecules in data 
+- need to set up scientific paper database learning/memory/agent/knowledge graph wtv, claude analysis results: 
+
+Knowledge Graph vs Vector RAG — The Honest Take
+Pure vector RAG is fine for: "what does paper X say about mutation Y123H?" — semantic similarity search across chunks.
+
+Knowledge graphs shine for: "what is the relationship between the W159H mutation and thermostability across all 50 papers?" — multi-hop, cross-paper entity linking.
+
+The 2025 reality check: A meta-analysis found GraphRAG's gains were largely overstated due to evaluation bias. On factual QA benchmarks it actually scored 13% lower than vanilla RAG. For 50 papers, the ROI on a full KG is low.
+
+Best middle ground: LightRAG — builds a KG automatically during indexing using LLM entity extraction, 100x cheaper than GraphRAG, dual graph+vector retrieval. Worth it if you want cross-paper relationship queries.
+
+
+
+
+
+- need to ramp up to finish manuscript for SciPy 2026 proceedings paper and 30min talk 
+- too much in this workspace too much files i need to organize it 
 # **feb25** 
 - SUMMARY
 	1. Run aggrescan3d on foldx mutants structure 

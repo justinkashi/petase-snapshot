@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "petase-papers": {
+      "type": "stdio",
+      "command": "/Users/bustin/petorg/venv/bin/python",
+      "args": ["/Users/bustin/petorg/scripts/paperqa_mcp.py"]
+    }
+  }
+}

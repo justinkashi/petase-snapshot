@@ -9,40 +9,14 @@
 - we perform several rounds of scoring to develop sensical weights of these features that give signal that makes sense with the literature on PETase enzyme engineering  
 ---
 
-## Workspace 
-comms/news/emails
-  outlook
-  whatsapp
-  etc. 
-
-helpers
-  chatgpt 5.2
-  gemini 3
-
-vscode - petorg/mac (M1 Max 32G)
-  logs
-  readme 
-
-vscode - jan14/PC (CPU: AMDRyzen5 5600, GPU: RTX 3060)
-
-notesapp (phone)
-  bioinformatics scripting
-  scripting 
-  task list  
-
-drive
-  minutes 
-  papers 
-  masterdb (papersdb, petasedb, conferences/seminars/tournaments/etc.)
-  masterdb2 
-
-modal 1300$ GPU hours on NVIDIA H100
-
-rigs (77x 3060 GPU)  ($38 500)
-
-
+## Data 
+1. PETase 
+2. Benchmark 
 ---
 
+## Bioinformatic Tools / Features   
+
+---
 ## Scoring System
 - **Expression (mg/mL)**  
 - **Activity in citrate at pH 5. 5 (μmol_TPA / min*mg_E)**  

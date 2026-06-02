@@ -1,3 +1,0 @@
-cafa-5-protein-function-prediction.zip filter=lfs diff=lfs merge=lfs -text
-novozymes-enzyme-stability-prediction.zip filter=lfs diff=lfs merge=lfs -text
-petase_struct.zip filter=lfs diff=lfs merge=lfs -text
